@@ -1,0 +1,11 @@
+<?php
+namespace common\widgets;
+
+use yii\grid\ActionColumn;
+
+class LeveledActionColumn extends ActionColumn
+{
+    public $filter;
+    
+    
+}

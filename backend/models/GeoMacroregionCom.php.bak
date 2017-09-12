@@ -1,0 +1,130 @@
+<?php
+
+namespace backend\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "geo_macroregion_geo".
+ *
+ * @property string $id
+ * @property string $title
+ * @property integer $status
+ * @property string $group_id
+ * @property integer $is_group
+ *
+ * @property GeoMacroregionCom $group
+ * @property GeoMacroregionCom[] $GeoMacroregionComs
+ */
+class GeoMacroregionCom extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'geo_macroregion_com';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['status', 'group_id', 'is_group'], 'integer'],
+            [['title'], 'string', 'max' => 255],
+            [['title'], 'required'],
+            [['title'], 'unique'],
+            [['group_id'], 'exist', 'skipOnError' => true, 'targetClass' => GeoMacroregionCom::className(), 'targetAttribute' => ['group_id' => 'id']],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'title' => 'Title',
+            'status' => 'Status',
+            'group_id' => 'Group ID',
+            'is_group' => 'Is Group',
+        ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGroup()
+    {
+        return $this->hasOne(GeoMacroregionCom::className(), ['id' => 'group_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGeoMacroregionComs()
+    {
+        return $this->hasMany(GeoMacroregionCom::className(), ['group_id' => 'id']);
+    }
+
+    public function delete()
+    {
+        $connection = $this->getDb();
+        $ids = [$this->id];
+        do {
+            $found = false;
+            $command = $connection->createCommand('SELECT `id` FROM `'.$this->tableName().'` WHERE `group_id`='.$this->id.' AND `is_group`=1');
+            $groups = $command->queryAll();
+            $found = count($groups);
+            foreach ($groups as $row)
+                $ids[] = $row['id'];
+        } while ($found);
+        $ids = implode(',', $ids);
+        return $connection->createCommand('UPDATE `'.$this->tableName().'` SET `status` = 3 WHERE `group_id` IN ('.$ids.') OR `id` IN ('.$ids.')')->execute();
+    }
+
+    public function getGroups($prefix = '--')
+    {
+        $groups = [];
+        $index = [];
+       
+
+        $connection = $this->getDb();
+        
+        $ids = false;
+        $level = '';
+        do {
+            $rows = $connection->createCommand('SELECT `id`, `title`, `group_id` FROM `'.$this->tableName().'` WHERE `group_id` '
+                .($ids ? 'IN ('.implode(',', $ids).')' : 'IS NULL').' AND `is_group`=1 AND `status`=1')->queryAll();
+            $ids = [];
+            foreach ($rows as $row) {
+                $ids[] = $row['id'];
+                
+                if (!isset($index[$row['group_id']])) {
+                    $groups[$row['id']] = $level.$row['title'];
+                    $groups['rows'.$row['id']] = [];
+                    $index[$row['id']] = &$groups['rows'.$row['id']];
+                } else {
+                    $index[$row['group_id']][$row['id']] = $level.$row['title'];
+                    $index[$row['group_id']]['rows'.$row['id']] = [];
+                    $index[$row['id']] = &$index[$row['group_id']]['rows'.$row['id']];
+                }
+            }
+            $level .= $prefix;
+        } while ($ids);
+        
+        $this->_groups = [];
+        array_walk_recursive($groups, array($this, 'prepareGroups'));
+        
+        return $this->_groups;
+    }
+    
+    protected $_groups;
+    protected function prepareGroups($item, $key)
+    {
+        $this->_groups[$key] = $item;
+    }
+}
