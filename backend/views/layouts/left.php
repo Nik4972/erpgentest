@@ -40,11 +40,11 @@
                         'url' => '#',
                         'items' => [
                             ['label' => 'Address Types', 'icon' => 'envelope', 'url' => ['/address-type'],],
-                            ['label' => 'Languages', 'icon' => 'text', 'url' => ['/language'],],
-                            ['label' => 'Currencies', 'icon' => 'euro', 'url' => ['/currency'],],
                             ['label' => 'Macroregions GEO', 'icon' => 'globe', 'url' => ['/geo-macroregion-geo'],],
                             ['label' => 'Macroregions Com', 'icon' => 'envelope', 'url' => ['/geo-macroregion-com'],],
                             ['label' => 'Countries', 'icon' => 'envelope', 'url' => ['/geo-country'],],
+                            ['label' => 'Currencies', 'icon' => 'euro', 'url' => ['/currency'],],
+                            ['label' => 'Languages', 'icon' => 'text', 'url' => ['/language'],],
                             ['label' => 'Regions', 'icon' => 'envelope', 'url' => ['/region'],],
                             ['label' => 'Cities', 'icon' => 'envelope', 'url' => ['/city'],],
                             ['label' => 'Streets', 'icon' => 'envelope', 'url' => ['/street'],],
