@@ -1,333 +1,223 @@
-CREATE TABLE `language` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `code` char(2) NOT NULL DEFAULT '',
-  `title` varchar(255) NOT NULL DEFAULT '',
-  `status` TINYINT UNSIGNED NOT NULL DEFAULT 1,
-  `group_id` int(10) unsigned, /* ключ родительской группы */
-  `is_group` TINYINT UNSIGNED NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY (`code`),
-  UNIQUE KEY `title` (`title`),
-  INDEX (`is_group`),
-  INDEX (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-ALTER TABLE `language` ADD CONSTRAINT FOREIGN KEY (`group_id`) REFERENCES `language`(`id`) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-CREATE TABLE `geo_macroregion_geo` (
+DROP TABLE IF EXISTS `_form_data`;
+CREATE TABLE `_form_data` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL DEFAULT '',
-  `status` TINYINT UNSIGNED NOT NULL DEFAULT 1,
-  `group_id` int(10) unsigned, /* ключ родительской группы */
-  `is_group` TINYINT UNSIGNED NOT NULL DEFAULT 0,
+  `form` varchar(255) NOT NULL DEFAULT '',
+  `type` ENUM ('filter', 'columns') NOT NULL,
+  `data` TEXT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `title` (`title`),
-  INDEX (`is_group`),
-  INDEX (`status`)
+  KEY (`form`),
+  KEY (`type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-ALTER TABLE `geo_macroregion_geo` ADD CONSTRAINT FOREIGN KEY (`group_id`) REFERENCES `geo_macroregion_geo`(`id`) ON UPDATE CASCADE ON DELETE RESTRICT;
 
-CREATE TABLE `geo_macroregion_com` (
+
+-- MySQL dump 10.13  Distrib 5.6.31, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: yiitest
+-- ------------------------------------------------------
+-- Server version	5.6.31-0ubuntu0.15.10.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `_all_tables`
+--
+
+DROP TABLE IF EXISTS `_all_tables`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `_all_tables` (
+  `idid` int(10) NOT NULL AUTO_INCREMENT,
+  `id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `notion` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `hierarchy` int(1) NOT NULL,
+  `module` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`idid`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `_all_tables`
+--
+
+LOCK TABLES `_all_tables` WRITE;
+/*!40000 ALTER TABLE `_all_tables` DISABLE KEYS */;
+INSERT INTO `_all_tables` VALUES (1,'counterparties','counterparties','List of the counterparties',0,'core','user'),(2,'banks','banks','List of the banks',0,'core','user'),(3,'regions_name','regions_name','List of the regions name',0,'core','user'),(4,'regions','regions','List of the regions',1,'core','user'),(5,'macroregions_geo','macroregions_geo','List of the macroregions_geo',1,'core','user'),(6,'macroregions_kom','macroregions_kom','List of the macroregions_kom',1,'core','user'),(7,'countries','countries','List of the countries',1,'core','user');
+/*!40000 ALTER TABLE `_all_tables` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2017-09-20 16:30:35
+
+
+
+
+-- MySQL dump 10.13  Distrib 5.6.31, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: yiitest
+-- ------------------------------------------------------
+-- Server version	5.6.31-0ubuntu0.15.10.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `_all_columns`
+--
+
+DROP TABLE IF EXISTS `_all_columns`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `_all_columns` (
+  `idid` int(10) NOT NULL AUTO_INCREMENT,
+  `id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `table_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `notion` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `default` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `periodic` int(1) DEFAULT NULL,
+  `purpose` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `index` int(1) DEFAULT NULL,
+  `required` int(1) DEFAULT NULL,
+  `show_def` int(1) DEFAULT NULL,
+  `system` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`idid`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `_all_columns`
+--
+
+LOCK TABLES `_all_columns` WRITE;
+/*!40000 ALTER TABLE `_all_columns` DISABLE KEYS */;
+INSERT INTO `_all_columns` VALUES (1,'name_official','counterparties','name_official','name_official','varchar(255)',NULL,NULL,NULL,NULL,NULL,NULL,1),(2,'subject_type','counterparties','sybject_type','sybject_type','varchar(255)',NULL,NULL,NULL,NULL,NULL,NULL,1),(3,'name_original','banks','name_original','name_original','varchar(255)',NULL,NULL,NULL,NULL,NULL,NULL,1),(4,'counterparties_id','banks','counterparties_id','Link to counterparties_id','counterparties.id',NULL,NULL,NULL,NULL,NULL,NULL,1),(5,'swift','banks',NULL,NULL,'varchar(255)',NULL,NULL,NULL,NULL,NULL,NULL,1),(6,'name_original','regions','name_original','Original name','varchar(255)',NULL,NULL,NULL,NULL,NULL,NULL,1),(8,'name_original','regions_name','name_original','Original name','varchar(255)',NULL,NULL,NULL,NULL,NULL,NULL,1),(9,'countries_id','regions_name','countries','Link to countries_id','countries.id',NULL,NULL,NULL,NULL,NULL,NULL,1),(10,'name_original','countries','name_original','Original name','varchar(255)',NULL,NULL,NULL,NULL,NULL,NULL,1),(11,'iso2','countries','iso2','iso2','varchar(255)',NULL,NULL,NULL,NULL,NULL,NULL,1),(12,'iso3','countries','iso3','iso3','varchar(255)',NULL,NULL,NULL,NULL,NULL,NULL,1),(13,'name_post_index','countries','name_post_index','name_post_index','varchar(255)',NULL,NULL,NULL,NULL,NULL,NULL,1),(14,'macroregions_geo_id','countries','macroregions_geo','Link to macroregions_geo','macroregions_geo.id',NULL,NULL,NULL,NULL,NULL,NULL,1),(15,'macroregions_kom_id','countries','macroregions_kom','Link to macroregions_kom','macroregions_kom.id',NULL,NULL,NULL,NULL,NULL,NULL,1),(16,'countries_id','regions','countries','Link to countries_id','countries.id',NULL,NULL,NULL,NULL,NULL,NULL,1);
+/*!40000 ALTER TABLE `_all_columns` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2017-09-20 19:12:36
+
+
+DROP TABLE IF EXISTS `_form_data`;
+CREATE TABLE `_form_data` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL DEFAULT '',
-  `status` TINYINT UNSIGNED NOT NULL DEFAULT 1,
-  `group_id` int(10) unsigned, /* ключ родительской группы */
-  `is_group` TINYINT UNSIGNED NOT NULL DEFAULT 0,
+  `form` varchar(255) NOT NULL DEFAULT '',
+  `type` ENUM ('filter', 'columns') NOT NULL,
+  `data` TEXT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `title` (`title`),
-  INDEX (`is_group`),
-  INDEX (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-ALTER TABLE `geo_macroregion_com` ADD CONSTRAINT FOREIGN KEY (`group_id`) REFERENCES `geo_macroregion_com`(`id`) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-CREATE TABLE `geo_country` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL DEFAULT '',
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `iso3` char(3) NOT NULL DEFAULT '',
-  `iso2` char(2) NOT NULL DEFAULT '',
-  `zip_name` varchar(255) NOT NULL DEFAULT '',
-  `geo_macroregion_geo_id` int(10) unsigned,
-  `geo_macroregion_com_id` int(10) unsigned,
-  `status` TINYINT UNSIGNED NOT NULL DEFAULT 1,
-  `group_id` int(10) unsigned, /* ключ родительской группы */
-  `is_group` TINYINT UNSIGNED NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `title` (`title`),
-  FOREIGN KEY (geo_macroregion_geo_id) REFERENCES geo_macroregion_geo(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  FOREIGN KEY (geo_macroregion_com_id) REFERENCES geo_macroregion_com(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  INDEX (`is_group`),
-  INDEX (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-ALTER TABLE `geo_country` ADD CONSTRAINT FOREIGN KEY (`group_id`) REFERENCES `geo_country`(`id`) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-CREATE TABLE `geo_region` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL DEFAULT '',
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `geo_country_id` int(10) unsigned NOT NULL,
-  `status` TINYINT UNSIGNED NOT NULL DEFAULT 1,
-  `group_id` int(10) unsigned, /* ключ родительской группы */
-  `is_group` TINYINT UNSIGNED NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `title` (`title`),
-  FOREIGN KEY (geo_country_id) REFERENCES geo_country(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  INDEX (`is_group`),
-  INDEX (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-ALTER TABLE `geo_region` ADD CONSTRAINT FOREIGN KEY (`group_id`) REFERENCES `geo_region`(`id`) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-CREATE TABLE `geo_city` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL DEFAULT '',
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `geo_country_id` int(10) unsigned NOT NULL,
-  `geo_region_id` int(10) unsigned NOT NULL,
-  `status` TINYINT UNSIGNED NOT NULL DEFAULT 1,
-  `group_id` int(10) unsigned, /* ключ родительской группы */
-  `is_group` TINYINT UNSIGNED NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `title` (`title`),
-  FOREIGN KEY (geo_country_id) REFERENCES geo_country(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  FOREIGN KEY (geo_region_id) REFERENCES geo_region(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  INDEX (`is_group`),
-  INDEX (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-ALTER TABLE `geo_city` ADD CONSTRAINT FOREIGN KEY (`group_id`) REFERENCES `geo_city`(`id`) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-CREATE TABLE `geo_street_type` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL DEFAULT '',
-  `geo_country_id` int(10) unsigned NOT NULL,
-  `status` TINYINT UNSIGNED NOT NULL DEFAULT 1,
-  `group_id` int(10) unsigned, /* ключ родительской группы */
-  `is_group` TINYINT UNSIGNED NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `title` (`title`),
-  FOREIGN KEY (geo_country_id) REFERENCES geo_country(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  INDEX (`is_group`),
-  INDEX (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-ALTER TABLE `geo_street_type` ADD CONSTRAINT FOREIGN KEY (`group_id`) REFERENCES `geo_street_type`(`id`) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-CREATE TABLE `geo_street` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL DEFAULT '',
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `geo_country_id` int(10) unsigned NOT NULL,
-  `geo_region_id` int(10) unsigned NOT NULL,
-  `geo_city_id` int(10) unsigned NOT NULL,
-  `geo_street_type_id` int(10) unsigned NOT NULL,
-  `status` TINYINT UNSIGNED NOT NULL DEFAULT 1,
-  `group_id` int(10) unsigned, /* ключ родительской группы */
-  `is_group` TINYINT UNSIGNED NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `title` (`title`),
-  FOREIGN KEY (geo_country_id) REFERENCES geo_country(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  FOREIGN KEY (geo_region_id) REFERENCES geo_region(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  FOREIGN KEY (geo_city_id) REFERENCES geo_city(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  FOREIGN KEY (geo_street_type_id) REFERENCES geo_street_type(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  INDEX (`is_group`),
-  INDEX (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-ALTER TABLE `geo_street` ADD CONSTRAINT FOREIGN KEY (`group_id`) REFERENCES `geo_street`(`id`) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-CREATE TABLE `units` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL DEFAULT '',
-  `type` ENUM ('weight', 'volume', 'quantity', 'time') NOT NULL, /* весовой объемный колличественный временной */
-  `base_id` int(10) unsigned, /* ключ родительской группы */
-  `ratio_to_base` DECIMAL(24, 5) UNSIGNED NOT NULL,
-  `status` TINYINT UNSIGNED NOT NULL DEFAULT 1,
-  `group_id` int(10) unsigned, /* ключ родительской группы */
-  `is_group` TINYINT UNSIGNED NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `title` (`title`),
-  INDEX (`is_group`),
-  INDEX (`type`),
-  INDEX (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-ALTER TABLE `units` ADD CONSTRAINT FOREIGN KEY (`group_id`) REFERENCES `units`(`id`) ON UPDATE CASCADE ON DELETE RESTRICT;
-ALTER TABLE `units` ADD CONSTRAINT FOREIGN KEY (`base_id`) REFERENCES `units`(`id`) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-CREATE TABLE `currency` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL DEFAULT '',
-  `status` TINYINT UNSIGNED NOT NULL DEFAULT 1,
-  `ratio` DECIMAL(7) UNSIGNED NOT NULL,
-  `rate` DECIMAL(21, 2) UNSIGNED NOT NULL,
-  `rate_month` DECIMAL(21, 2) UNSIGNED NOT NULL,
-  `iso3` char(3) NOT NULL DEFAULT '',
-  `sign` char(1) NOT NULL DEFAULT '',
-  `geo_country_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `title` (`title`),
-  FOREIGN KEY (geo_country_id) REFERENCES geo_country(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  INDEX (`status`)
+  KEY (`form`),
+  KEY (`type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `currency_name` (
-  `currency_id` int(10) unsigned NOT NULL,
-  `language` char(2) NOT NULL DEFAULT '',
-  `name` varchar(255) NOT NULL DEFAULT '',
-  PRIMARY KEY (`currency_id`, `language`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `currency_history` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `currency_id` int(10) unsigned NOT NULL,
-  `ratio` DECIMAL(7) UNSIGNED NOT NULL,
-  `rate` DECIMAL(21, 2) UNSIGNED NOT NULL,
-  `rate_month` DECIMAL(21, 2) UNSIGNED NOT NULL,
-  `date` DATETIME NOT NULL,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (currency_id) REFERENCES currency(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  INDEX (`date`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `contractor` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL DEFAULT '',
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `type` ENUM ('company', 'person', 'businessman') NOT NULL, /* ЮрЛицо ФизЛицо Предприниматель */
-  `status` TINYINT UNSIGNED NOT NULL DEFAULT 1,
-  `group_id` int(10) unsigned, /* ключ родительской группы */
-  `is_group` TINYINT UNSIGNED NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `title` (`title`),
-  INDEX (`type`),
-  INDEX (`is_group`),
-  INDEX (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-ALTER TABLE `contractor` ADD CONSTRAINT FOREIGN KEY (`group_id`) REFERENCES `contractor`(`id`) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-CREATE TABLE `contractor_history` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `contractor_id` int(10) unsigned NOT NULL,
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `date` DATETIME NOT NULL,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (contractor_id) REFERENCES contractor(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  INDEX (`date`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+--
+-- Table structure for table `address_type`
+--
 
 CREATE TABLE `address_type` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL DEFAULT '',
-  `type` ENUM ('registry', 'logistic', 'other') NOT NULL, /* Регистрационный Логистический Прочий */
-  `status` TINYINT UNSIGNED NOT NULL DEFAULT 1,
-  `group_id` int(10) unsigned, /* ключ родительской группы */
-  `is_group` TINYINT UNSIGNED NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `title` (`title`),
-  INDEX (`type`),
-  INDEX (`is_group`),
-  INDEX (`status`)
+  `id` int(10) UNSIGNED NOT NULL,
+  `code` varchar(255) DEFAULT NULL,
+  `notion` varchar(255) NOT NULL DEFAULT '',
+  `type` enum('registry','logistic','other') NOT NULL,
+  `status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1',
+  `parent` int(10) UNSIGNED DEFAULT NULL,
+  `group` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
+  `predefined` int(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-ALTER TABLE `address_type` ADD CONSTRAINT FOREIGN KEY (`group_id`) REFERENCES `address_type`(`id`) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-CREATE TABLE `contact_type` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL DEFAULT '',
-  `type` ENUM ('url', 'e-mail', 'phone', 'chat', 'fax') NOT NULL,
-  `status` TINYINT UNSIGNED NOT NULL DEFAULT 1,
-  `group_id` int(10) unsigned, /* ключ родительской группы */
-  `is_group` TINYINT UNSIGNED NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `title` (`title`),
-  INDEX (`type`),
-  INDEX (`is_group`),
-  INDEX (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-ALTER TABLE `contact_type` ADD CONSTRAINT FOREIGN KEY (`group_id`) REFERENCES `contact_type`(`id`) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-CREATE TABLE `contractor_contact_person` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL DEFAULT '',
-  `first_name` varchar(255) NOT NULL DEFAULT '',
-  `last_name` varchar(255) NOT NULL DEFAULT '',
-  `middle_name` varchar(255) NOT NULL DEFAULT '',
-  `prefix` ENUM ('Ing.', 'Mudr.', 'Mgr.', 'Doc.', 'Phd.', 'Bc.'),
-  `birthday` DATETIME,
-  `gender` ENUM ('male', 'female'),
-  `position` varchar(255) NOT NULL DEFAULT '',
-  `nation` varchar(255) NOT NULL DEFAULT '',
-  `language_id` int(10) unsigned,
-  `status` TINYINT UNSIGNED NOT NULL DEFAULT 1,
-  `group_id` int(10) unsigned, /* ключ родительской группы */
-  `is_group` TINYINT UNSIGNED NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `title` (`title`),
-  FOREIGN KEY (language_id) REFERENCES language(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  INDEX (`is_group`),
-  INDEX (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-ALTER TABLE `contractor_contact_person` ADD CONSTRAINT FOREIGN KEY (`group_id`) REFERENCES `contractor_contact_person`(`id`) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-CREATE TABLE `contractor_address` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL DEFAULT '',
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `geo_country_id` int(10) unsigned NOT NULL,
-  `geo_region_id` int(10) unsigned NOT NULL,
-  `geo_city_id` int(10) unsigned NOT NULL,
-  `geo_street_id` int(10) unsigned NOT NULL,
-  `address` varchar(255) NOT NULL DEFAULT '',
-  `postal_code` varchar(255) NOT NULL DEFAULT '',
-  `address_type_id` int(10) unsigned,
-  `contractor_contact_person_id` int(10) unsigned,
-  `status` TINYINT UNSIGNED NOT NULL DEFAULT 1,
-  `group_id` int(10) unsigned, /* ключ родительской группы */
-  `is_group` TINYINT UNSIGNED NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `title` (`title`),
-  FOREIGN KEY (geo_country_id) REFERENCES geo_country(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  FOREIGN KEY (geo_region_id) REFERENCES geo_region(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  FOREIGN KEY (geo_city_id) REFERENCES geo_city(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  FOREIGN KEY (geo_street_id) REFERENCES geo_street(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  FOREIGN KEY (contractor_contact_person_id) REFERENCES contractor_contact_person(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  INDEX (`is_group`),
-  INDEX (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-ALTER TABLE `contractor_address` ADD CONSTRAINT FOREIGN KEY (`group_id`) REFERENCES `contractor_address`(`id`) ON UPDATE CASCADE ON DELETE RESTRICT;
-
-CREATE TABLE `company` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL DEFAULT '',
-  `status` TINYINT UNSIGNED NOT NULL DEFAULT 1,
-  `contractor_id` int(10) unsigned NOT NULL,
-  `geo_country_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `title` (`title`),
-  FOREIGN KEY (contractor_id) REFERENCES contractor(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  FOREIGN KEY (geo_country_id) REFERENCES geo_country(id) ON UPDATE CASCADE ON DELETE RESTRICT,
-  INDEX (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `company_structure_type` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL DEFAULT '',
-  `status` TINYINT UNSIGNED NOT NULL DEFAULT 1,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `title` (`title`),
-  INDEX (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
-  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `auth_key` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `password_hash` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `password_reset_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `status` smallint(6) NOT NULL DEFAULT '10',
-  `created_at` int(11) NOT NULL,
-  `updated_at` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `user`
+-- Dumping data for table `address_type`
 --
 
-INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'admin', '2ooBv0kl6bxNrh0jIF77UZVjv8Uw0dKR', '$2y$13$dcRxDUdsew6y3oD98J0nOeM/IJbsA5VbmWRCHZyCztc5LkpN5edii', NULL, 'admin@test.com', 10, 1504560806, 1504560806);
+INSERT INTO `address_type` (`id`, `code`, `notion`, `type`, `status`, `parent`, `group`, `predefined`) VALUES
+(1, '1', 'addr 1', 'logistic', 2, NULL, 0, 1),
+(2, '2', 'caddr 2', 'logistic', 3, NULL, 0, 0),
+(3, '3', 'grp 1', 'registry', 1, NULL, 1, 0),
+(4, '4', 'addr 1 level 2', 'registry', 1, 3, 0, 0),
+(5, '5', 'grp 2', 'registry', 1, NULL, 1, 0),
+(6, '6', 'addr 2 level 2', 'other', 3, 5, 0, 0),
+(7, '7', 'subgroup 1', 'registry', 1, 3, 1, 0),
+(8, '8', 'subgroup 2', 'registry', 1, 5, 1, 0),
+(9, '9', 'subsubgroup 1', 'registry', 1, 7, 1, 0),
+(10, '10', 'subsubgroup 2', 'registry', 1, 8, 1, 0),
+(11, '11', '1111', 'logistic', 1, 9, 0, 0),
+(12, '12', '123', 'logistic', 1, NULL, 0, 1),
+(13, '13', '45454', 'registry', 3, NULL, 0, 0),
+(14, '14', 'пїЅпїЅпїЅпїЅпїЅпїЅ', 'logistic', 1, 9, 0, 0);
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `address_type`
+--
+ALTER TABLE `address_type`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `title` (`notion`),
+  ADD UNIQUE KEY `code` (`code`),
+  ADD KEY `type` (`type`),
+  ADD KEY `is_group` (`group`),
+  ADD KEY `status` (`status`),
+  ADD KEY `group_id` (`parent`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `address_type`
+--
+ALTER TABLE `address_type`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `address_type`
+--
+ALTER TABLE `address_type`
+  ADD CONSTRAINT `address_type_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `address_type` (`id`) ON UPDATE CASCADE;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

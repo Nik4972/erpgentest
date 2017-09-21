@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\AddressType */
 
-$this->title = 'Update Address Type: ' . $model->title;
+$this->title = 'Update Address Type: ' . $model->notion;
 $this->params['breadcrumbs'][] = ['label' => 'Address Types', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->notion, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="address-type-update">

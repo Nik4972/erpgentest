@@ -8,7 +8,7 @@ use yii\helpers\Html;
 
 $this->title = 'Create Address Type';
 $this->params['breadcrumbs'][] = ['label' => 'Address Types', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $this->notion;
 ?>
 <div class="address-type-create">
 

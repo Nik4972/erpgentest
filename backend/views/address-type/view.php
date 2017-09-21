@@ -6,9 +6,9 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model backend\models\AddressType */
 
-$this->title = $model->title;
+$this->title = $model->notion;
 $this->params['breadcrumbs'][] = ['label' => 'Address Types', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $this->notion;
 ?>
 <div class="address-type-view">
 
@@ -29,11 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'title',
+            'notion',
             'type',
             'status',
-            'group_id',
-            'is_group',
+            'parent',
+            'group',
         ],
     ]) ?>
 

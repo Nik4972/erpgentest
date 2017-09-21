@@ -12,17 +12,17 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'notion')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'type')->dropDownList([ 'registry' => 'Registry', 'logistic' => 'Logistic', 'other' => 'Other', ], ['prompt' => '']) ?>
 
     <?= !$model->isNewRecord ? $form->field($model, 'status')->dropDownList([ '1' => 'Actual','Archive','Deleted']) : '' ?>
 
-    <?= $field = $form->field($model, 'group_id')->label('Group')->dropDownList($model->getGroups(), 
+    <?= $field = $form->field($model, 'parent')->label('Group')->dropDownList($model->getGroups(), 
         ['prompt' => ['text' => '', 'options' => ['value' => '0', 'class' => 'prompt', 'label' => '']],
-        'options' => [$model->group_id => ['selected' => 'selected']]]) ?>
+        'options' => [$model->parent => ['selected' => 'selected']]]) ?>
 
-    <?= $form->field($model, 'is_group')->checkbox() ?>
+    <?= $form->field($model, 'group')->checkbox() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -9,6 +9,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+use backend\ErpEnums;
+use backend\ErpForm;
+
 /**
  * AddressTypeController implements the CRUD actions for AddressType model.
  */
@@ -37,11 +40,23 @@ class AddressTypeController extends Controller
     {
         $searchModel = new AddressTypeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'columnsConfig' => \backend\ErpForm::getColumns($searchModel)
         ]);
+    }
+
+    /**
+     * Manage an order and a visibility of table columns
+     * @return mixed
+     */
+    public function actionColumns() // TODO: move code to model
+    {
+        $model = new AddressType();
+        ErpForm::saveColumns($model);
+        return $this->redirect(['index']);
     }
 
     /**
@@ -68,8 +83,8 @@ class AddressTypeController extends Controller
         //$this->layout = false; // fix
 
         $result = $model->load(array_merge(Yii::$app->request->get(), Yii::$app->request->post()));
-        if ($model->group_id == 0) {
-            $model->group_id = null;
+        if ($model->parent == 0) {
+            $model->parent = null;
         }
         if ($result && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -91,8 +106,8 @@ class AddressTypeController extends Controller
         $model = $this->findModel($id);
 
         $result = $model->load(Yii::$app->request->post());
-        if ($model->group_id == 0) {
-            $model->group_id = null;
+        if ($model->parent == 0) {
+            $model->parent = null;
         }
         if ($result && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

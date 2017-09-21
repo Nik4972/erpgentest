@@ -25,52 +25,30 @@
             </div>
         </form>
         <!-- /.search form -->
+        
+        <?php
+        $menuArray = [
+            ['label' => 'Table to cut into templates', 'icon' => 'envelope', 'url' => ['/address-type'],],
+            ['label' => 'Nikolay\'s Generator', 'url' => ['/generator/generator']],
+            ['label' => 'Drop generated tables if any', 'url' => ['/generator/drop']],
+        ];
+        $menuArray = array_merge($menuArray, \backend\ErpForm::getMenu());
+        
+        ?>
 
         <?= dmstr\widgets\Menu::widget(
             [
                 'options' => ['class' => 'sidebar-menu'],
-                'items' => [
+                'items' => $menuArray
+                /*[
+                    ['label' => 'Nikolay\'s Generator', 'url' => ['/generator/generator']],
                     ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
                     ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
                     ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
+                    ['label' => 'Generator', 'icon' => '', 'url' => ['/generator'],],
                     ['label' => 'Address Types', 'icon' => 'envelope', 'url' => ['/address-type'],],
-                    ['label' => 'Macroregions GEO', 'icon' => 'globe', 'url' => ['/geo-macroregion-geo'],],
-                    ['label' => 'Macroregions Com', 'icon' => 'envelope', 'url' => ['/geo-macroregion-com'],],
-                    ['label' => 'Countries', 'icon' => 'envelope', 'url' => ['/geo-country'],],
-
-                    [
-                        'label' => 'Tables',
-                        'icon' => 'book',
-                        'url' => '#',
-                        'items' => [
-                            ['label' => 'Currencies', 'icon' => 'euro', 'url' => ['/currency'],],
-                            ['label' => 'Languages', 'icon' => 'text', 'url' => ['/language'],],
-                            ['label' => 'Regions', 'icon' => 'envelope', 'url' => ['/region'],],
-                            ['label' => 'Cities', 'icon' => 'envelope', 'url' => ['/city'],],
-                            ['label' => 'Streets', 'icon' => 'envelope', 'url' => ['/street'],],
-                            ['label' => 'Contractors', 'icon' => 'paperclip', 'url' => ['/contractor'],],
-                            ['label' => 'Companies', 'icon' => 'inbox', 'url' => ['/company'],],
-                            [
-                                'label' => 'Level One',
-                                'icon' => 'circle-o',
-                                'url' => '#',
-                                'items' => [
-                                    ['label' => 'Level Two', 'icon' => 'circle-o', 'url' => '#',],
-                                    [
-                                        'label' => 'Level Two',
-                                        'icon' => 'circle-o',
-                                        'url' => '#',
-                                        'items' => [
-                                            ['label' => 'Level Three', 'icon' => 'circle-o', 'url' => '#',],
-                                            ['label' => 'Level Three', 'icon' => 'circle-o', 'url' => '#',],
-                                        ],
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
+                ],*/
             ]
         ) ?>
 
