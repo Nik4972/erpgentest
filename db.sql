@@ -181,7 +181,7 @@ INSERT INTO `address_type` (`id`, `code`, `notion`, `type`, `status`, `parent`, 
 (11, '11', '1111', 'logistic', 1, 9, 0, 0),
 (12, '12', '123', 'logistic', 1, NULL, 0, 1),
 (13, '13', '45454', 'registry', 3, NULL, 0, 0),
-(14, '14', '������', 'logistic', 1, 9, 0, 0);
+(14, '14', 'абвввв', 'logistic', 1, 9, 0, 0);
 
 --
 -- Indexes for dumped tables

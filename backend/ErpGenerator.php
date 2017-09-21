@@ -45,7 +45,7 @@ class ErpGenerator
 // Add to tables specific columns and foreign key
  
         foreach ($tables as $table) {
-
+/*
             $tab = Yii::$app->db->createCommand("SELECT * FROM _all_tables WHERE id='".$table."'")
                ->queryAll();
 
@@ -70,7 +70,7 @@ class ErpGenerator
                     }
                 }
             }
-
+*/
 // Create name_tables array
             $columns = Yii::$app->db->createCommand("SHOW COLUMNS FROM " . $table)
                     ->queryAll();
@@ -102,7 +102,7 @@ class ErpGenerator
                 'modelsearch.php' => 'models/%sSearch.php',
             ];
             
-            $templates    = []; // comment or remove this line to generate real files from "generatortemplates" directory
+ //           $templates    = []; // comment or remove this line to generate real files from "generatortemplates" directory
 
             $templatesDirs = ['models', 'controllers'];
             $moduleDir     = Yii::getAlias('@app') . '/modules/' . ($name_tables['module'] ? $name_tables['module'] : 'core') . '/';
@@ -110,7 +110,8 @@ class ErpGenerator
                 @mkdir($moduleDir . $subdir, 0777, true);
             }
             foreach ($templates as $viewName => $savePath) {
-                $fileContent  = $templateView->renderPhpFile(Yii::getAlias('@app') . '/generatortemplates/' . $viewName, ['name_tables' => $name_tables]);
+                $path = Yii::getAlias('@backend') . '/generatortemplates/' . $viewName;
+                $fileContent  = $templateView->renderPhpFile($path, ['name_tables' => $name_tables]);
                 $saveFileName = Yii::getAlias('@app') . '/modules/'
                         . ($name_tables['module'] ? $name_tables['module'] : 'core')
                         . '/' . sprintf($savePath, ucfirst($name_tables['notion']));

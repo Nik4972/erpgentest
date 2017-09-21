@@ -21,7 +21,7 @@ $form = ActiveForm::begin(['action' => ['generator2']]);
 
  
  //echo '<form id="select" action="index.php?r=generator/generator2" method="post">';
- echo '<input type="hidden" name="_csrf" value="'.Yii::$app->request->getCsrfToken().'" />';
+ // echo '<input type="hidden" name="_csrf" value="'.Yii::$app->request->getCsrfToken().'" />';
  
  foreach ($tables as $table) {
   echo "<div>

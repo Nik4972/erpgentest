@@ -51,7 +51,7 @@ class <?= $searchModelClass ?> extends <?= $className ?>
             ],
         ]);
 
- <?php foreach ($tables['column'] as $name=>$attr){
+ <?php foreach ($name_tables['columns'] as $name=>$attr){
         $defaultOrder=[];
         $filter =[];
         if (($attr['order'] == 'SORT_ASC') || ($attr['order'] == 'SORT_DESC')){
@@ -66,9 +66,9 @@ class <?= $searchModelClass ?> extends <?= $className ?>
          */
             {
             if ($attr['type']== "int")
-                $filter[] = ["'$name'", "$this->$name"];
+                $filter[] = ["'$name'", '$this->'.$name];
             else
-               $filter[] = ['like', "'$name'", "$this->".$name];
+               $filter[] = ['like', "'$name'", '$this->'.$name];
         }
     }
     ?>

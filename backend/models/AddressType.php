@@ -86,30 +86,30 @@ class AddressType extends \yii\db\ActiveRecord
     {
         $columns = [
         'id' => ['notion' => 'ID', 'description' => '', 'type' => 'int', 'default' => '', 'periodic' => 0, 'purpose' => "both", 'index' => 1,
-            'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 1, 'relations' => '��� ������������ ������� � ������� �����', 'hide'=>1],
-        'code' => ['notion' => 'Code', 'description' => '�������� �������', 'type' => 'varchar', 'default' => '', 
+            'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 1, 'relations' => 'Имя существующей таблицы с большой буквы', 'hide'=>1],
+        'code' => ['notion' => 'Code', 'description' => 'Например Артикул', 'type' => 'varchar', 'default' => '', 
             'periodic' => 1, 'purpose' => "both",'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 
-            'system' => 0, 'relations' => '��� ������������ �������', 'always_visible'=>1],
-        'notion' => ['notion' => 'Notion', 'description' => '��� �� ������', 'type' => 'varchar', 'default' => '', 'periodic' => 1, 'purpose' => "both",
-            'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0, 'relations' => '��� ������������ �������', 'always_visible'=>1],
-        /*'description' => ['notion' => '������ �������� �������', 'description' => '������ ��������', 'type' => 'varchar', 'default' => '', 'periodic' => 0, 'purpose' => "group",
-            'index' => 0, 'required_to_fill' => 0, 'show_in_default_list_form' => 0, 'system' => 0, 'relations' => '��� ������������ �������'],*/
-        'group' => ['notion' => 'Is Group', 'description' => '�������� �� ������ ������ �������', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "???",
-            'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relations' => '��� ������������ �������', 'hide'=>1],
-        'parent' => ['notion' => 'Group', 'description' => '������� ��������', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "???",
-            'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relations' => '��� ������������ �������'],
-        /*'predefined' => ['notion' => '���������������� ������', 'description' => '������ ��-���������', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "???",
-            'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relations' => '��� ������������ �������', 'hide'=>1],*/
-         'status' => ['notion' => 'Status', 'description' => '������ �������(1 - ����������, 2 - �� ����������, 3 - �������)', 'type' => 'int', 'default' => '1', 'periodic' => 1, 'purpose' => "???",
-            'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0,'relations' => '��� ������������ �������'],
-        /// �������� � ������������ ����
-         /*'date_create' => ['notion' => '���� ��������', 'description' => '���� �������� �������', 'type' => 'datetime', 'default' => 'now', 'periodic' => 1, 'purpose' => "???",
-            'index' => 0, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 1,'relations' => '��� ������������ �������'],
-        'date_update' => ['notion' => '���� ���������', 'description' => '���� ��������� �������', 'type' => 'datetime', 'default' => 'now', 'periodic' => 1, 'purpose' => "???",
-            'index' => 0, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 1,'relations' => '��� ������������ �������'],*/
+            'system' => 0, 'relations' => 'Имя существующей таблицы', 'always_visible'=>1],
+        'notion' => ['notion' => 'Notion', 'description' => 'Имя на экране', 'type' => 'varchar', 'default' => '', 'periodic' => 1, 'purpose' => "both",
+            'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0, 'relations' => 'Имя существующей таблицы', 'always_visible'=>1],
+        /*'description' => ['notion' => 'Полное описание объекта', 'description' => 'Полное описание', 'type' => 'varchar', 'default' => '', 'periodic' => 0, 'purpose' => "group",
+            'index' => 0, 'required_to_fill' => 0, 'show_in_default_list_form' => 0, 'system' => 0, 'relations' => 'Имя существующей таблицы'],*/
+        'group' => ['notion' => 'Is Group', 'description' => 'является ли данная запись группой', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "???",
+            'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relations' => 'Имя существующей таблицы', 'hide'=>1],
+        'parent' => ['notion' => 'Group', 'description' => 'Наличие родителя', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "???",
+            'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relations' => 'Имя существующей таблицы'],
+        /*'predefined' => ['notion' => 'предопределенная запись', 'description' => 'Записи по-умолчанию', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "???",
+            'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relations' => 'Имя существующей таблицы', 'hide'=>1],*/
+         'status' => ['notion' => 'Status', 'description' => 'Статус объекта(1 - актуальный, 2 - не актуальный, 3 - удалить)', 'type' => 'int', 'default' => '1', 'periodic' => 1, 'purpose' => "???",
+            'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0,'relations' => 'Имя существующей таблицы'],
+        /// добавить в описательный файл
+         /*'date_create' => ['notion' => 'Дата создания', 'description' => 'Дата создания объекта', 'type' => 'datetime', 'default' => 'now', 'periodic' => 1, 'purpose' => "???",
+            'index' => 0, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 1,'relations' => 'Имя существующей таблицы'],
+        'date_update' => ['notion' => 'Дата изменения', 'description' => 'Дата изменения объекта', 'type' => 'datetime', 'default' => 'now', 'periodic' => 1, 'purpose' => "???",
+            'index' => 0, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 1,'relations' => 'Имя существующей таблицы'],*/
 
-         'type' => ['notion' => 'Type', 'description' => '������ �������(1 - ����������, 2 - �� ����������, 3 - �������)', 'type' => 'enum', 'default' => '1', 'periodic' => 1, 'purpose' => "???",
-            'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0,'relations' => '��� ������������ �������', 'enum' => 'AddressTypes'],
+         'type' => ['notion' => 'Type', 'description' => 'Статус объекта(1 - актуальный, 2 - не актуальный, 3 - удалить)', 'type' => 'enum', 'default' => '1', 'periodic' => 1, 'purpose' => "???",
+            'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0,'relations' => 'Имя существующей таблицы', 'enum' => 'AddressTypes'],
         ];
         
         if (!$this::withGroups)

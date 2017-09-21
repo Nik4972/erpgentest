@@ -1,5 +1,4 @@
 <?php
-
 echo '<', '?php';
 $className = ucfirst($name_tables['notion']);
 $moduleName = $name_tables['module'] ? $name_tables['module'] : 'core';
@@ -14,7 +13,7 @@ use yii\behaviors\TimestampBehavior;
  */
 class <?= $className ?> extends \yii\db\ActiveRecord
 {
-    const withGroups = <?= $name_tables['hierarchy'] ? 1 : 0 ?>;
+    const withGroups = <?= $tables['hierarchy'] ? 1 : 0 ?>;
     const STATUS_ACTUAL = 1;
     const STATUS_NONACTUAL = 2;
     const STATUS_DELETED = 3;
@@ -31,7 +30,7 @@ class <?= $className ?> extends \yii\db\ActiveRecord
      */
      <?php
      $required = $varchar = $digital = $string = "";
-        foreach ($tables['column'] as $name=>$attr){
+        foreach ($name_tables['columns'] as $name=>$attr){
             if ($attr['required_to_fill']){
                 $required .= "'$name',";
             }
@@ -68,7 +67,7 @@ class <?= $className ?> extends \yii\db\ActiveRecord
      * @inheritdoc
      */
      <?php
-      foreach ($tables['column'] as $name=>$attr){
+      foreach ($name_tables['columns'] as $name=>$attr){
             $notion = $attr['notion'];
             $ladel[$name] = "Yii::t('app', '$notion')";
         }
@@ -77,7 +76,7 @@ class <?= $className ?> extends \yii\db\ActiveRecord
     {
         return [<?=$label?>];
     }
-<?php foreach ($tables['column'] as $name=>$attr){
+<?php foreach ($name_tables['columns'] as $name=>$attr){
              if ($attr['relation']){ ?>
 
     /**

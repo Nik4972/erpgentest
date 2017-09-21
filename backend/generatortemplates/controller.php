@@ -53,7 +53,7 @@ class <?= $className ?>Controller extends Controller
 
     /**
      * Displays a single <?= $className ?> model.
-     * <?= implode("\n     * ", $actionParamComments) . "\n" ?>
+     * @param integer $id
      * @return mixed
      */
     public function actionView($id)
@@ -72,12 +72,12 @@ class <?= $className ?>Controller extends Controller
     { //$id=0 - элемент , иначе группа
         $model = new <?= $className ?>();
 
-        if ($model->load(Yii::$app->request->post()){
+        if ($model->load(Yii::$app->request->post())){
             if ($model->save()) {
                 return $this->redirect(['view', ['model' => $model]]);
             } 
             else{
-                 Yii::$app->session->setFlash('error', Yii::t('app', 'ERROR_UPDATE_MODEL'););
+                 Yii::$app->session->setFlash('error', Yii::t('app', 'ERROR_UPDATE_MODEL'));
                  return $this->render('update', [
                     'model' => $model,
                 ]);
@@ -98,12 +98,12 @@ class <?= $className ?>Controller extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()){
+        if ($model->load(Yii::$app->request->post())){
             if ($model->save()) {
                 return $this->redirect(['view', $id]);
             }
             else{
-                 Yii::$app->session->setFlash('error', Yii::t('app', 'ERROR_UPDATE_MODEL'););
+                 Yii::$app->session->setFlash('error', Yii::t('app', 'ERROR_UPDATE_MODEL'));
                  return $this->render('update', [
                 'model' => $model,
             ]);
@@ -140,14 +140,14 @@ class <?= $className ?>Controller extends Controller
                 $model->status==<?= $className ?>::STATUS_DELETED;
             }
             if (!$model->save()){
-                Yii::$app->session->setFlash('error', Yii::t('app', 'ERROR_UPDATE_STATUS'););
+                Yii::$app->session->setFlash('error', Yii::t('app', 'ERROR_UPDATE_STATUS'));
                 return $this->render('update', [
                 'model' => $model,
             ]);
             }
         }
         
-        return $this->render('index', ]);     
+        return $this->render('index', []);     
     }
 
     /**
@@ -193,14 +193,14 @@ class <?= $className ?>Controller extends Controller
                 $model->status==<?= $className ?>::STATUS_ACTUAL;
             }
             if (!$model->save()){
-                Yii::$app->session->setFlash('error', Yii::t('app', 'ERROR_UPDATE_STATUS'););
+                Yii::$app->session->setFlash('error', Yii::t('app', 'ERROR_UPDATE_STATUS'));
                 return $this->render('update', [
                 'model' => $model,
             ]);
             }
         }
         
-        return $this->render('index', ]);    
+        return $this->render('index', []);    
     }
     public function actionSetGroup(){
         //$ids - массив выбранных id 
