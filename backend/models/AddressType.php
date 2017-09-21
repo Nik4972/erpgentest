@@ -86,30 +86,30 @@ class AddressType extends \yii\db\ActiveRecord
     {
         $columns = [
         'id' => ['notion' => 'ID', 'description' => '', 'type' => 'int', 'default' => '', 'periodic' => 0, 'purpose' => "both", 'index' => 1,
-            'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 1, 'relations' => 'Èìÿ ñóùåñòâóþùåé òàáëèöû ñ áîëüøîé áóêâû', 'hide'=>1],
-        'code' => ['notion' => 'Code', 'description' => 'Íàïðèìåð Àðòèêóë', 'type' => 'varchar', 'default' => '', 
+            'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 1, 'relations' => 'Ð˜Ð¼Ñ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÑŽÑ‰ÐµÐ¹ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹ Ñ Ð±Ð¾Ð»ÑŒÑˆÐ¾Ð¹ Ð±ÑƒÐºÐ²Ñ‹', 'hide'=>1],
+        'code' => ['notion' => 'Code', 'description' => 'ÐÐ°Ð¿Ñ€Ð¸Ð¼ÐµÑ€ ÐÑ€Ñ‚Ð¸ÐºÑƒÐ»', 'type' => 'varchar', 'default' => '', 
             'periodic' => 1, 'purpose' => "both",'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 
-            'system' => 0, 'relations' => 'Èìÿ ñóùåñòâóþùåé òàáëèöû', 'always_visible'=>1],
-        'notion' => ['notion' => 'Notion', 'description' => 'Èìÿ íà ýêðàíå', 'type' => 'varchar', 'default' => '', 'periodic' => 1, 'purpose' => "both",
-            'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0, 'relations' => 'Èìÿ ñóùåñòâóþùåé òàáëèöû', 'always_visible'=>1],
-        /*'description' => ['notion' => 'Ïîëíîå îïèñàíèå îáúåêòà', 'description' => 'Ïîëíîå îïèñàíèå', 'type' => 'varchar', 'default' => '', 'periodic' => 0, 'purpose' => "group",
-            'index' => 0, 'required_to_fill' => 0, 'show_in_default_list_form' => 0, 'system' => 0, 'relations' => 'Èìÿ ñóùåñòâóþùåé òàáëèöû'],*/
-        'group' => ['notion' => 'Is Group', 'description' => 'ÿâëÿåòñÿ ëè äàííàÿ çàïèñü ãðóïïîé', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "???",
-            'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relations' => 'Èìÿ ñóùåñòâóþùåé òàáëèöû', 'hide'=>1],
-        'parent' => ['notion' => 'Group', 'description' => 'Íàëè÷èå ðîäèòåëÿ', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "???",
-            'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relations' => 'Èìÿ ñóùåñòâóþùåé òàáëèöû'],
-        /*'predefined' => ['notion' => 'ïðåäîïðåäåëåííàÿ çàïèñü', 'description' => 'Çàïèñè ïî-óìîë÷àíèþ', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "???",
-            'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relations' => 'Èìÿ ñóùåñòâóþùåé òàáëèöû', 'hide'=>1],*/
-         'status' => ['notion' => 'Status', 'description' => 'Ñòàòóñ îáúåêòà(1 - àêòóàëüíûé, 2 - íå àêòóàëüíûé, 3 - óäàëèòü)', 'type' => 'int', 'default' => '1', 'periodic' => 1, 'purpose' => "???",
-            'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0,'relations' => 'Èìÿ ñóùåñòâóþùåé òàáëèöû'],
-        /// äîáàâèòü â îïèñàòåëüíûé ôàéë
-         /*'date_create' => ['notion' => 'Äàòà ñîçäàíèÿ', 'description' => 'Äàòà ñîçäàíèÿ îáúåêòà', 'type' => 'datetime', 'default' => 'now', 'periodic' => 1, 'purpose' => "???",
-            'index' => 0, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 1,'relations' => 'Èìÿ ñóùåñòâóþùåé òàáëèöû'],
-        'date_update' => ['notion' => 'Äàòà èçìåíåíèÿ', 'description' => 'Äàòà èçìåíåíèÿ îáúåêòà', 'type' => 'datetime', 'default' => 'now', 'periodic' => 1, 'purpose' => "???",
-            'index' => 0, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 1,'relations' => 'Èìÿ ñóùåñòâóþùåé òàáëèöû'],*/
+            'system' => 0, 'relations' => 'Ð˜Ð¼Ñ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÑŽÑ‰ÐµÐ¹ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹', 'always_visible'=>1],
+        'notion' => ['notion' => 'Notion', 'description' => 'Ð˜Ð¼Ñ Ð½Ð° ÑÐºÑ€Ð°Ð½Ðµ', 'type' => 'varchar', 'default' => '', 'periodic' => 1, 'purpose' => "both",
+            'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0, 'relations' => 'Ð˜Ð¼Ñ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÑŽÑ‰ÐµÐ¹ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹', 'always_visible'=>1],
+        /*'description' => ['notion' => 'ÐŸÐ¾Ð»Ð½Ð¾Ðµ Ð¾Ð¿Ð¸ÑÐ°Ð½Ð¸Ðµ Ð¾Ð±ÑŠÐµÐºÑ‚Ð°', 'description' => 'ÐŸÐ¾Ð»Ð½Ð¾Ðµ Ð¾Ð¿Ð¸ÑÐ°Ð½Ð¸Ðµ', 'type' => 'varchar', 'default' => '', 'periodic' => 0, 'purpose' => "group",
+            'index' => 0, 'required_to_fill' => 0, 'show_in_default_list_form' => 0, 'system' => 0, 'relations' => 'Ð˜Ð¼Ñ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÑŽÑ‰ÐµÐ¹ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹'],*/
+        'group' => ['notion' => 'Is Group', 'description' => 'ÑÐ²Ð»ÑÐµÑ‚ÑÑ Ð»Ð¸ Ð´Ð°Ð½Ð½Ð°Ñ Ð·Ð°Ð¿Ð¸ÑÑŒ Ð³Ñ€ÑƒÐ¿Ð¿Ð¾Ð¹', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "???",
+            'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relations' => 'Ð˜Ð¼Ñ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÑŽÑ‰ÐµÐ¹ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹', 'hide'=>1],
+        'parent' => ['notion' => 'Group', 'description' => 'ÐÐ°Ð»Ð¸Ñ‡Ð¸Ðµ Ñ€Ð¾Ð´Ð¸Ñ‚ÐµÐ»Ñ', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "???",
+            'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relations' => 'Ð˜Ð¼Ñ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÑŽÑ‰ÐµÐ¹ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹'],
+        /*'predefined' => ['notion' => 'Ð¿Ñ€ÐµÐ´Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»ÐµÐ½Ð½Ð°Ñ Ð·Ð°Ð¿Ð¸ÑÑŒ', 'description' => 'Ð—Ð°Ð¿Ð¸ÑÐ¸ Ð¿Ð¾-ÑƒÐ¼Ð¾Ð»Ñ‡Ð°Ð½Ð¸ÑŽ', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "???",
+            'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relations' => 'Ð˜Ð¼Ñ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÑŽÑ‰ÐµÐ¹ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹', 'hide'=>1],*/
+         'status' => ['notion' => 'Status', 'description' => 'Ð¡Ñ‚Ð°Ñ‚ÑƒÑ Ð¾Ð±ÑŠÐµÐºÑ‚Ð°(1 - Ð°ÐºÑ‚ÑƒÐ°Ð»ÑŒÐ½Ñ‹Ð¹, 2 - Ð½Ðµ Ð°ÐºÑ‚ÑƒÐ°Ð»ÑŒÐ½Ñ‹Ð¹, 3 - ÑƒÐ´Ð°Ð»Ð¸Ñ‚ÑŒ)', 'type' => 'int', 'default' => '1', 'periodic' => 1, 'purpose' => "???",
+            'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0,'relations' => 'Ð˜Ð¼Ñ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÑŽÑ‰ÐµÐ¹ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹'],
+        /// Ð´Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ð² Ð¾Ð¿Ð¸ÑÐ°Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ð¹ Ñ„Ð°Ð¹Ð»
+         /*'date_create' => ['notion' => 'Ð”Ð°Ñ‚Ð° ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ñ', 'description' => 'Ð”Ð°Ñ‚Ð° ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ñ Ð¾Ð±ÑŠÐµÐºÑ‚Ð°', 'type' => 'datetime', 'default' => 'now', 'periodic' => 1, 'purpose' => "???",
+            'index' => 0, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 1,'relations' => 'Ð˜Ð¼Ñ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÑŽÑ‰ÐµÐ¹ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹'],
+        'date_update' => ['notion' => 'Ð”Ð°Ñ‚Ð° Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ', 'description' => 'Ð”Ð°Ñ‚Ð° Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ Ð¾Ð±ÑŠÐµÐºÑ‚Ð°', 'type' => 'datetime', 'default' => 'now', 'periodic' => 1, 'purpose' => "???",
+            'index' => 0, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 1,'relations' => 'Ð˜Ð¼Ñ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÑŽÑ‰ÐµÐ¹ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹'],*/
 
-         'type' => ['notion' => 'Type', 'description' => 'Ñòàòóñ îáúåêòà(1 - àêòóàëüíûé, 2 - íå àêòóàëüíûé, 3 - óäàëèòü)', 'type' => 'enum', 'default' => '1', 'periodic' => 1, 'purpose' => "???",
-            'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0,'relations' => 'Èìÿ ñóùåñòâóþùåé òàáëèöû', 'enum' => 'AddressTypes'],
+         'type' => ['notion' => 'Type', 'description' => 'Ð¡Ñ‚Ð°Ñ‚ÑƒÑ Ð¾Ð±ÑŠÐµÐºÑ‚Ð°(1 - Ð°ÐºÑ‚ÑƒÐ°Ð»ÑŒÐ½Ñ‹Ð¹, 2 - Ð½Ðµ Ð°ÐºÑ‚ÑƒÐ°Ð»ÑŒÐ½Ñ‹Ð¹, 3 - ÑƒÐ´Ð°Ð»Ð¸Ñ‚ÑŒ)', 'type' => 'enum', 'default' => '1', 'periodic' => 1, 'purpose' => "???",
+            'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0,'relations' => 'Ð˜Ð¼Ñ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÑŽÑ‰ÐµÐ¹ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ñ‹', 'enum' => 'AddressTypes'],
         ];
         
         if (!$this::withGroups)
