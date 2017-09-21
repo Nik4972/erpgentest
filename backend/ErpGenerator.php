@@ -45,8 +45,7 @@ class ErpGenerator
 // Add to tables specific columns and foreign key
  
         foreach ($tables as $table) {
-/*
-*/
+
             $tab = Yii::$app->db->createCommand("SELECT * FROM _all_tables WHERE id='".$table."'")
                ->queryAll();
 
@@ -71,6 +70,7 @@ class ErpGenerator
                     }
                 }
             }
+
 
 // Create name_tables array
             /*$columns = Yii::$app->db->createCommand("SHOW COLUMNS FROM " . $table)

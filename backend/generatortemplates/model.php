@@ -29,7 +29,7 @@ class <?= $className ?> extends \yii\db\ActiveRecord
      * @inheritdoc
      */
      <?php
-     $required = $varchar = $digital = $string = "";
+     //$required = $varchar = $digital = $string = "";
         foreach ($name_tables['columns'] as $name=>$attr){
             if ($attr['required_to_fill']){
                 $required .= "'$name',";
@@ -45,22 +45,31 @@ class <?= $className ?> extends \yii\db\ActiveRecord
                 $type = $attr['type'];
             }
             switch($type){
-                case "varchar":{ $varchar[] .= ['$name', 'string', 'max' => $size]; break;}
-                case 'text' : $text[] = "'$name',";  break;
-                case 'int'  : $digital[] = "'$name',"; break;
-                case 'decimal':$number[]= "'$name',"; break;
+                case "varchar":{ $varchar[] .= "['$name', 'string', 'max' => $size],"; break;}
+                case 'text' : $text .= "'$name',";  break;
+                case 'int'  : $digital .= "'$name',"; break;
+                case 'decimal':$number .= "'$name',"; break;
             }
             
     //        'decimal(19,2)' 'varchar(33)' 'float' 'enum.Переменной из базового файла' 'date'=int
         }
-        $rules["required"] = [[$required],'required'];
-        $rules["varchar"] = $varchar;
-        $rules["string"] = [[$text],'string'];
-        $rules["int"] = [[$digital],'integer'];
+        if (!empty($required)){
+            $rules .= "[[$required],'required'],";
+        }
+        if (!empty($varchar)){
+            $rules .= $varchar;
+        }
+        if (!empty($text)){
+            $rules .= "[[$text],'string']";
+        }
+        if (!empty($digital)){
+            $rules .= "[[$digital],'integer'],";
+        }
+        
         ?>
     public function rules()
     {
-        return [<?=$rules?>];
+        return [<?=substr($rules,0,-1)?>];
     }
 
     /**

@@ -39,23 +39,13 @@ class <?= $searchModelClass ?> extends <?= $className ?>
 
         // add conditions that should always apply here
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-
+ <?php 
+ $defaultOrder="";
+        $filter ="";
+ foreach ($name_tables['columns'] as $name=>$attr){
         
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'sort' => [
-                'defaultOrder' => <?=$defaultOrder?>
-            ],
-        ]);
-
- <?php foreach ($name_tables['columns'] as $name=>$attr){
-        $defaultOrder=[];
-        $filter =[];
         if (($attr['order'] == 'SORT_ASC') || ($attr['order'] == 'SORT_DESC')){
-            $defaultOrder[] = ["'$name'" => $attr['order']];
+            $defaultOrder[] .= "['$name' => ".$attr['order']."]";
         }
         /* Пока не знаю как сделать поиск если надо по нескольким группам или статусам
         if(($name=='status') || ($name=='group')){
@@ -65,20 +55,27 @@ class <?= $searchModelClass ?> extends <?= $className ?>
          * 
          */
             {
-            if ($attr['type']== "int")
-                $filter[] = ["'$name'", '$this->'.$name];
-            else
-               $filter[] = ['like', "'$name'", '$this->'.$name];
+            if ($attr['type']== "int"){
+                $filter .= "'$name' => ".'$this->'."$name,";
+            }
+            else{
+               $filter .= "['like', '$name', ".'$this->'."$name],";
+            }
         }
     }
     ?>
+        <?php if (!empty($defaultOrder)) { ?>
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => [
                 'defaultOrder' => <?=$defaultOrder?>
             ],
         ]);
-
+        <?php } else{ ?>
+            $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        <?php }?>
         $this->load($params);
 
         if (!$this->validate()) {
@@ -88,7 +85,7 @@ class <?= $searchModelClass ?> extends <?= $className ?>
         }
 
        // grid filtering conditions
-        $query->andFilterWhere(<?=$filter?>);
+        $query->andFilterWhere([<?=$filter?>]);
 
         return $dataProvider;
     }
