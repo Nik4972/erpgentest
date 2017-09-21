@@ -1,0 +1,15 @@
+INSERT INTO `address_type` (`id`, `title`, `type`, `status`, `group_id`, `is_group`) VALUES
+(1, 'addr 1', 'logistic', 1, NULL, 0),
+(2, 'caddr 2', 'logistic', 3, NULL, 0),
+(3, 'grp 1', 'registry', 1, NULL, 1),
+(4, 'addr 1 level 2', 'registry', 1, 3, 0),
+(5, 'grp 2', 'registry', 1, NULL, 1),
+(6, 'addr 2 level 2', 'other', 3, 5, 0),
+(7, 'subgroup 1', 'registry', 1, 3, 1),
+(8, 'subgroup 2', 'registry', 1, 5, 1),
+(9, 'subsubgroup 1', 'registry', 1, 7, 1),
+(10, 'subsubgroup 2', 'registry', 1, 8, 1),
+(11, '1111', 'logistic', 1, 9, 0),
+(12, '123', 'logistic', 1, NULL, 0),
+(13, '45454', 'registry', 3, NULL, 0),
+(14, 'aaaaaaaa', 'logistic', 1, 9, 0);

@@ -34,15 +34,16 @@
                     ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
                     ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
+                    ['label' => 'Address Types', 'icon' => 'envelope', 'url' => ['/address-type'],],
+                    ['label' => 'Macroregions GEO', 'icon' => 'globe', 'url' => ['/geo-macroregion-geo'],],
+                    ['label' => 'Macroregions Com', 'icon' => 'envelope', 'url' => ['/geo-macroregion-com'],],
+                    ['label' => 'Countries', 'icon' => 'envelope', 'url' => ['/geo-country'],],
+
                     [
                         'label' => 'Tables',
                         'icon' => 'book',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'Address Types', 'icon' => 'envelope', 'url' => ['/address-type'],],
-                            ['label' => 'Macroregions GEO', 'icon' => 'globe', 'url' => ['/geo-macroregion-geo'],],
-                            ['label' => 'Macroregions Com', 'icon' => 'envelope', 'url' => ['/geo-macroregion-com'],],
-                            ['label' => 'Countries', 'icon' => 'envelope', 'url' => ['/geo-country'],],
                             ['label' => 'Currencies', 'icon' => 'euro', 'url' => ['/currency'],],
                             ['label' => 'Languages', 'icon' => 'text', 'url' => ['/language'],],
                             ['label' => 'Regions', 'icon' => 'envelope', 'url' => ['/region'],],

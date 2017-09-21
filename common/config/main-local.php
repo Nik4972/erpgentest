@@ -4,7 +4,7 @@ return [
         'db' => [
             'class' => 'yii\db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=erpnext',
-            'username' => 'root',
+            'username' => 'user_erpnext',
             'password' => 'root',
             'charset' => 'utf8',
         ],
