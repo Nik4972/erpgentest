@@ -71,6 +71,7 @@ class ErpGenerator
                 }
             }
 */
+
 // Create name_tables array
             $columns = Yii::$app->db->createCommand("SHOW COLUMNS FROM " . $table)
                     ->queryAll();
@@ -84,7 +85,7 @@ class ErpGenerator
 
             $name_tables = $table;
             $name_tables = array(
-                'table'       => $tab[0]['id'],
+                'name_tables' => $tab[0]['id'],
                 'notion'      => $tab[0]['notion'],
                 'description' => $tab[0]['description'],
                 'hierarchy'   => $tab[0]['hierarchy'],

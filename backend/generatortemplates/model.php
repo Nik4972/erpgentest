@@ -13,7 +13,7 @@ use yii\behaviors\TimestampBehavior;
  */
 class <?= $className ?> extends \yii\db\ActiveRecord
 {
-    const withGroups = <?= $tables['hierarchy'] ? 1 : 0 ?>;
+    const withGroups = <?= $name_tables['hierarchy'] ? 1 : 0 ?>;
     const STATUS_ACTUAL = 1;
     const STATUS_NONACTUAL = 2;
     const STATUS_DELETED = 3;
