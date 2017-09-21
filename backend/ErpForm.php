@@ -105,7 +105,7 @@ class ErpForm extends \yii\db\ActiveRecord
     
     public static function getMenu() // REMOVE: quick solution to view generated tables under left menu
     {
-        $menu = @include('menu.php');
+        $menu = @include('menu_local.php');
         if (!$menu)
             $menu = [];
         return $menu;
@@ -115,7 +115,7 @@ class ErpForm extends \yii\db\ActiveRecord
     {
         $templateView = new yii\base\View();
         $fileContent  = $templateView->renderPhpFile(Yii::getAlias('@app') . '/generatortemplates/menu.php', ['tables' => $tables]);
-        $saveFileName = __DIR__.'/menu.php';
+        $saveFileName = __DIR__.'/menu_local.php';
         file_put_contents($saveFileName, $fileContent);
     }
 

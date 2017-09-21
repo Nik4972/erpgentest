@@ -46,6 +46,7 @@ class ErpGenerator
  
         foreach ($tables as $table) {
 /*
+*/
             $tab = Yii::$app->db->createCommand("SELECT * FROM _all_tables WHERE id='".$table."'")
                ->queryAll();
 
@@ -70,7 +71,6 @@ class ErpGenerator
                     }
                 }
             }
-*/
 
 // Create name_tables array
             $columns = Yii::$app->db->createCommand("SHOW COLUMNS FROM " . $table)
@@ -86,6 +86,7 @@ class ErpGenerator
             $name_tables = $table;
             $name_tables = array(
                 'name_tables' => $tab[0]['id'],
+                'name'        => $tab[0]['id'],
                 'notion'      => $tab[0]['notion'],
                 'description' => $tab[0]['description'],
                 'hierarchy'   => $tab[0]['hierarchy'],
