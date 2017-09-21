@@ -104,7 +104,7 @@ class ErpGenerator
                 'modelsearch.php' => 'models/%sSearch.php',
             ];
             
-            $templates    = []; // comment or remove this line to generate real files from "generatortemplates" directory
+            //$templates    = []; // comment or remove this line to generate real files from "generatortemplates" directory
 
             $templatesDirs = ['models', 'controllers'];
             $moduleDir     = Yii::getAlias('@app') . '/modules/' . ($name_tables['module'] ? $name_tables['module'] : 'core') . '/';
