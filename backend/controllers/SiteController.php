@@ -18,6 +18,7 @@ class SiteController extends Controller
     public function behaviors()
     {
         return [
+            /*
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
@@ -32,6 +33,8 @@ class SiteController extends Controller
                     ],
                 ],
             ],
+             * 
+             */
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
