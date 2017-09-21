@@ -29,9 +29,9 @@ class <?= $className ?> extends \yii\db\ActiveRecord
      * @inheritdoc
      */
      <?php
-     //$required = $varchar = $digital = $string = "";
+        $rules = $required = $varchar = $digital = $string = "";
         foreach ($name_tables['columns'] as $name=>$attr){
-            if ($attr['required_to_fill']){
+            if ($attr['required']){
                 $required .= "'$name',";
             }
             if (strpos($attr['type'],"(")){
@@ -45,7 +45,7 @@ class <?= $className ?> extends \yii\db\ActiveRecord
                 $type = $attr['type'];
             }
             switch($type){
-                case "varchar":{ $varchar[] .= "['$name', 'string', 'max' => $size],"; break;}
+                case "varchar":{ $varchar .= "['$name', 'string', 'max' => $size],"; break;}
                 case 'text' : $text .= "'$name',";  break;
                 case 'int'  : $digital .= "'$name',"; break;
                 case 'decimal':$number .= "'$name',"; break;
