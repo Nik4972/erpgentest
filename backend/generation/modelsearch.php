@@ -43,14 +43,6 @@ class <?= $searchModelClass ?> extends <?= $className ?>
             'query' => $query,
         ]);
 
-        
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'sort' => [
-                'defaultOrder' => <?=$defaultOrder?>
-            ],
-        ]);
-
  <?php foreach ($tables['column'] as $name=>$attr){
         $defaultOrder=[];
         $filter =[];
