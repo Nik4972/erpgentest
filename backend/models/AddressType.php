@@ -30,6 +30,37 @@ class AddressType extends \yii\db\ActiveRecord
     
     const withGroups = 1;
 
+    const STATUS_ACTUAL = 1;
+    const STATUS_NONACTUAL = 2;
+    const STATUS_DELETED = 3;
+
+    public function actionSetStatus($id=0)
+    { //$ids - массив выбранных id 
+        if ($id==0){
+            $ids=\Yii::$app->request->post('ids');
+        }
+        else{
+            $ids = [$id];
+        }
+        foreach ($ids as $id){
+            $model=$this->findModel($id);
+            if ($model->status==self::STATUS_ACTUAL){
+                $model->status==self::STATUS_NONACTUAL;
+            }
+            elseif($model->status==self::STATUS_NONACTUAL){
+                $model->status==self::STATUS_ACTUAL;
+            }
+            if (!$model->save()){
+                Yii::$app->session->setFlash('error', Yii::t('app', 'ERROR_UPDATE_STATUS'));
+                return $this->render('update', [
+                'model' => $model,
+            ]);
+            }
+        }
+        
+        return $this->render('index', []);    
+    }
+
     /**
      * @inheritdoc
      */

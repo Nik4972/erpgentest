@@ -21,9 +21,11 @@ var listForm = {ids: [], group: -1, group_tr: 0,
                 listForm.ids = $.grep(listForm.ids, function(value) { // remove element from array
                   return value != key;
                 });
+                $(this).find('input.col_id').val('');
             } else {
                 $(this).addClass('selected');
                 listForm.ids.push(key);
+                $(this).find('input.col_id').val(key);
             }
         });
         $('table#tree tr').click(function(el){
@@ -39,6 +41,13 @@ var listForm = {ids: [], group: -1, group_tr: 0,
                 $(this).addClass('selected');
             }
         });
+    },
+    setStatus: function(element) {
+        $('form#formList').attr('action', $(element).attr('href'));
+        console.log($('form#formList'));
+        console.log(element);
+        return false;
+        $('form#formList').submit();
     }
 };
 
