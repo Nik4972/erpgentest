@@ -122,7 +122,7 @@ class <?= $className ?> extends \yii\db\ActiveRecord
     }
     public function getColumns()
     {
-        $columns = $name_tables['columns'];
+        $columns = unserialize('<?= str_replace('\'', '\\\'', serialize($name_tables['columns'])) ?>');
         
         if (!self::withGroups)
             $columns['parent']['hide'] = 1;
