@@ -124,6 +124,9 @@ class ErpGenerator
                 else
                     $common_columns[$id]['required'] = $row['required_to_fill'];
 
+                if (!isset($common_columns[$id]['show_in_default_list_form']))
+                    $common_columns[$id]['show_in_default_list_form'] = isset($row['show_def']) ? $row['show_def'] : 1;
+
                 if (!isset($common_columns[$id]['relation'])) // fix it to real relational info
                     $common_columns[$id]['relation'] = '';
             }

@@ -1,4 +1,6 @@
 <?php
+if (!$searchModel->status)
+    $searchModel->status = [1];
 
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -42,11 +44,6 @@ $show_alphabet = !isset($_GET['show_alphabet']) || $_GET['show_alphabet'];
     .checkbox, .select-on-check-all {zoom: 120%}
 </style>
 
-
-    <!--p>
-        <?= Html::a('Create Address Type', ['create', $this->params['model'].'[type]' => $searchModel->type, 
-            $this->params['model'].'[parent]' => $searchModel->group ? $searchModel->parent : null], ['class' => 'btn btn-success', 'data-toggle' => 'xmodal', 'data-target' => '#myModal']) ?>
-    </p-->
 
 <?php Pjax::begin(); ?>
 
