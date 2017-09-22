@@ -27,10 +27,10 @@ yii\jui\JuiAsset::register($this); // add jquery.ui scripts to this page
 $show_tree = !isset($_GET['show_tree']) || $_GET['show_tree'];
 $show_alphabet = !isset($_GET['show_alphabet']) || $_GET['show_alphabet'];
 
-echo '?', '>';
+<?= '?', '>' ?>
 <div class="address-type-index">
 
-    <h1>echo '<', '?'; Html::encode($this->title) echo '?', '>';</h1>
+    <h1><?= '<', '?=' ?> Html::encode($this->title) <?= '?', '>' ?></h1>
 
 
 
@@ -50,11 +50,11 @@ echo '?', '>';
 
 
     <!--p>
-        echo '<', '?'; Html::a('Create Address Type', ['create', $this->params['model'].'[type]' => $searchModel->type, 
-            $this->params['model'].'[parent]' => $searchModel->group ? $searchModel->parent : null], ['class' => 'btn btn-success', 'data-toggle' => 'xmodal', 'data-target' => '#myModal']) echo '?', '>';
+        <?= '<', '?=' ?> Html::a('Create Address Type', ['create', $this->params['model'].'[type]' => $searchModel->type, 
+            $this->params['model'].'[parent]' => $searchModel->group ? $searchModel->parent : null], ['class' => 'btn btn-success', 'data-toggle' => 'xmodal', 'data-target' => '#myModal']) <?= '?', '>' ?>
     </p-->
 
-echo '<', '?php'; Pjax::begin(); echo '?', '>';
+<?= '<', '?php' ?> Pjax::begin(); <?= '?', '>' ?>
 
 <!-- toolbar -->
 
@@ -63,46 +63,46 @@ echo '<', '?php'; Pjax::begin(); echo '?', '>';
     <div class="btn-group" role="group" aria-label="First group">
         <!--button type="button" class="btn btn-default" xdata-toggle="tooltip" title="Create New Element">1</button-->
         <a href="" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Create New Element"><span class="glyphicon glyphicon-plus"></span></a>
-        <a href="" type="button" class="btn btn-defaultecho '<', '?'; $searchModel::withGroups ? '' : ' disabled' echo '?', '>';" xdata-toggle="tooltip" title="Create New Group"><span class="glyphicon glyphicon-folder-open"></span></a>
+        <a href="" type="button" class="btn btn-default<?= '<', '?=' ?> $searchModel::withGroups ? '' : ' disabled' <?= '?', '>' ?>" xdata-toggle="tooltip" title="Create New Group"><span class="glyphicon glyphicon-folder-open"></span></a>
         <a href="" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Edit Record"><span class="glyphicon glyphicon-pencil"></span></a>
         <a href="" type="button" class="btn btn-default" xdata-toggle="tooltip" title="View Record"><span class="glyphicon glyphicon-info-sign"></span></a>
         <a href="" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Copy Record"><span class="glyphicon glyphicon-file"></span></a>
-        <a href="echo '<', '?';Url::to(['set-status'])echo '?', '>';" onclick="return listForm.submitForm(this)" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Change Record Status"><span class="glyphicon glyphicon-tags"></span></a>
-        <a href="echo '<', '?';Url::to(['delete'])echo '?', '>';" onclick="return listForm.submitForm(this)" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Delete/Undelete Record"><span class="glyphicon glyphicon-trash"></span></a>
-        <a href="echo '<', '?';Url::to(['set-group'])echo '?', '>';" onclick="return listForm.submitForm(this)" xhref="" type="button" class="btn btn-defaultecho '<', '?'; $searchModel::withGroups ? '' : ' disabled' echo '?', '>';" xdata-toggle="tooltip" title="Move To Group"><span class="glyphicon glyphicon-log-in"></span></a>
+        <a href="<?= '<', '?=' ?>Url::to(['set-status'])<?= '?', '>' ?>" onclick="return listForm.submitForm(this)" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Change Record Status"><span class="glyphicon glyphicon-tags"></span></a>
+        <a href="<?= '<', '?=' ?>Url::to(['delete'])<?= '?', '>' ?>" onclick="return listForm.submitForm(this)" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Delete/Undelete Record"><span class="glyphicon glyphicon-trash"></span></a>
+        <a href="<?= '<', '?=' ?>Url::to(['set-group'])<?= '?', '>' ?>" onclick="return listForm.submitForm(this)" xhref="" type="button" class="btn btn-default<?= '<', '?=' ?> $searchModel::withGroups ? '' : ' disabled' <?= '?', '>' ?>" xdata-toggle="tooltip" title="Move To Group"><span class="glyphicon glyphicon-log-in"></span></a>
     </div>
     <div class="btn-group" role="group" aria-label="Second group">
-        <a href="echo '<', '?';Url::current(['show_tree' => !$show_tree])echo '?', '>';" type="button" class="btn btn-defaultecho '<', '?'; $searchModel::withGroups ? '' : ' disabled' echo '?', '>';" xdata-toggle="tooltip" title="Show/Hide Tree"><span class="glyphicon glyphicon-indent-right"></span></a>
-        <a href="echo '<', '?';Url::current([$this->params['searchModel'] => ['group' => !$searchModel->group, 'parent' => $searchModel->group ? null : $searchModel->parent]])echo '?', '>';" type="button" class="btn btn-defaultecho '<', '?'; $searchModel::withGroups ? '' : ' disabled' echo '?', '>';" xdata-toggle="tooltip" title="View With/Without Hierarchy"><span class="glyphicon glyphicon-tasks"></span></a>
+        <a href="<?= '<', '?=' ?>Url::current(['show_tree' => !$show_tree])<?= '?', '>' ?>" type="button" class="btn btn-default<?= '<', '?=' ?> $searchModel::withGroups ? '' : ' disabled' <?= '?', '>' ?>" xdata-toggle="tooltip" title="Show/Hide Tree"><span class="glyphicon glyphicon-indent-right"></span></a>
+        <a href="<?= '<', '?=' ?>Url::current([$this->params['searchModel'] => ['group' => !$searchModel->group, 'parent' => $searchModel->group ? null : $searchModel->parent]])<?= '?', '>' ?>" type="button" class="btn btn-default<?= '<', '?=' ?> $searchModel::withGroups ? '' : ' disabled' <?= '?', '>' ?>" xdata-toggle="tooltip" title="View With/Without Hierarchy"><span class="glyphicon glyphicon-tasks"></span></a>
         <a xhref="" type="button" class="btn btn-default" zxdata-toggle="tooltip" title="Configure Columns" data-toggle="modal" data-target="#modalColumns"><span class="glyphicon glyphicon-list-alt"></span></a>
     </div>
 
-echo '<', '?php'; $form = yii\widgets\ActiveForm::begin(['method' => 'get', 'action' => Url::current([$this->params['searchModel'] => ['status' => null]])]); echo '?', '>';
+<?= '<', '?php' ?> $form = yii\widgets\ActiveForm::begin(['method' => 'get', 'action' => Url::current([$this->params['searchModel'] => ['status' => null]])]); <?= '?', '>' ?>
     <div class="btn-group" role="group" aria-label="Third group">
 		<button tabindex="-1" data-toggle="dropdown" class="btn btn-default dropdown-toggle " type="button" title="Filter by Status">
 		    <span class="glyphicon glyphicon-screenshot"></span>
 		    <span class="caret"></span>
 		</button>
         <ul role="menu" class="dropdown-menu">
-            echo '<', '?php'; foreach (ErpEnums::$RecordStatuses as $key => $notion) { echo '?', '>';
+            <?= '<', '?php' ?> foreach (ErpEnums::$RecordStatuses as $key => $notion) { <?= '?', '>' ?>
             <li><a href="#">
-            <input type="checkbox" name="echo '<', '?';$this->params['searchModel']echo '?', '>';[status][]" value="echo '<', '?'; $key echo '?', '>';"echo '<', '?';in_array($key, $searchModel->status) ? ' checked="checked"' : ''echo '?', '>';><span class="lbl"> echo '<', '?'; $notion echo '?', '>';</span>
+            <input type="checkbox" name="<?= '<', '?=' ?>$this->params['searchModel']<?= '?', '>' ?>[status][]" value="<?= '<', '?=' ?> $key <?= '?', '>' ?>"<?= '<', '?=' ?>in_array($key, $searchModel->status) ? ' checked="checked"' : ''<?= '?', '>' ?>><span class="lbl"> <?= '<', '?=' ?> $notion <?= '?', '>' ?></span>
             </a></li>
-            echo '<', '?php'; } echo '?', '>';
-            <li>echo '<', '?'; Html::submitButton('Apply', ['class' => 'btn btn-primary']) echo '?', '>';</li>
+            <?= '<', '?php' ?> } <?= '?', '>' ?>
+            <li><?= '<', '?=' ?> Html::submitButton('Apply', ['class' => 'btn btn-primary']) <?= '?', '>' ?></li>
         </ul>
 
 
-        <a id="xbtn_alphabetFilter" href="echo '<', '?';Url::current(['show_alphabet' => !$show_alphabet])echo '?', '>';" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Show/Hide Filter by First Character"><span class="glyphicon glyphicon-font"></span></a>
+        <a id="xbtn_alphabetFilter" href="<?= '<', '?=' ?>Url::current(['show_alphabet' => !$show_alphabet])<?= '?', '>' ?>" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Show/Hide Filter by First Character"><span class="glyphicon glyphicon-font"></span></a>
         <a href="" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Filters Templates"><span class="glyphicon glyphicon-filter"></span></a>
     </div>
-echo '<', '?php'; yii\widgets\ActiveForm::end(); echo '?', '>';
+<?= '<', '?php' ?> yii\widgets\ActiveForm::end(); <?= '?', '>' ?>
 
     <div class="btn-group" role="group" aria-label="Fourth group">
         <!--a href="" type="button" class="btn btn-default" data-toggle="tooltip" title="Export to Excel"><span class="glyphicon glyphicon-floppy-save"></span></a>
         <a href="" type="button" class="btn btn-default" data-toggle="tooltip" title="Export to PDF"><span class="glyphicon glyphicon-leaf"></span></a-->
 
-echo '<', '?php';
+<?= '<', '?php' ?>
     $gridColumns = [
         ['class' => 'kartik\grid\SerialColumn'],
         'id',
@@ -133,7 +133,7 @@ echo '<', '?php';
         'fontAwesome' => true,
         'asDropdown' => true
     ]);
-echo '?', '>';
+<?= '?', '>' ?>
 
         <a href="" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Send Email"><span class="glyphicon glyphicon-gift"></span></a>
         <a href="" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Print"><span class="glyphicon glyphicon-print"></span></a>
@@ -145,28 +145,28 @@ echo '?', '>';
 
 <!-- end toolbar -->
 
-echo '<', '?php';
+<?= '<', '?php' ?>
 if ($show_alphabet) { // "search by alphabet" panel
-echo '?', '>';
+<?= '?', '>' ?>
 
 <div class="row" id="alphabetFilter">
-    echo '<', '?php'; 
+    <?= '<', '?php' ?> 
     $str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $str = $searchModel->getFilterAlphabet();
     for ($i = 0; $i < count($str); $i ++) {
         echo Html::a($str[$i], Url::current(['search' => ($searchModel->search == $str[$i] ? '' : $str[$i])]), 
             ['class' => 'btn '.($searchModel->search == $str[$i]? 'btn-primary' : 'btn-success')]);
         }
-    echo '?', '>';
+    <?= '?', '>' ?>
 </div>
 
-echo '<', '?php';
+<?= '<', '?php' ?>
 }  // end "search by alphabet" panel
-echo '?', '>';
+<?= '?', '>' ?>
 
 <!-- list of table records -->
 
-echo '<', '?php';  
+<?= '<', '?php' ?>  
     $statusIcon = [2 => 'question', 'remove'];
 
     $min_width = 1;
@@ -206,36 +206,36 @@ echo '<', '?php';
     for($i = 2; $i < count($columns); $i ++) {
         $columns[$i]['options']['width'] = $min_width.'%';
     }
-echo '?', '>';
-<div id="table" class="echo '<', '?'; $show_tree ? 'with_tree' : '' echo '?', '>';">
-echo '<', '?'; $a = GridView::widget([
+<?= '?', '>' ?>
+<div id="table" class="<?= '<', '?=' ?> $show_tree ? 'with_tree' : '' <?= '?', '>' ?>">
+<?= '<', '?=' ?> $a = GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'layout' => "{items}\n{summary}\n{pager}", 
         'columns' => $columns
     ]); 
-    echo '?', '>';
+    <?= '?', '>' ?>
 </div>
 
-echo '<', '?php'; $form = yii\widgets\ActiveForm::begin(['method' => 'post', 'id'=>'formList', 'action' => Url::current()]); echo '?', '>';
-echo '<', '?php'; yii\widgets\ActiveForm::end(); echo '?', '>';
+<?= '<', '?php' ?> $form = yii\widgets\ActiveForm::begin(['method' => 'post', 'id'=>'formList', 'action' => Url::current()]); <?= '?', '>' ?>
+<?= '<', '?php' ?> yii\widgets\ActiveForm::end(); <?= '?', '>' ?>
 
 <!-- end list of table records -->
 
 
 <!-- tree window -->
 
-echo '<', '?php';
+<?= '<', '?php' ?>
 
 use execut\widget\TreeView;
 use yii\web\JsExpression;
 
 if ($searchModel::withGroups && $show_tree) {
-echo '?', '>';
+<?= '?', '>' ?>
 
 <div id="tree2">
 
-echo '<', '?php';
+<?= '<', '?php' ?>
 
 
     $strIcon = '<span class="fa-stack"><i class="fa fa-folder fa-stack-1x row-icon-group"></i><i class="fa fa-folder-o fa-stack-1x row-icon-bg"></i></span>';
@@ -293,13 +293,13 @@ echo '<', '?php';
     
     
     echo $groupsContent;
-echo '?', '>';
+<?= '?', '>' ?>
 
 </div>
 
-echo '<', '?php';
+<?= '<', '?php' ?>
 }
-echo '?', '>';
+<?= '?', '>' ?>
 
 
 <!-- end tree window -->
@@ -310,7 +310,7 @@ echo '?', '>';
     }
 </script>
 
-echo '<', '?php'; Pjax::end(); echo '?', '>';
+<?= '<', '?php' ?> Pjax::end(); <?= '?', '>' ?>
 
 
 <!-- columns order and visibility management -->
@@ -319,7 +319,7 @@ echo '<', '?php'; Pjax::end(); echo '?', '>';
   <div class="modal-dialog" role="document">
     <div class="modal-content">
 
-      echo '<', '?php'; $form = yii\widgets\ActiveForm::begin(['action' => Url::to(['columns'])]); echo '?', '>';
+      <?= '<', '?php' ?> $form = yii\widgets\ActiveForm::begin(['action' => Url::to(['columns'])]); <?= '?', '>' ?>
 
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -332,7 +332,7 @@ echo '<', '?php'; Pjax::end(); echo '?', '>';
             <table class="table table-striped">
                 <tbody>
                     <tr><td><b>Columns</b></td></tr>
-        echo '<', '?php';
+        <?= '<', '?php' ?>
             $columnsAll = $searchModel->getColumns();
             
             foreach ($columnsConfig as $col_name => $col_visible) {
@@ -344,7 +344,7 @@ echo '<', '?php'; Pjax::end(); echo '?', '>';
                         ($col_visible ? ' checked="checked"' : ''),'/> ',$columnsAll[$col_name]['notion'],'</td></tr>';
                 echo '</td></tr>';
             }
-        echo '?', '>';
+        <?= '?', '>' ?>
                 </tbody>
             </table>
         </div>
@@ -352,10 +352,10 @@ echo '<', '?php'; Pjax::end(); echo '?', '>';
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        echo '<', '?'; Html::submitButton('Save Columns', ['class' => 'btn btn-primary']) echo '?', '>';
+        <?= '<', '?=' ?> Html::submitButton('Save Columns', ['class' => 'btn btn-primary']) <?= '?', '>' ?>
       </div>
       
-      echo '<', '?php'; yii\widgets\ActiveForm::end(); echo '?', '>';
+      <?= '<', '?php' ?> yii\widgets\ActiveForm::end(); <?= '?', '>' ?>
       
     </div>
   </div>
