@@ -38,8 +38,8 @@ class ErpGenerator
  
         foreach ($tables as $table) {
  
-            Yii::$app->db->createCommand("CREATE TABLE IF NOT EXISTS " . $table . " (" . $common_fields .
-                    " PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci")->execute();
+           // Yii::$app->db->createCommand("CREATE TABLE IF NOT EXISTS " . $table . " (" . $common_fields .
+            //        " PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci")->execute();
         }
 
 // Add to tables specific columns and foreign key
@@ -51,7 +51,7 @@ class ErpGenerator
 
             $columns = Yii::$app->db->createCommand("SELECT * FROM _all_columns WHERE table_id='" . $table . "'")
                     ->queryAll();
-
+/*
             if ($columns) {
                 foreach ($columns as $column) {
 
@@ -71,7 +71,7 @@ class ErpGenerator
                 }
             }
 
-
+*/
 // Create name_tables array
             /*$columns = Yii::$app->db->createCommand("SHOW COLUMNS FROM " . $table)
                     ->queryAll();
