@@ -145,14 +145,15 @@ class ErpGenerator
                 'controller.php' => 'controllers/%sController.php',
                 'model.php' => 'models/%s.php',
                 'modelsearch.php' => 'models/%sSearch.php',
+                'view_index.php' => 'views/%s/index.php',
             ];
             
             //$templates    = []; // comment or remove this line to generate real files from "generatortemplates" directory
 
-            $templatesDirs = ['models', 'controllers'];
+            $templatesDirs = ['models', 'controllers', 'views/%s'];
             $moduleDir     = Yii::getAlias('@app') . '/modules/' . ($name_tables['module'] ? $name_tables['module'] : 'core') . '/';
             foreach ($templatesDirs as $subdir) {
-                @mkdir($moduleDir . $subdir, 0777, true);
+                @mkdir($moduleDir . sprintf($subdir, ucfirst($name_tables['notion'])), 0777, true);
             }
             foreach ($templates as $viewName => $savePath) {
                 $path = Yii::getAlias('@backend') . '/generatortemplates/' . $viewName;
