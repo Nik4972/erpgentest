@@ -20,6 +20,7 @@ use yii\db\Query;
 class <?= $searchModelClass ?> extends <?= $className ?>
 
 {
+    public $search = '';
     
     /**
      * @inheritdoc
