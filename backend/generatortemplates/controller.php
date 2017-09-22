@@ -45,7 +45,7 @@ class <?= $className ?>Controller extends Controller
         $searchModel = new <?= $searchModelClass ?>();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
+        return $this->render('@app/views/common_index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'columnsConfig' => \backend\ErpForm::getColumns($searchModel)
