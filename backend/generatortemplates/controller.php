@@ -209,6 +209,7 @@ class <?= $className ?>Controller extends Controller
             $parent_id = \Yii::$app->request->post('parent_id');
             <?= $className ?>::updateAll(['parent' => $parent_id], ['in', 'id', $ids]);
         }
+        return $this->render('index', []);    
     }
     public function actionPrintModel($id){
         $model=$this->findModel($id);
