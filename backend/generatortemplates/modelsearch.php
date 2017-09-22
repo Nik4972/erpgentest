@@ -11,6 +11,7 @@ namespace backend\modules\<?= $moduleName ?>\models;
 use Yii;
 use backend\modules\<?= $moduleName ?>\models\<?= $className ?>;
 use backend\ErpGroupModelSearch;
+use yii\data\ActiveDataProvider;
 use yii\db\Query;
 
 /**

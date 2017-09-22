@@ -108,14 +108,15 @@ class <?= $className ?> extends \yii\db\ActiveRecord
      * @inheritdoc
      * @return <?= $className ?>Query the active query used by this AR class.
      */
-    public static function find()
+    /*public static function find()
     {
         return new <?= $className ?>Query(get_called_class());
-    }
+    }*/
+    
     public function behaviors()
     {
         return [
-            'history' => [
+            /*'history' => [
             'class' => 'common\behaviors\History', //класс для поведения
             ],
             [
@@ -124,7 +125,7 @@ class <?= $className ?> extends \yii\db\ActiveRecord
                     ActiveRecord::EVENT_BEFORE_INSERT => ['date_create', 'date_update'],
                     ActiveRecord::EVENT_BEFORE_UPDATE => ['date_update'],
                 ],
-            ],
+            ],*/
         ];
     }
     public function getColumns()
