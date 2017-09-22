@@ -209,9 +209,16 @@ class <?= $className ?>Controller extends Controller
             $parent_id = \Yii::$app->request->post('parent_id');
             <?= $className ?>::updateAll(['parent' => $parent_id], ['in', 'id', $ids]);
         }
+        return $this->render('index', []);    
     }
-    public function actionPrintModel($id){
-        $model=$this->findModel($id);
+    public function actionPrintModel($id=0){
+        if ($id){
+            $model=$this->findModel($id);
+        }
+        else{
+            $searchModel = new <?= $searchModelClass ?>();
+            $model = $searchModel->search(Yii::$app->request->queryParams);
+        }
         $template=\Yii::$app->request->get('template');
         return $this->render($template, [
                 'model' => $model,
