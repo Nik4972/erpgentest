@@ -120,10 +120,8 @@ class ErpGenerator
                 else
                     $common_columns[$id]['required'] = $row['required_to_fill'];
 
-                if (!isset($common_columns[$id]['required_to_fill']))
-                    $common_columns[$id]['required_to_fill'] = $row['required'];
-                else
-                    $common_columns[$id]['required'] = $row['required_to_fill'];
+                if (!isset($common_columns[$id]['relation'])) // fix it to real relational info
+                    $common_columns[$id]['relation'] = '';
             }
 
             $name_tables = $table;

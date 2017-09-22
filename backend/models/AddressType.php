@@ -94,17 +94,17 @@ class AddressType extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return \yii\db\ActiveQuery parent group
      */
-    public function getGroup()
+    public function getParentGroup()
     {
         return $this->hasOne(AddressType::className(), ['id' => 'parent']);
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return \yii\db\ActiveQuery list of child records of current group 
      */
-    public function getAddressTypes()
+    public function getElements()
     {
         return $this->hasMany(AddressType::className(), ['parent' => 'id']);
     }

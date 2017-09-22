@@ -47,6 +47,9 @@ class ErpForm extends \yii\db\ActiveRecord
         return $columns;
     }
     
+    /**
+     * @return filter by column type (or name).
+     */
     public static function getColumnFilter($column_id, $column, $model)
     {
         if ($column_id == 'xnotion' || $column_id == 'code') { // input[text] will be displayed
@@ -79,6 +82,9 @@ class ErpForm extends \yii\db\ActiveRecord
         }
     }
     
+    /**
+     * Save columns (visibility and order) configuration for the list form of model
+     */
     public static function saveColumns($model)
     {
         $modelColumns = $model->getColumns();
@@ -86,9 +92,9 @@ class ErpForm extends \yii\db\ActiveRecord
         $data = ['title' => 'columns', 'type' => 'columns', 'form' => $model::tableName()];
         $columns = $_POST['columns'];
         foreach ($columns as $col_name => $col_val) {
-            if (!isset($modelColumns[$col_name]) || (isset($modelColumns[$col_name]['hide']) && $modelColumns[$col_name]['hide']))
+            if (!isset($modelColumns[$col_name]) || (isset($modelColumns[$col_name]['hide']) && $modelColumns[$col_name]['hide'])) // never visible colum checking
                 unset($modelColumns[$col_name]);
-            elseif (isset($modelColumns[$col_name]['always_visible']) && $modelColumns[$col_name]['always_visible']) // column üפם עשו טף רעלרûרטהף
+            elseif (isset($modelColumns[$col_name]['always_visible']) && $modelColumns[$col_name]['always_visible']) // column is always wisible
                 $columns[$col_name] = $col_name;
             elseif ($col_val != $col_name) // column marked as invisible in list form
                 $columns[$col_name] = '';
@@ -102,6 +108,25 @@ class ErpForm extends \yii\db\ActiveRecord
         $formData->attributes = $data;
         $formData->save();
     }
+    
+    
+
+    /**
+     * @return filter by column type (or name).
+     */
+    public static function getColumnValue($column_id, $column, $view)
+    {
+        if ($column_id == 'notion') { // input[text] will be displayed
+            return function($data) use($view) {return $data->group ? 
+                '<a href="'.\yii\helpers\Url::current([$view->params['searchModel'] => ['parent' => $data->id, 'group' => 1]]).'">'.$data->notion.'</a>' 
+                : $data->notion;
+                };
+        }
+
+        return false;
+    }
+    
+    
     
     public static function getMenu() // REMOVE: quick solution to view generated tables under left menu
     {
