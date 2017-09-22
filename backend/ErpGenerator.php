@@ -38,8 +38,8 @@ class ErpGenerator
  
         foreach ($tables as $table) {
  
-           // Yii::$app->db->createCommand("CREATE TABLE IF NOT EXISTS " . $table . " (" . $common_fields .
-            //        " PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci")->execute();
+            Yii::$app->db->createCommand("CREATE TABLE IF NOT EXISTS " . $table . " (" . $common_fields .
+                    " PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci")->execute();
         }
 
 // Add to tables specific columns and foreign key
@@ -51,7 +51,7 @@ class ErpGenerator
 
             $columns = Yii::$app->db->createCommand("SELECT * FROM _all_columns WHERE table_id='" . $table . "'")
                     ->queryAll();
-/*
+
             if ($columns) {
                 foreach ($columns as $column) {
 
@@ -71,7 +71,7 @@ class ErpGenerator
                 }
             }
 
-*/
+
 // Create name_tables array
             /*$columns = Yii::$app->db->createCommand("SHOW COLUMNS FROM " . $table)
                     ->queryAll();
@@ -85,31 +85,32 @@ class ErpGenerator
 
             $common_columns = [
                 'id' => ['notion' => 'ID', 'description' => '', 'type' => 'int', 'default' => '', 'periodic' => 0, 'purpose' => "both", 'index' => 1,
-                    'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 1, 'relations' => 'Имя существующей таблицы с большой буквы', 'hide'=>1],
-                'code' => ['notion' => 'Code', 'description' => 'Например Артикул', 'type' => 'varchar', 'default' => '', 
+                    'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 1, 'relation' => '', 'hide'=>1],
+                'code' => ['notion' => 'Code', 'description' => 'РќР°РїСЂРёРјРµСЂ РђСЂС‚РёРєСѓР»', 'type' => 'varchar', 'default' => '', 
                     'periodic' => 1, 'purpose' => "both",'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 
-                    'system' => 0, 'relations' => 'Имя существующей таблицы', 'always_visible'=>1],
-                'notion' => ['notion' => 'Notion', 'description' => 'Имя на экране', 'type' => 'varchar', 'default' => '', 'periodic' => 1, 'purpose' => "both",
-                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0, 'relations' => 'Имя существующей таблицы', 'always_visible'=>1],
-                'description' => ['notion' => 'Полное описание объекта', 'description' => 'Полное описание', 'type' => 'varchar', 'default' => '', 'periodic' => 0, 'purpose' => "group",
-                    'index' => 0, 'required_to_fill' => 0, 'show_in_default_list_form' => 0, 'system' => 0, 'relations' => 'Имя существующей таблицы'],
-                'group' => ['notion' => 'Is Group', 'description' => 'является ли данная запись группой', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "???",
-                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relations' => 'Имя существующей таблицы', 'hide'=>1],
-                'parent' => ['notion' => 'Group', 'description' => 'Наличие родителя', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "???",
-                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relations' => 'Имя существующей таблицы'],
-                'predefined' => ['notion' => 'предопределенная запись', 'description' => 'Записи по-умолчанию', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "???",
-                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relations' => 'Имя существующей таблицы', 'hide'=>1],
-                 'status' => ['notion' => 'Status', 'description' => 'Статус объекта(1 - актуальный, 2 - не актуальный, 3 - удалить)', 'type' => 'int', 'default' => '1', 'periodic' => 1, 'purpose' => "???",
-                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0,'relations' => 'Имя существующей таблицы'],
-                /// добавить в описательный файл
-                 'date_create' => ['notion' => 'Дата создания', 'description' => 'Дата создания объекта', 'type' => 'datetime', 'default' => 'now', 'periodic' => 1, 'purpose' => "???",
-                    'index' => 0, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 1,'relations' => 'Имя существующей таблицы', 'hide'=>1],
-                'date_update' => ['notion' => 'Дата изменения', 'description' => 'Дата изменения объекта', 'type' => 'datetime', 'default' => 'now', 'periodic' => 1, 'purpose' => "???",
-                    'index' => 0, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 1,'relations' => 'Имя существующей таблицы', 'hide'=>1],
+                    'system' => 0, 'relation' => '', 'always_visible'=>1],
+                'notion' => ['notion' => 'Notion', 'description' => 'РРјСЏ РЅР° СЌРєСЂР°РЅРµ', 'type' => 'varchar', 'default' => '', 'periodic' => 1, 'purpose' => "both",
+                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0, 'relation' => '', 'always_visible'=>1],
+                'description' => ['notion' => 'РџРѕР»РЅРѕРµ РѕРїРёСЃР°РЅРёРµ РѕР±СЉРµРєС‚Р°', 'description' => 'РџРѕР»РЅРѕРµ РѕРїРёСЃР°РЅРёРµ', 'type' => 'varchar', 'default' => '', 'periodic' => 0, 'purpose' => "group",
+                    'index' => 0, 'required_to_fill' => 0, 'show_in_default_list_form' => 0, 'system' => 0, 'relation' => ''],
+                'group' => ['notion' => 'Is Group', 'description' => 'СЏРІР»СЏРµС‚СЃСЏ Р»Рё РґР°РЅРЅР°СЏ Р·Р°РїРёСЃСЊ РіСЂСѓРїРїРѕР№', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "???",
+                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relation' => '', 'hide'=>1],
+                'parent' => ['notion' => 'Group', 'description' => 'РќР°Р»РёС‡РёРµ СЂРѕРґРёС‚РµР»СЏ', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "???",
+                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relation' => ''],
+                'predefined' => ['notion' => 'РїСЂРµРґРѕРїСЂРµРґРµР»РµРЅРЅР°СЏ Р·Р°РїРёСЃСЊ', 'description' => 'Р—Р°РїРёСЃРё РїРѕ-СѓРјРѕР»С‡Р°РЅРёСЋ', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "???",
+                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relation' => '', 'hide'=>1],
+                 'status' => ['notion' => 'Status', 'description' => 'РЎС‚Р°С‚СѓСЃ РѕР±СЉРµРєС‚Р°(1 - Р°РєС‚СѓР°Р»СЊРЅС‹Р№, 2 - РЅРµ Р°РєС‚СѓР°Р»СЊРЅС‹Р№, 3 - СѓРґР°Р»РёС‚СЊ)', 'type' => 'int', 'default' => '1', 'periodic' => 1, 'purpose' => "???",
+                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0,'relation' => ''],
+                /// РґРѕР±Р°РІРёС‚СЊ РІ РѕРїРёСЃР°С‚РµР»СЊРЅС‹Р№ С„Р°Р№Р»
+                 'date_create' => ['notion' => 'Р”Р°С‚Р° СЃРѕР·РґР°РЅРёСЏ', 'description' => 'Р”Р°С‚Р° СЃРѕР·РґР°РЅРёСЏ РѕР±СЉРµРєС‚Р°', 'type' => 'datetime', 'default' => 'now', 'periodic' => 1, 'purpose' => "???",
+                    'index' => 0, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 1,'relation' => '', 'hide'=>1],
+                'date_update' => ['notion' => 'Р”Р°С‚Р° РёР·РјРµРЅРµРЅРёСЏ', 'description' => 'Р”Р°С‚Р° РёР·РјРµРЅРµРЅРёСЏ РѕР±СЉРµРєС‚Р°', 'type' => 'datetime', 'default' => 'now', 'periodic' => 1, 'purpose' => "???",
+                    'index' => 0, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 1,'relation' => '', 'hide'=>1],
         
-                 'type' => ['notion' => 'Type', 'description' => 'Статус объекта(1 - актуальный, 2 - не актуальный, 3 - удалить)', 'type' => 'enum', 'default' => '1', 'periodic' => 1, 'purpose' => "???",
-                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0,'relations' => 'Имя существующей таблицы', 'enum' => 'AddressTypes'],
+                 'type' => ['notion' => 'Type', 'description' => 'РЎС‚Р°С‚СѓСЃ РѕР±СЉРµРєС‚Р°(1 - Р°РєС‚СѓР°Р»СЊРЅС‹Р№, 2 - РЅРµ Р°РєС‚СѓР°Р»СЊРЅС‹Р№, 3 - СѓРґР°Р»РёС‚СЊ)', 'type' => 'enum', 'default' => '1', 'periodic' => 1, 'purpose' => "???",
+                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0,'relation' => '', 'enum' => 'AddressTypes'],
             ];
+            
             
             foreach ($columns as $row) {
                 if (!isset($common_columns[$row['id']]))
@@ -117,6 +118,11 @@ class ErpGenerator
             }
             
             foreach ($common_columns as $id => $row) {
+                if (!isset($common_columns[$id]['required_to_fill']))
+                    $common_columns[$id]['required_to_fill'] = $row['required'];
+                else
+                    $common_columns[$id]['required'] = $row['required_to_fill'];
+
                 if (!isset($common_columns[$id]['required_to_fill']))
                     $common_columns[$id]['required_to_fill'] = $row['required'];
                 else
