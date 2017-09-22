@@ -44,7 +44,7 @@ class GeneratorController extends Controller {
      
      $result =\backend\ErpForm::clearMenu();
 
-     return $this->render('generator2', [
+     return $this->render('droped', [
           'tables' => $result,
          ]);
 

@@ -59,7 +59,7 @@ $show_alphabet = !isset($_GET['show_alphabet']) || $_GET['show_alphabet'];
         <a href="" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Edit Record"><span class="glyphicon glyphicon-pencil"></span></a>
         <a href="" type="button" class="btn btn-default" xdata-toggle="tooltip" title="View Record"><span class="glyphicon glyphicon-info-sign"></span></a>
         <a href="" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Copy Record"><span class="glyphicon glyphicon-file"></span></a>
-        <a href="" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Change Record Status"><span class="glyphicon glyphicon-tags"></span></a>
+        <a href="<?=Url::to(['setStatus'])?>" onclick="return listForm.setStatus(this)" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Change Record Status"><span class="glyphicon glyphicon-tags"></span></a>
         <a href="" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Delete/Undelete Record"><span class="glyphicon glyphicon-trash"></span></a>
         <a id="btnMove" xhref="" type="button" class="btn btn-default<?= $searchModel::withGroups ? '' : ' disabled' ?>" xdata-toggle="tooltip" title="Move To Group"><span class="glyphicon glyphicon-log-in"></span></a>
     </div>
@@ -158,6 +158,8 @@ if ($show_alphabet) { // "search by alphabet" panel
 
 <!-- list of table records -->
 
+<?php $form = yii\widgets\ActiveForm::begin(['method' => 'get', 'id'=>'formList', 'action' => Url::current()]); ?>
+
 <?php  
     $this->params['statusIcon'] = [2 => 'question', 'remove'];
 
@@ -165,7 +167,8 @@ if ($show_alphabet) { // "search by alphabet" panel
     $columns = [
             ['attribute' => 'id', 'filter' => false, 'enableSorting'=>false, 'format' => 'html', 'options' => ['width'=> '1%'], 'label' => false,
             'value' => function($data) {
-                return '<span class="fa-stack"><i class="fa fa-folder fa-stack-1x row-icon'
+                return '<input type="hidden" class="col_id" name="ids[]" value="'.$data['id'].'"/>
+                <span class="fa-stack"><i class="fa fa-folder fa-stack-1x row-icon'
                     .($data['group'] ? '-group' : '').'"></i><i class="fa fa-folder-o fa-stack-1x row-icon-bg"></i>'
                     .($data['status'] > 1 ? '<i class="fa fa-'.$this->params['statusIcon'][$data['status']].' fa-stack-1x row-icon-'.$data['status'].'"></i>' : '')
                     .'</span>'
@@ -209,6 +212,8 @@ if ($show_alphabet) { // "search by alphabet" panel
     ]); 
     ?>
 </div>
+
+<?php yii\widgets\ActiveForm::end(); ?>
 
 <!-- end list of table records -->
 

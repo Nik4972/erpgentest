@@ -73,14 +73,14 @@ class ErpGenerator
 
 
 // Create name_tables array
-            $columns = Yii::$app->db->createCommand("SHOW COLUMNS FROM " . $table)
+            /*$columns = Yii::$app->db->createCommand("SHOW COLUMNS FROM " . $table)
                     ->queryAll();
 
             $columns_list = array();
 
             foreach ($columns as $column) {
                 $columns_list[$column['Field']] = $column_parameter;
-            }
+            }*/
 
 
             $name_tables = $table;
@@ -92,7 +92,7 @@ class ErpGenerator
                 'hierarchy'   => $tab[0]['hierarchy'],
                 'module'      => $tab[0]['module'],
                 'type'        => $tab[0]['type'],
-                'columns'     => $columns_list
+                'columns'     => $columns
             );
 
             $templateView = new View();
@@ -104,7 +104,7 @@ class ErpGenerator
                 'modelsearch.php' => 'models/%sSearch.php',
             ];
             
- //           $templates    = []; // comment or remove this line to generate real files from "generatortemplates" directory
+            //$templates    = []; // comment or remove this line to generate real files from "generatortemplates" directory
 
             $templatesDirs = ['models', 'controllers'];
             $moduleDir     = Yii::getAlias('@app') . '/modules/' . ($name_tables['module'] ? $name_tables['module'] : 'core') . '/';
