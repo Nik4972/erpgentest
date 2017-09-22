@@ -122,16 +122,6 @@ class <?= $className ?> extends \yii\db\ActiveRecord
     }
     public function getColumns()
     {
-<<<<<<< HEAD
-    <?php $str = "[";
-        foreach($name_tables['columns'] as $key=>$column){
-            $str.="'id' => ['notion' => 'ID', 'description' => '', 'type' => 'int', 'default' => '', 'periodic' => 0, 'purpose' => 'both', 'index' => 1,
-            'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 1, 'relations' => 'Имя существующей таблицы с большой буквы', 'hide'=>1],";
-        }
-        $str.="]";
-    ?>
-=======
->>>>>>> origin/master
         $columns = unserialize('<?= str_replace('\'', '\\\'', serialize($name_tables['columns'])) ?>');
         
         if (!self::withGroups)
