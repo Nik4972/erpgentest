@@ -11,6 +11,7 @@ namespace backend\modules\<?= $moduleName ?>\models;
 use Yii;
 use backend\modules\<?= $moduleName ?>\models\<?= $className ?>;
 use backend\ErpGroupModelSearch;
+use yii\data\ActiveDataProvider;
 use yii\db\Query;
 
 /**
@@ -26,7 +27,7 @@ class <?= $searchModelClass ?> extends <?= $className ?>
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
+        return parent::scenarios();
     }
 
     public function rules()

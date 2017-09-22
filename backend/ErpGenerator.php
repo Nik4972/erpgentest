@@ -38,8 +38,10 @@ class ErpGenerator
  
         foreach ($tables as $table) {
  
- //           Yii::$app->db->createCommand("CREATE TABLE IF NOT EXISTS " . $table . " (" . $common_fields .
-  //                  " PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci")->execute();
+ // create tables
+           Yii::$app->db->createCommand("CREATE TABLE IF NOT EXISTS " . $table . " (" . $common_fields .
+                  " PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci")->execute();
+// end create tables 
         }
 
 // Add to tables specific columns and foreign key
@@ -51,7 +53,7 @@ class ErpGenerator
 
             $columns = Yii::$app->db->createCommand("SELECT * FROM _all_columns WHERE table_id='" . $table . "'")
                     ->queryAll();
-/*
+// create tables columns
             if ($columns) {
                 foreach ($columns as $column) {
 
@@ -70,6 +72,8 @@ class ErpGenerator
                     }
                 }
             }
+// end create tables columns
+/*
 */
 
 // Create name_tables array
@@ -151,7 +155,7 @@ class ErpGenerator
             $templatesDirs = ['models', 'controllers', 'views/%s'];
             $moduleDir     = Yii::getAlias('@app') . '/modules/' . ($name_tables['module'] ? $name_tables['module'] : 'core') . '/';
             foreach ($templatesDirs as $subdir) {
-                @mkdir($moduleDir . sprintf($subdir, ucfirst($name_tables['notion'])), 0777, true);
+                @mkdir($moduleDir . sprintf($subdir, $name_tables['name']), 0777, true);
             }
             foreach ($templates as $viewName => $savePath) {
                 $path = Yii::getAlias('@backend') . '/generatortemplates/' . $viewName;
