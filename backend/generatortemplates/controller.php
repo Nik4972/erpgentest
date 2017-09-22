@@ -138,7 +138,8 @@ class <?= $className ?>Controller extends Controller
     else{
         $ids = [$id];
     }
-    
+    if ($ids)
+    {
         foreach ($ids as $id){
             $model=$this->findModel($id);
             if ($model->status==<?= $className ?>::STATUS_DELETED){
@@ -154,8 +155,8 @@ class <?= $className ?>Controller extends Controller
             ]);
             }
         }
-        
-        return $this->render('index', []);     
+    }    
+       return $this->redirect('index.php?r=core/<?=$name_tables['name']?>&redir=delete'); 
     }
 
     /**
@@ -192,23 +193,24 @@ class <?= $className ?>Controller extends Controller
         else{
             $ids = [$id];
         }
-        foreach ($ids as $id){
-            $model=$this->findModel($id);
-            if ($model->status==<?= $className ?>::STATUS_ACTUAL){
-                $model->status==<?= $className ?>::STATUS_NONACTUAL;
-            }
-            elseif($model->status==<?= $className ?>::STATUS_NONACTUAL){
-                $model->status==<?= $className ?>::STATUS_ACTUAL;
-            }
-            if (!$model->save()){
-                Yii::$app->session->setFlash('error', Yii::t('app', 'ERROR_UPDATE_STATUS'));
-                return $this->render('update', [
-                'model' => $model,
-            ]);
+        if ($ids){
+            foreach ($ids as $id){
+                $model=$this->findModel($id);
+                if ($model->status==<?= $className ?>::STATUS_ACTUAL){
+                    $model->status==<?= $className ?>::STATUS_NONACTUAL;
+                }
+                elseif($model->status==<?= $className ?>::STATUS_NONACTUAL){
+                    $model->status==<?= $className ?>::STATUS_ACTUAL;
+                }
+                if (!$model->save()){
+                    Yii::$app->session->setFlash('error', Yii::t('app', 'ERROR_UPDATE_STATUS'));
+                   return $this->render('update', [
+                   'model' => $model,
+                ]);
+                }
             }
         }
-        
-        return $this->render('index', []);    
+        return $this->redirect('index.php?r=core/<?=$name_tables['name']?>&redir=setstatus'); 
     }
     public function actionSetGroup(){
         //$ids - массив выбранных id 
