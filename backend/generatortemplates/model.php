@@ -81,8 +81,8 @@ class <?= $className ?> extends \yii\db\ActiveRecord
      $label="";
       foreach ($name_tables['columns'] as $name=>$attr){
             $notion = $attr['notion'];
-            //$str = "'$notion' => Yii::t('users', '$notion'),";
-            $str = "'$notion' => '$notion',";
+            $str = "'$notion' => Yii::t('app', '$notion'),";
+            //$str = "'$notion' => '$notion',";
             $label.= $str;
         }
      ?>
