@@ -83,52 +83,6 @@ class ErpGenerator
             }*/
 
 
-            $common_columns = [
-                'id' => ['notion' => 'ID', 'description' => '', 'type' => 'int', 'default' => '', 'periodic' => 0, 'purpose' => "both", 'index' => 1,
-                    'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 1, 'relation' => '', 'hide'=>1],
-                'code' => ['notion' => 'Code', 'description' => 'Например Артикул', 'type' => 'varchar', 'default' => '', 
-                    'periodic' => 1, 'purpose' => "both",'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 
-                    'system' => 0, 'relation' => '', 'always_visible'=>1],
-                'notion' => ['notion' => 'Notion', 'description' => 'Имя на экране', 'type' => 'varchar', 'default' => '', 'periodic' => 1, 'purpose' => "both",
-                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0, 'relation' => '', 'always_visible'=>1],
-                'description' => ['notion' => 'Полное описание объекта', 'description' => 'Полное описание', 'type' => 'varchar', 'default' => '', 'periodic' => 0, 'purpose' => "group",
-                    'index' => 0, 'required_to_fill' => 0, 'show_in_default_list_form' => 0, 'system' => 0, 'relation' => ''],
-                'group' => ['notion' => 'Is Group', 'description' => 'является ли данная запись группой', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "???",
-                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relation' => '', 'hide'=>1],
-                'parent' => ['notion' => 'Group', 'description' => 'Наличие родителя', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "???",
-                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relation' => ''],
-                'predefined' => ['notion' => 'предопределенная запись', 'description' => 'Записи по-умолчанию', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "???",
-                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relation' => '', 'hide'=>1],
-                 'status' => ['notion' => 'Status', 'description' => 'Статус объекта(1 - актуальный, 2 - не актуальный, 3 - удалить)', 'type' => 'int', 'default' => '1', 'periodic' => 1, 'purpose' => "???",
-                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0,'relation' => ''],
-                /// добавить в описательный файл
-                 'date_create' => ['notion' => 'Дата создания', 'description' => 'Дата создания объекта', 'type' => 'datetime', 'default' => 'now', 'periodic' => 1, 'purpose' => "???",
-                    'index' => 0, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 1,'relation' => '', 'hide'=>1],
-                'date_update' => ['notion' => 'Дата изменения', 'description' => 'Дата изменения объекта', 'type' => 'datetime', 'default' => 'now', 'periodic' => 1, 'purpose' => "???",
-                    'index' => 0, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 1,'relation' => '', 'hide'=>1],
-        
-                 'type' => ['notion' => 'Type', 'description' => 'Статус объекта(1 - актуальный, 2 - не актуальный, 3 - удалить)', 'type' => 'enum', 'default' => '1', 'periodic' => 1, 'purpose' => "???",
-                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0,'relation' => '', 'enum' => 'AddressTypes'],
-            ];
-            
-            
-            foreach ($columns as $row) {
-                if (!isset($common_columns[$row['id']]))
-                    $common_columns[$row['id']] = $row;
-            }
-            
-            foreach ($common_columns as $id => $row) {
-                if (!isset($common_columns[$id]['required_to_fill']))
-                    $common_columns[$id]['required_to_fill'] = $row['required'];
-                else
-                    $common_columns[$id]['required'] = $row['required_to_fill'];
-
-                if (!isset($common_columns[$id]['required_to_fill']))
-                    $common_columns[$id]['required_to_fill'] = $row['required'];
-                else
-                    $common_columns[$id]['required'] = $row['required_to_fill'];
-            }
-
             $name_tables = $table;
             $name_tables = array(
                 'name_tables' => $tab[0]['id'],
@@ -138,7 +92,7 @@ class ErpGenerator
                 'hierarchy'   => $tab[0]['hierarchy'],
                 'module'      => $tab[0]['module'],
                 'type'        => $tab[0]['type'],
-                'columns'     => $common_columns /// !!!! another var
+                'columns'     => $columns
             );
 
             $templateView = new View();
