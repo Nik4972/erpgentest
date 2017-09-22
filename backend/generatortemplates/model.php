@@ -76,9 +76,11 @@ class <?= $className ?> extends \yii\db\ActiveRecord
      * @inheritdoc
      */
      <?php
+     $label="";
       foreach ($name_tables['columns'] as $name=>$attr){
             $notion = $attr['notion'];
-            $ladel[$name] = "Yii::t('app', '$notion')";
+            $str = "'$notion' => Yii::t('users', '$notion'),";
+            $label.= $str;
         }
      ?>
     public function attributeLabels()
