@@ -1,4 +1,4 @@
-'<?php
+<?php
 
 echo '<', '?php';
 $className = ucfirst($name_tables['name']);
