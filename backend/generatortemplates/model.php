@@ -122,6 +122,7 @@ class <?= $className ?> extends \yii\db\ActiveRecord
     }
     public function getColumns()
     {
+<<<<<<< HEAD
     <?php $str = "[";
         foreach($name_tables['columns'] as $key=>$column){
             $str.="'id' => ['notion' => 'ID', 'description' => '', 'type' => 'int', 'default' => '', 'periodic' => 0, 'purpose' => 'both', 'index' => 1,
@@ -129,6 +130,8 @@ class <?= $className ?> extends \yii\db\ActiveRecord
         }
         $str.="]";
     ?>
+=======
+>>>>>>> origin/master
         $columns = unserialize('<?= str_replace('\'', '\\\'', serialize($name_tables['columns'])) ?>');
         
         if (!self::withGroups)
