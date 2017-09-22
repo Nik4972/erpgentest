@@ -116,8 +116,8 @@ class <?= $className ?> extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            /*'history' => [
-            'class' => 'common\behaviors\History', //класс для поведения
+            'history' => [
+            'class' => 'backend\behaviors\History', //класс для поведения
             ],
             [
                 'class' => TimestampBehavior::className(),
@@ -125,7 +125,7 @@ class <?= $className ?> extends \yii\db\ActiveRecord
                     ActiveRecord::EVENT_BEFORE_INSERT => ['date_create', 'date_update'],
                     ActiveRecord::EVENT_BEFORE_UPDATE => ['date_update'],
                 ],
-            ],*/
+            ],
         ];
     }
     public function getColumns()
