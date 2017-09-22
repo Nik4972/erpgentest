@@ -39,6 +39,11 @@ class <?= $className ?>Controller extends Controller
      * Lists all <?= $className ?> models.
      * @return mixed
      */
+     public function getViewPath()
+{
+    return Yii::getAlias('@backend/modules/core/views');
+}
+
     public function actionIndex()
     {
 
