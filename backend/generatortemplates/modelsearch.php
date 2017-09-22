@@ -6,12 +6,15 @@ $moduleName = $name_tables['module'] ? $name_tables['module'] : 'core';
 $searchModelClass = $className."Search";
 ?>
 
-namespace backend\<?= $moduleName ?>\models;
+namespace backend\modules\<?= $moduleName ?>\models;
 
 use Yii;
+use backend\modules\<?= $moduleName ?>\models\<?= $className ?>;
+use backend\ErpGroupModelSearch;
+use yii\db\Query;
 
 /**
- * <?= $searchModelClass ?> represents the model behind the search form about `<?= $generator->modelClass ?>`.
+ * <?= $searchModelClass ?> represents the model behind the search form about `<?= $className ?>`.
  */
 class <?= $searchModelClass ?> extends <?= $className ?>
 
@@ -59,10 +62,11 @@ class <?= $searchModelClass ?> extends <?= $className ?>
     if ((isset($attr['hide']) && $attr['hide']) || in_array($name, ['parent', 'status', 'code', 'notion', 'group', 'predefined', 'date_create', 'date_update'])) // skip known (common) columns
         continue;
         
-        if (($attr['order'] == 'SORT_ASC') || ($attr['order'] == 'SORT_DESC')){
+        /*
+        if (($attr['order'] == 'SORT_ASC') || ($attr['order'] == 'SORT_DESC')){ // currently there is no $attr['order'] 
             $defaultOrder[] .= "['$name' => ".$attr['order']."]";
         }
-        /* Пока не знаю как сделать поиск если надо по нескольким группам или статусам
+         Пока не знаю как сделать поиск если надо по нескольким группам или статусам
         if(($name=='status') || ($name=='group')){
             $filter[] = ['in', "'$name'", "$this->".$name];
         }

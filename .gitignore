@@ -37,3 +37,4 @@ phpunit.phar
 /.vagrant
 
 *.bak
+/backend/modules/core/views/

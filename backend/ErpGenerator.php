@@ -91,13 +91,13 @@ class ErpGenerator
                     'system' => 0, 'relation' => '', 'always_visible'=>1],
                 'notion' => ['notion' => 'Notion', 'description' => '', 'type' => 'varchar(255)', 'default' => '', 'periodic' => 1, 'purpose' => "both",
                     'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0, 'relation' => '', 'always_visible'=>1],
-                'description' => ['notion' => '', 'description' => '', 'type' => 'varchar(255)', 'default' => '', 'periodic' => 0, 'purpose' => "group",
+                'description' => ['notion' => 'Description', 'description' => '', 'type' => 'varchar(255)', 'default' => '', 'periodic' => 0, 'purpose' => "group",
                     'index' => 0, 'required_to_fill' => 0, 'show_in_default_list_form' => 0, 'system' => 0, 'relation' => ''],
                 'group' => ['notion' => 'Is Group', 'description' => '', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "both",
                     'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relation' => '', 'hide'=>1],
                 'parent' => ['notion' => 'Group', 'description' => '', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "both",
                     'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relation' => ''],
-                'predefined' => ['notion' => '', 'description' => '', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "both",
+                'predefined' => ['notion' => 'Predefined', 'description' => '', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "both",
                     'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relation' => '', 'hide'=>1],
                  'status' => ['notion' => 'Status', 'description' => '', 'type' => 'int', 'default' => '1', 'periodic' => 1, 'purpose' => "both",
                     'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0,'relation' => ''],
@@ -120,10 +120,8 @@ class ErpGenerator
                 else
                     $common_columns[$id]['required'] = $row['required_to_fill'];
 
-                if (!isset($common_columns[$id]['required_to_fill']))
-                    $common_columns[$id]['required_to_fill'] = $row['required'];
-                else
-                    $common_columns[$id]['required'] = $row['required_to_fill'];
+                if (!isset($common_columns[$id]['relation'])) // fix it to real relational info
+                    $common_columns[$id]['relation'] = '';
             }
 
             $name_tables = $table;

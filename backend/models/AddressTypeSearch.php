@@ -24,7 +24,7 @@ class AddressTypeSearch extends AddressType
     {
         return [
             [['parent', 'group'], 'integer'],
-            [['predefined', 'code', 'notion', 'type', 'group.notion', 'search'], 'safe'],
+            [['predefined', 'code', 'notion', 'type', 'search'], 'safe'],
             ['status', 'each', 'rule' => ['in', 'range' => [1, 2, 3]]],
         ];
     }
@@ -107,7 +107,7 @@ class AddressTypeSearch extends AddressType
     public function search($params)
     {
         $query = AddressType::find();
-
+        
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -117,42 +117,41 @@ class AddressTypeSearch extends AddressType
 
         $this->load($params);
         
-        $query->joinWith(['group' => function($query) { $query->from(['group' => $this->tableName()]); }]);
-
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
         }
 
-        // grid filtering conditions
-        $query->andFilterWhere(['=', $this->tableName().'.type', $this->type]);
-        if ($this->group == 1) {
-            if ($this->type)
-                $query->orFilterWhere([$this->tableName().'.group' => 1]);
-            $query->andWhere([$this->tableName().'.parent' => ($this->parent ? intval($this->parent) : null)]);
-        } else {
-            $query->andWhere([$this->tableName().'.group' => '0']);
-        }
-
         if (!$this->status)
             $this->status = [1];
-
-        $query->andWhere(['in', $this->tableName().'.status', $this->status]);
+         // TODO: add code for $this->group mode that will check elements status over each group subtree.
+         // So with filter status =2 =3 groups will be displayed even with oun status=1 but when they have child elements/groups with different status
+        $query->andWhere(['in', 'status', $this->status]);
         
-        if (isset($_GET['search']) && strlen($_GET['search'])) {
-            //echo '<pre>';print_r(urldecode($_GET['search']));die;
-            if ($_GET['search'] == 'nonalpha') {
+        // grid filtering conditions will be elevated in template for each column by its type
+        $query->andFilterWhere(['=', 'type', $this->type]);
+        $query->andFilterWhere(['=', 'code', $this->code]);
+        
+        if ($this->group == 1) {
+            if ($this->type || $this->code) // exclude columns of 'element' kind for groups
+                $query->orFilterWhere(['group' => 1]);
+
+            $query->andWhere(['parent' => ($this->parent ? intval($this->parent) : null)]);
+        } else {
+            $query->andWhere(['group' => '0']);
+        }
+
+        if (isset($params['search']) && strlen($params['search'])) {
+            if ($params['search'] == 'nonalpha') {
                 $this->search = 'nonalpha';
-                $query->andWhere(['NOT REGEXP', $this->tableName().'.notion', '^[[:alpha:]]']);
+                $query->andWhere(['NOT REGEXP', 'notion', '^[[:alpha:]]']);
             } else {
-                /*$this->search = $_GET['search']{0};
-                $query->andWhere(['like', $this->tableName().'.notion', $_GET['search']{0}.'%', false]);*/
-                $this->search = $_GET['search'];
-                $query->andWhere(['like', $this->tableName().'.notion', $_GET['search'].'%', false]);
+                $this->search = $params['search'];
+                $query->andWhere(['like', 'notion', $params['search'].'%', false]);
             }
         }
-        $query->andFilterWhere(['like', $this->tableName().'.notion', $this->notion]);
+        $query->andFilterWhere(['like', 'notion', $this->notion]);
 
         return $dataProvider;
     }

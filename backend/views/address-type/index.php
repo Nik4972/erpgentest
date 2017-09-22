@@ -10,6 +10,7 @@ use yii\widgets\Pjax;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 use backend\ErpEnums;
 
+//$this->title = Yii::t('mozgo', 'desktop_head'); //'Address Types';
 $this->title = 'Address Types';
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['searchModel'] = join('', array_slice(explode('\\', get_class($searchModel)), -1)); // get class name without namespace
@@ -38,6 +39,7 @@ $show_alphabet = !isset($_GET['show_alphabet']) || $_GET['show_alphabet'];
     .row-icon {color: #63E7E0; }
     .row-icon-group {color: #FFFFBF}
     .fa-stack {height: 1em;line-height: 1em;}
+    .checkbox, .select-on-check-all {zoom: 120%}
 </style>
 
 
@@ -59,9 +61,9 @@ $show_alphabet = !isset($_GET['show_alphabet']) || $_GET['show_alphabet'];
         <a href="" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Edit Record"><span class="glyphicon glyphicon-pencil"></span></a>
         <a href="" type="button" class="btn btn-default" xdata-toggle="tooltip" title="View Record"><span class="glyphicon glyphicon-info-sign"></span></a>
         <a href="" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Copy Record"><span class="glyphicon glyphicon-file"></span></a>
-        <a href="<?=Url::to(['setStatus'])?>" onclick="return listForm.setStatus(this)" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Change Record Status"><span class="glyphicon glyphicon-tags"></span></a>
-        <a href="" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Delete/Undelete Record"><span class="glyphicon glyphicon-trash"></span></a>
-        <a id="btnMove" xhref="" type="button" class="btn btn-default<?= $searchModel::withGroups ? '' : ' disabled' ?>" xdata-toggle="tooltip" title="Move To Group"><span class="glyphicon glyphicon-log-in"></span></a>
+        <a href="<?=Url::to(['set-status'])?>" onclick="return listForm.submitForm(this)" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Change Record Status"><span class="glyphicon glyphicon-tags"></span></a>
+        <a href="<?=Url::to(['delete'])?>" onclick="return listForm.submitForm(this)" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Delete/Undelete Record"><span class="glyphicon glyphicon-trash"></span></a>
+        <a href="<?=Url::to(['set-group'])?>" onclick="return listForm.submitForm(this)" xhref="" type="button" class="btn btn-default<?= $searchModel::withGroups ? '' : ' disabled' ?>" xdata-toggle="tooltip" title="Move To Group"><span class="glyphicon glyphicon-log-in"></span></a>
     </div>
     <div class="btn-group" role="group" aria-label="Second group">
         <a href="<?=Url::current(['show_tree' => !$show_tree])?>" type="button" class="btn btn-default<?= $searchModel::withGroups ? '' : ' disabled' ?>" xdata-toggle="tooltip" title="Show/Hide Tree"><span class="glyphicon glyphicon-indent-right"></span></a>
@@ -158,32 +160,45 @@ if ($show_alphabet) { // "search by alphabet" panel
 
 <!-- list of table records -->
 
-<?php $form = yii\widgets\ActiveForm::begin(['method' => 'get', 'id'=>'formList', 'action' => Url::current()]); ?>
-
 <?php  
-    $this->params['statusIcon'] = [2 => 'question', 'remove'];
+    $statusIcon = [2 => 'question', 'remove'];
 
+    $min_width = 1;
     $columnsAll = $searchModel->getColumns();
-    $columns = [
-            ['attribute' => 'id', 'filter' => false, 'enableSorting'=>false, 'format' => 'html', 'options' => ['width'=> '1%'], 'label' => false,
-            'value' => function($data) {
-                return '<input type="hidden" class="col_id" name="ids[]" value="'.$data['id'].'"/>
-                <span class="fa-stack"><i class="fa fa-folder fa-stack-1x row-icon'
-                    .($data['group'] ? '-group' : '').'"></i><i class="fa fa-folder-o fa-stack-1x row-icon-bg"></i>'
-                    .($data['status'] > 1 ? '<i class="fa fa-'.$this->params['statusIcon'][$data['status']].' fa-stack-1x row-icon-'.$data['status'].'"></i>' : '')
-                    .'</span>'
-                    .($data['predefined'] ? ' <i class="fa fa-lock"></i>' : '');
-            }],
+    $columns = [ // predefined columns write here
+        ['class' => 'yii\grid\CheckboxColumn', 'name' => 'ids[]', 'options' => ['width'=> $min_width.'%'], 'cssClass' => ['checkbox', 'ids']], 
+        ['attribute' => 'id', 'filter' => false, 'enableSorting'=>false, 'format' => 'raw', 'options' => ['width'=> $min_width.'%'], 'label' => false,
+        'value' => function($data) use($statusIcon) {
+            return '<span class="fa-stack"><i class="fa fa-folder fa-stack-1x row-icon'
+                .($data['group'] ? '-group' : '').'"></i><i class="fa fa-folder-o fa-stack-1x row-icon-bg"></i>'
+                .($data['status'] > 1 ? '<i class="fa fa-'.$statusIcon[$data['status']].' fa-stack-1x row-icon-'.$data['status'].'"></i>' : '')
+                .'</span>'
+                .($data['predefined'] ? ' <i class="fa fa-lock"></i>' : '');
+        }],
     ]; // actual columns will be displayed
+
     foreach ($columnsConfig as $col_name => $col_visible) { // traverse over columns in saved order
         if (!$col_visible)
             continue;
         
-        $columns[] = [
+        $colDef = [
             'attribute' => $col_name, 
             // filter depends on column type (and name for special columns like the "notion")
             'filter' => \backend\ErpForm::getColumnFilter($col_name, $columnsAll[$col_name], $searchModel) 
         ];
+
+        $val = \backend\ErpForm::getColumnValue($col_name, $columnsAll[$col_name], $this);
+        if ($val) {
+            $colDef['value'] = $val;
+            $colDef['format'] = 'raw';
+        }
+        $columns[] = $colDef;
+    }
+    
+    // setting same width for columns to keep the html table from autoresizing of columns
+    $min_width = floor((100 - $min_width*2) / (count($columns) - 2));
+    for($i = 2; $i < count($columns); $i ++) {
+        $columns[$i]['options']['width'] = $min_width.'%';
     }
 ?>
 <div id="table" class="<?= $show_tree ? 'with_tree' : '' ?>">
@@ -213,6 +228,7 @@ if ($show_alphabet) { // "search by alphabet" panel
     ?>
 </div>
 
+<?php $form = yii\widgets\ActiveForm::begin(['method' => 'post', 'id'=>'formList', 'action' => Url::current()]); ?>
 <?php yii\widgets\ActiveForm::end(); ?>
 
 <!-- end list of table records -->

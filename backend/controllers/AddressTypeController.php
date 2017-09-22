@@ -39,6 +39,7 @@ class AddressTypeController extends Controller
     public function actionIndex()
     {
         $searchModel = new AddressTypeSearch();
+        
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         
         return $this->render('index', [
@@ -52,7 +53,7 @@ class AddressTypeController extends Controller
      * Manage an order and a visibility of table columns
      * @return mixed
      */
-    public function actionColumns() // TODO: move code to model
+    public function actionColumns()
     {
         $model = new AddressType();
         ErpForm::saveColumns($model);
@@ -145,5 +146,33 @@ class AddressTypeController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionSetStatus($id=0)
+    { //$ids - массив выбранных id 
+        echo "\n\n", '<pre>$app->request : ';print_r(Yii::$app->request);die;
+        if ($id==0){
+            $ids=\Yii::$app->request->post('ids');
+        }
+        else{
+            $ids = [$id];
+        }
+        foreach ($ids as $id){
+            $model=$this->findModel($id);
+            if ($model->status==AddressType::STATUS_ACTUAL){
+                $model->status==AddressType::STATUS_NONACTUAL;
+            }
+            elseif($model->status==AddressType::STATUS_NONACTUAL){
+                $model->status==AddressType::STATUS_ACTUAL;
+            }
+            if (!$model->save()){
+                Yii::$app->session->setFlash('error', Yii::t('app', 'ERROR_UPDATE_STATUS'));
+                return $this->render('update', [
+                'model' => $model,
+            ]);
+            }
+        }
+        
+        return $this->render('index', []);    
     }
 }

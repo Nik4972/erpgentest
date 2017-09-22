@@ -8,6 +8,8 @@ namespace backend\modules\<?= $moduleName ?>\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
+
 /**
  * <?= $className ?> represents the model behind the search form about `backend\<?= $moduleName ?>\models\<?= $className ?>.
  */
@@ -76,9 +78,11 @@ class <?= $className ?> extends \yii\db\ActiveRecord
      * @inheritdoc
      */
      <?php
+     $label="";
       foreach ($name_tables['columns'] as $name=>$attr){
             $notion = $attr['notion'];
-            $ladel[$name] = "Yii::t('app', '$notion')";
+            $str = "'$notion' => Yii::t('users', '$notion'),";
+            $label.= $str;
         }
      ?>
     public function attributeLabels()
@@ -86,6 +90,9 @@ class <?= $className ?> extends \yii\db\ActiveRecord
         return [<?=$label?>];
     }
 <?php foreach ($name_tables['columns'] as $name=>$attr){
+    if (!isset($attr['relation'])) {
+        echo "\n\n", '<pre>$attr : ';print_r($attr);die;
+    }
              if ($attr['relation']){ ?>
 
     /**
