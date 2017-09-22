@@ -31,7 +31,7 @@ class <?= $className ?> extends \yii\db\ActiveRecord
      <?php
      //$required = $varchar = $digital = $string = "";
         foreach ($name_tables['columns'] as $name=>$attr){
-            if ($attr['required_to_fill']){
+            if ($attr['required']){
                 $required .= "'$name',";
             }
             if (strpos($attr['type'],"(")){
