@@ -49,6 +49,7 @@ class <?= $className ?>Controller extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'columnsConfig' => \backend\ErpForm::getColumns($searchModel)
         ]);
     }
 
