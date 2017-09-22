@@ -83,6 +83,49 @@ class ErpGenerator
             }*/
 
 
+            $common_columns = [
+                'id' => ['notion' => 'ID', 'description' => '', 'type' => 'int', 'default' => '', 'periodic' => 0, 'purpose' => "both", 'index' => 1,
+                    'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 1, 'relation' => '', 'hide'=>1],
+                'code' => ['notion' => 'Code', 'description' => '', 'type' => 'varchar(255)', 'default' => '', 
+                    'periodic' => 1, 'purpose' => "both",'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 
+                    'system' => 0, 'relation' => '', 'always_visible'=>1],
+                'notion' => ['notion' => 'Notion', 'description' => '', 'type' => 'varchar(255)', 'default' => '', 'periodic' => 1, 'purpose' => "both",
+                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0, 'relation' => '', 'always_visible'=>1],
+                'description' => ['notion' => '', 'description' => '', 'type' => 'varchar(255)', 'default' => '', 'periodic' => 0, 'purpose' => "group",
+                    'index' => 0, 'required_to_fill' => 0, 'show_in_default_list_form' => 0, 'system' => 0, 'relation' => ''],
+                'group' => ['notion' => 'Is Group', 'description' => '', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "both",
+                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relation' => '', 'hide'=>1],
+                'parent' => ['notion' => 'Group', 'description' => '', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "both",
+                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relation' => ''],
+                'predefined' => ['notion' => '', 'description' => '', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "both",
+                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relation' => '', 'hide'=>1],
+                 'status' => ['notion' => 'Status', 'description' => '', 'type' => 'int', 'default' => '1', 'periodic' => 1, 'purpose' => "both",
+                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0,'relation' => ''],
+
+                 'date_create' => ['notion' => 'Date Created', 'description' => '', 'type' => 'datetime', 'default' => 'now', 'periodic' => 1, 'purpose' => "both",
+                    'index' => 0, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 1,'relation' => '', 'hide'=>1],
+                'date_update' => ['notion' => 'Date Updated', 'description' => '', 'type' => 'datetime', 'default' => 'now', 'periodic' => 1, 'purpose' => "both",
+                    'index' => 0, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 1,'relation' => '', 'hide'=>1],
+            ];
+            
+            
+            foreach ($columns as $row) {
+                if (!isset($common_columns[$row['id']]))
+                    $common_columns[$row['id']] = $row;
+            }
+            
+            foreach ($common_columns as $id => $row) {
+                if (!isset($common_columns[$id]['required_to_fill']))
+                    $common_columns[$id]['required_to_fill'] = $row['required'];
+                else
+                    $common_columns[$id]['required'] = $row['required_to_fill'];
+
+                if (!isset($common_columns[$id]['required_to_fill']))
+                    $common_columns[$id]['required_to_fill'] = $row['required'];
+                else
+                    $common_columns[$id]['required'] = $row['required_to_fill'];
+            }
+
             $name_tables = $table;
             $name_tables = array(
                 'name_tables' => $tab[0]['id'],
@@ -92,7 +135,7 @@ class ErpGenerator
                 'hierarchy'   => $tab[0]['hierarchy'],
                 'module'      => $tab[0]['module'],
                 'type'        => $tab[0]['type'],
-                'columns'     => $columns
+                'columns'     => $common_columns /// !!!! another var
             );
 
             $templateView = new View();
