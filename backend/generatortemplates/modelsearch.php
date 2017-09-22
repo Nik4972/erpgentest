@@ -28,11 +28,14 @@ class <?= $searchModelClass ?> extends <?= $className ?>
 
     public function rules()
     {
-        return [
+        $rules = parent::rules();
+        $rules[] = [['search'], 'safe'];
+        return $rules;
+        /*return [
             [['parent', 'group'], 'integer'],
             [['predefined', 'code', 'notion', 'search'], 'safe'],
             ['status', 'each', 'rule' => ['in', 'range' => [1, 2, 3]]],
-        ];
+        ];*/
     }
 
 
@@ -53,7 +56,7 @@ class <?= $searchModelClass ?> extends <?= $className ?>
  $defaultOrder="";
         $filter ="";
  foreach ($name_tables['columns'] as $name=>$attr){
-    if ((isset($attr['hide']) && $attr['hide']) || in_array($name, ['parent', 'status', 'code', 'notion', 'group', 'predefined', ])) // skip known (common) columns
+    if ((isset($attr['hide']) && $attr['hide']) || in_array($name, ['parent', 'status', 'code', 'notion', 'group', 'predefined', 'date_create', 'date_update'])) // skip known (common) columns
         continue;
         
         if (($attr['order'] == 'SORT_ASC') || ($attr['order'] == 'SORT_DESC')){
