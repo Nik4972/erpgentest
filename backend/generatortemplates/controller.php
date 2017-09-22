@@ -48,6 +48,7 @@ class <?= $className ?>Controller extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'columnsConfig' => \backend\ErpForm::getColumns($searchModel)
         ]);
     }
 
@@ -228,5 +229,16 @@ class <?= $className ?>Controller extends Controller
        return['Форма1' => 'template1', 'Форма2' => 'template2'];        
     }
     
+    /**
+     * Manage an order and a visibility of table columns
+     * @return mixed
+     */
+    public function actionColumns()
+    {
+        $model = new <?= $className ?>();
+        ErpForm::saveColumns($model);
+        return $this->redirect(['index']);
+    }
+
     
 }
