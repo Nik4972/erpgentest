@@ -151,7 +151,7 @@ class ErpGenerator
             $templatesDirs = ['models', 'controllers', 'views/%s'];
             $moduleDir     = Yii::getAlias('@app') . '/modules/' . ($name_tables['module'] ? $name_tables['module'] : 'core') . '/';
             foreach ($templatesDirs as $subdir) {
-                @mkdir($moduleDir . sprintf($subdir, ucfirst($name_tables['notion'])), 0777, true);
+                @mkdir($moduleDir . sprintf($subdir, $name_tables['name']), 0777, true);
             }
             foreach ($templates as $viewName => $savePath) {
                 $path = Yii::getAlias('@backend') . '/generatortemplates/' . $viewName;
