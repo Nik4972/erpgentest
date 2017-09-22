@@ -38,8 +38,8 @@ class ErpGenerator
  
         foreach ($tables as $table) {
  
- //           Yii::$app->db->createCommand("CREATE TABLE IF NOT EXISTS " . $table . " (" . $common_fields .
-  //                  " PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci")->execute();
+            Yii::$app->db->createCommand("CREATE TABLE IF NOT EXISTS " . $table . " (" . $common_fields .
+                    " PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci")->execute();
         }
 
 // Add to tables specific columns and foreign key
@@ -51,7 +51,7 @@ class ErpGenerator
 
             $columns = Yii::$app->db->createCommand("SELECT * FROM _all_columns WHERE table_id='" . $table . "'")
                     ->queryAll();
-/*
+
             if ($columns) {
                 foreach ($columns as $column) {
 
@@ -70,7 +70,7 @@ class ErpGenerator
                     }
                 }
             }
-*/
+
 
 // Create name_tables array
             /*$columns = Yii::$app->db->createCommand("SHOW COLUMNS FROM " . $table)
@@ -85,27 +85,30 @@ class ErpGenerator
 
             $common_columns = [
                 'id' => ['notion' => 'ID', 'description' => '', 'type' => 'int', 'default' => '', 'periodic' => 0, 'purpose' => "both", 'index' => 1,
-                    'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 1, 'relation' => '', 'hide'=>1],
-                'code' => ['notion' => 'Code', 'description' => '', 'type' => 'varchar(255)', 'default' => '', 
+                    'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 1, 'relations' => 'Имя существующей таблицы с большой буквы', 'hide'=>1],
+                'code' => ['notion' => 'Code', 'description' => 'Например Артикул', 'type' => 'varchar', 'default' => '', 
                     'periodic' => 1, 'purpose' => "both",'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 
-                    'system' => 0, 'relation' => '', 'always_visible'=>1],
-                'notion' => ['notion' => 'Notion', 'description' => '', 'type' => 'varchar(255)', 'default' => '', 'periodic' => 1, 'purpose' => "both",
-                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0, 'relation' => '', 'always_visible'=>1],
-                'description' => ['notion' => 'Description', 'description' => '', 'type' => 'varchar(255)', 'default' => '', 'periodic' => 0, 'purpose' => "group",
-                    'index' => 0, 'required_to_fill' => 0, 'show_in_default_list_form' => 0, 'system' => 0, 'relation' => ''],
-                'group' => ['notion' => 'Is Group', 'description' => '', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "both",
-                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relation' => '', 'hide'=>1],
-                'parent' => ['notion' => 'Group', 'description' => '', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "both",
-                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relation' => ''],
-                'predefined' => ['notion' => 'Predefined', 'description' => '', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "both",
-                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relation' => '', 'hide'=>1],
-                 'status' => ['notion' => 'Status', 'description' => '', 'type' => 'int', 'default' => '1', 'periodic' => 1, 'purpose' => "both",
-                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0,'relation' => ''],
-
-                 'date_create' => ['notion' => 'Date Created', 'description' => '', 'type' => 'datetime', 'default' => 'now', 'periodic' => 1, 'purpose' => "both",
-                    'index' => 0, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 1,'relation' => '', 'hide'=>1],
-                'date_update' => ['notion' => 'Date Updated', 'description' => '', 'type' => 'datetime', 'default' => 'now', 'periodic' => 1, 'purpose' => "both",
-                    'index' => 0, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 1,'relation' => '', 'hide'=>1],
+                    'system' => 0, 'relations' => 'Имя существующей таблицы', 'always_visible'=>1],
+                'notion' => ['notion' => 'Notion', 'description' => 'Имя на экране', 'type' => 'varchar', 'default' => '', 'periodic' => 1, 'purpose' => "both",
+                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0, 'relations' => 'Имя существующей таблицы', 'always_visible'=>1],
+                'description' => ['notion' => 'Полное описание объекта', 'description' => 'Полное описание', 'type' => 'varchar', 'default' => '', 'periodic' => 0, 'purpose' => "group",
+                    'index' => 0, 'required_to_fill' => 0, 'show_in_default_list_form' => 0, 'system' => 0, 'relations' => 'Имя существующей таблицы'],
+                'group' => ['notion' => 'Is Group', 'description' => 'является ли данная запись группой', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "???",
+                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relations' => 'Имя существующей таблицы', 'hide'=>1],
+                'parent' => ['notion' => 'Group', 'description' => 'Наличие родителя', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "???",
+                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relations' => 'Имя существующей таблицы'],
+                'predefined' => ['notion' => 'предопределенная запись', 'description' => 'Записи по-умолчанию', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "???",
+                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relations' => 'Имя существующей таблицы', 'hide'=>1],
+                 'status' => ['notion' => 'Status', 'description' => 'Статус объекта(1 - актуальный, 2 - не актуальный, 3 - удалить)', 'type' => 'int', 'default' => '1', 'periodic' => 1, 'purpose' => "???",
+                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0,'relations' => 'Имя существующей таблицы'],
+                /// добавить в описательный файл
+                 'date_create' => ['notion' => 'Дата создания', 'description' => 'Дата создания объекта', 'type' => 'datetime', 'default' => 'now', 'periodic' => 1, 'purpose' => "???",
+                    'index' => 0, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 1,'relations' => 'Имя существующей таблицы', 'hide'=>1],
+                'date_update' => ['notion' => 'Дата изменения', 'description' => 'Дата изменения объекта', 'type' => 'datetime', 'default' => 'now', 'periodic' => 1, 'purpose' => "???",
+                    'index' => 0, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 1,'relations' => 'Имя существующей таблицы', 'hide'=>1],
+        
+                 'type' => ['notion' => 'Type', 'description' => 'Статус объекта(1 - актуальный, 2 - не актуальный, 3 - удалить)', 'type' => 'enum', 'default' => '1', 'periodic' => 1, 'purpose' => "???",
+                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0,'relations' => 'Имя существующей таблицы', 'enum' => 'AddressTypes'],
             ];
             
             
@@ -115,11 +118,6 @@ class ErpGenerator
             }
             
             foreach ($common_columns as $id => $row) {
-                if (!isset($common_columns[$id]['required_to_fill']))
-                    $common_columns[$id]['required_to_fill'] = $row['required'];
-                else
-                    $common_columns[$id]['required'] = $row['required_to_fill'];
-
                 if (!isset($common_columns[$id]['required_to_fill']))
                     $common_columns[$id]['required_to_fill'] = $row['required'];
                 else
@@ -145,15 +143,14 @@ class ErpGenerator
                 'controller.php' => 'controllers/%sController.php',
                 'model.php' => 'models/%s.php',
                 'modelsearch.php' => 'models/%sSearch.php',
-                'view_index.php' => 'views/%s/index.php',
             ];
             
             //$templates    = []; // comment or remove this line to generate real files from "generatortemplates" directory
 
-            $templatesDirs = ['models', 'controllers', 'views/%s'];
+            $templatesDirs = ['models', 'controllers'];
             $moduleDir     = Yii::getAlias('@app') . '/modules/' . ($name_tables['module'] ? $name_tables['module'] : 'core') . '/';
             foreach ($templatesDirs as $subdir) {
-                @mkdir($moduleDir . sprintf($subdir, ucfirst($name_tables['notion'])), 0777, true);
+                @mkdir($moduleDir . $subdir, 0777, true);
             }
             foreach ($templates as $viewName => $savePath) {
                 $path = Yii::getAlias('@backend') . '/generatortemplates/' . $viewName;
