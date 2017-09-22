@@ -221,4 +221,17 @@ class <?= $className ?>Controller extends Controller
     public function GetPrintTemplate(){
        return['Форма1' => 'template1', 'Форма2' => 'template2'];        
     }
+
+    /**
+     * Manage an order and a visibility of table columns
+     * @return mixed
+     */
+    public function actionColumns()
+    {
+        $model = new <?= $modelClass ?>();
+        ErpForm::saveColumns($model);
+        return $this->redirect(['index']);
+    }
+
+
 }
