@@ -42,6 +42,7 @@ class <?= $className ?> extends \yii\db\ActiveRecord
         $rules = $required = $varchar = $digital = $string = "";
         $enumns = '';
         foreach ($name_tables['columns'] as $name=>$attr){
+                
             if ($attr['required']){
                 $required .= "'$name',";
             }
@@ -57,6 +58,9 @@ class <?= $className ?> extends \yii\db\ActiveRecord
             }
             
             $name_tables['columns'][$name]['type'] = $type; // hack to replace types like a 'varchar(xx)' to simple 'varchar'
+            
+            if ($name == 'status')
+                continue;
             
             switch($type){
                 case "varchar":{ $varchar .= "['$name', 'string', 'max' => $size],"; break;}
@@ -85,7 +89,7 @@ class <?= $className ?> extends \yii\db\ActiveRecord
         ?>
     public function rules()
     {
-        return [<?=substr($rules,0,-1)?>];
+        return [<?=substr($rules,0,-1)?>, ['status', 'in', 'range'=>[1, 2, 3]]];
     }
 
     /**

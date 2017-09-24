@@ -34,8 +34,13 @@ class <?= $searchModelClass ?> extends <?= $className ?>
     public function rules()
     {
         $rules = parent::rules();
-        unset($rules[0]); // little hack: assume the 'required' validator is first in the list of rules
+        // little hack: assume the 'required' validator is first in the list of rules
         // or change it with including here the 'safe' validator for all columns
+        array_shift($rules); 
+        
+        // another hack: assume 'type' validator is the last in rules list
+        $rules[count($rules) - 1]['allowArray'] = true;
+        
         $rules[] = [['search'], 'safe'];
         return $rules;
         /*return [

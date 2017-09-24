@@ -23,13 +23,20 @@ class AddressTypeSearch extends AddressType
     public function rules()
     {
         /*$rules = parent::rules();
+        // little hack: assume the 'required' validator is first in the list of rules
+        // or change it with including here the 'safe' validator for all columns
+        array_shift($rules); 
+        
+        // another hack: assume 'type' validator is the last in rules list
+        $rules[count($rules) - 1]['allowArray'] = true;
+        
         $rules[] = [['search'], 'safe'];
         return $rules;*/
 
         return [
             [['parent', 'group'], 'integer'],
             [['predefined', 'code', 'notion', 'type', 'search'], 'safe'],
-            ['status', 'each', 'rule' => ['in', 'range' => [1, 2, 3]]],
+            ['status', 'each', 'rule' => ['in', 'range' => [1, 2, 3], 'allowArray' => 1]],
         ];
 
     }
