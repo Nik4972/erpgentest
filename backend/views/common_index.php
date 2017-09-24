@@ -20,7 +20,7 @@ $this->params['model'] = join('', array_slice(explode('\\', get_parent_class($se
 
 yii\jui\JuiAsset::register($this); // add jquery.ui scripts to this page
 
-$show_tree = !isset($_GET['show_tree']) || $_GET['show_tree'];
+$show_tree = (!isset($_GET['show_tree']) || $_GET['show_tree']) && $searchModel::withGroups;
 $show_alphabet = !isset($_GET['show_alphabet']) || $_GET['show_alphabet'];
 
 ?>
@@ -209,6 +209,7 @@ if ($show_alphabet) { // "search by alphabet" panel
 ?>
 <div id="table" class="<?= $show_tree ? 'with_tree' : '' ?>">
 <?= $a = GridView::widget([
+        'tableOptions' => ['class' => 'table table-striped table-bordered '],
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'layout' => "{items}\n{summary}\n{pager}", 
@@ -247,13 +248,12 @@ if ($show_alphabet) { // "search by alphabet" panel
 use execut\widget\TreeView;
 use yii\web\JsExpression;
 
-if ($searchModel::withGroups && $show_tree) {
+if ($show_tree) {
 ?>
 
 <div id="tree2">
 
 <?php
-
 
     $strIcon = '<span class="fa-stack"><i class="fa fa-folder fa-stack-1x row-icon-group"></i><i class="fa fa-folder-o fa-stack-1x row-icon-bg"></i></span>';
 

@@ -193,7 +193,4 @@ class <?= $searchModelClass ?> extends <?= $className ?>
         $rows = array_keys($rows);
         return $rows;
     }
-    public function getGroupsTree(){
-        
-    }
 }

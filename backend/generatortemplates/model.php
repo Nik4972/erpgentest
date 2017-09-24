@@ -132,6 +132,10 @@ class <?= $className ?> extends \yii\db\ActiveRecord
             ],
         ];
     }
+
+    /**
+     * @return array of colums definitions (info going from MySQL _ref_columns + additional info from the generator like 'relation', 'enum')
+     */
     public function getColumns()
     {
         //$columns = unserialize('<?= str_replace('\'', '\\\'', serialize($name_tables['columns'])) ?>');
@@ -141,5 +145,50 @@ class <?= $className ?> extends \yii\db\ActiveRecord
             $columns['parent']['hide'] = 1;
         
         return $columns;
+    }
+
+    /**
+     * @return flat array of groups but ordered like a tree
+     */
+    public function getGroupsTree($patterns = [], $params = [])
+    {
+        $groups = [];
+        $index = [];
+       
+        $connection = $this->getDb();
+        
+        $ids = false;
+        do {
+            $rows = $connection->createCommand('SELECT `id`, `notion`, `parent` FROM `'.$this->tableName().'` WHERE `parent` '
+                .($ids ? 'IN ('.implode(',', $ids).')' : 'IS NULL').' AND `group`=1 AND `status`=1')->queryAll();
+            $ids = [];
+            foreach ($rows as $row) {
+                $ids[] = $row['id'];
+                
+                $rowParams = $params;
+                foreach ($patterns as $tmp) {
+                    if (isset($tmp['function'])) {
+                        $tmp = $tmp['function']($row, $tmp);
+                        $rowParams = array_merge($rowParams, $tmp);
+                    }
+                    else
+                        $rowParams[$tmp['attr']] = str_replace($tmp['var'], $row[$tmp['column']], $tmp['template']);
+                }
+
+                if (!isset($index[$row['parent']])) {
+                    $tmp = ['text' => $row['notion'], 'id' => $row['id'], 'nodes' => []];
+                    $tmp = array_merge($tmp, $rowParams);
+                    $groups[] = $tmp;
+                    $index[$row['id']] = &$groups[count($groups)-1]['nodes'];
+                } else {
+                    $tmp = ['text' => $row['notion'], 'id' => $row['id'], 'nodes' => []];
+                    $tmp = array_merge($tmp, $rowParams);
+                    $index[$row['parent']][] = $tmp;
+                    $index[$row['id']] = &$index[$row['parent']][count($index[$row['parent']])-1]['nodes'];
+                }
+            }
+        } while ($ids);
+        
+        return $groups;
     }
 }
