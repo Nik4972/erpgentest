@@ -163,6 +163,10 @@ if ($show_alphabet) { // "search by alphabet" panel
     $min_width = 1;
     $columnsAll = $searchModel->getColumns();
     $columns = [ // predefined columns write here
+        ['attribute' => 'parent', 'format' => 'html', 'value' => function ($data) {
+            return $data->address ? $data->address->notion : '';
+        }],
+
         ['class' => 'yii\grid\CheckboxColumn', 'name' => 'ids[]', 'options' => ['width'=> $min_width.'%'], 'cssClass' => ['checkbox', 'ids']], 
         ['attribute' => 'id', 'filter' => false, 'enableSorting'=>false, 'format' => 'raw', 'options' => ['width'=> $min_width.'%'], 'label' => false,
         'value' => function($data) use($statusIcon) {
@@ -189,6 +193,10 @@ if ($show_alphabet) { // "search by alphabet" panel
             $colDef['value'] = $val;
             $colDef['format'] = 'raw';
         }
+        if ($columnsAll[$col_name]['type'] == 'enum') {
+            //echo "\n\n", '<pre>$colDef = ';print_r($colDef);die;
+        }
+            
         $columns[] = $colDef;
     }
     

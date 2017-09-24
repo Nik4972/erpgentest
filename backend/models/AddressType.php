@@ -49,7 +49,7 @@ class AddressType extends \yii\db\ActiveRecord
             [['notion'], 'required'],
             [['code'], 'string', 'max' => 255],
             [['notion', 'code'], 'unique'],
-            //[['parent'], 'exist', 'skipOnError' => true, 'targetClass' => AddressType::className(), 'targetAttribute' => ['parent' => 'id']],
+            [['parent'], 'exist', 'skipOnError' => true, 'targetClass' => AddressType::className(), 'targetAttribute' => ['parent' => 'id']],
         ];
     }
 

@@ -84,6 +84,10 @@ trait ErpGroupModelSearch
 
         $this->load($params);
         
+        /*$columns = $this->getColumns();
+        if (!$this->group && $columns[$column]['purpose'] == 'group') // group column asked in nongroups view
+            return [];*/
+
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');

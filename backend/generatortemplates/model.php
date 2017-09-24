@@ -1,6 +1,6 @@
 <?php
 echo '<', '?php';
-$className = ucfirst($name_tables['notion']);
+$className = \backend\ErpGenerator::generateClassName($name_tables['name']); //ucfirst($name_tables['notion']);
 $moduleName = $name_tables['module'] ? $name_tables['module'] : 'core';
 ?>
 
@@ -32,6 +32,7 @@ class <?= $className ?> extends \yii\db\ActiveRecord
      */
      <?php
         $rules = $required = $varchar = $digital = $string = "";
+        $enumns = '';
         foreach ($name_tables['columns'] as $name=>$attr){
             if ($attr['required']){
                 $required .= "'$name',";
@@ -46,11 +47,15 @@ class <?= $className ?> extends \yii\db\ActiveRecord
             else{
                 $type = $attr['type'];
             }
+            
+            $name_tables['columns'][$name]['type'] = $type; // hack to replace types like a 'varchar(xx)' to simple 'varchar'
+            
             switch($type){
                 case "varchar":{ $varchar .= "['$name', 'string', 'max' => $size],"; break;}
                 case 'text' : $text .= "'$name',";  break;
                 case 'int'  : $digital .= "'$name',"; break;
-                case 'decimal':$number .= "'$name',"; break;
+                case 'decimal': $number .= "'$name',"; break;
+                case 'enum': $enumns .= "['$name', 'in', 'range' => ".var_export(\backend\ErpEnums::$$attr['enum'], true).'],';break;
             }
             
     //        'decimal(19,2)' 'varchar(33)' 'float' 'enum.Переменной из базового файла' 'date'=int
@@ -62,11 +67,12 @@ class <?= $className ?> extends \yii\db\ActiveRecord
             $rules .= $varchar;
         }
         if (!empty($text)){
-            $rules .= "[[$text],'string']";
+            $rules .= "[[$text],'string'],";
         }
         if (!empty($digital)){
             $rules .= "[[$digital],'integer'],";
         }
+        $rules .= $enumns;
         
         ?>
     public function rules()
@@ -81,7 +87,7 @@ class <?= $className ?> extends \yii\db\ActiveRecord
      $label="";
       foreach ($name_tables['columns'] as $name=>$attr){
             $notion = $attr['notion'];
-            $str = "'$notion' => Yii::t('app', '$notion'),";
+            $str = "'$name' => Yii::t('app', '$notion'),";
             //$str = "'$notion' => '$notion',";
             $label.= $str;
         }
@@ -91,17 +97,14 @@ class <?= $className ?> extends \yii\db\ActiveRecord
         return [<?=$label?>];
     }
 <?php foreach ($name_tables['columns'] as $name=>$attr){
-    if (!isset($attr['relation'])) {
-        echo "\n\n", '<pre>$attr : ';print_r($attr);die;
-    }
              if ($attr['relation']){ ?>
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function get<?= $attr['relation'] ?>()
+    public function get<?= \backend\ErpGenerator::generateClassName($attr['relation']) ?>()
     {
-        return $this->hasOne(<?=$attr['relation']?>::className(), ['<?=$name?>' => 'id']);
+        return $this->hasOne(<?=\backend\ErpGenerator::generateClassName($attr['relation'])?>::className(), ['<?=$name?>' => 'id']);
     }
 <?php }}?>
 

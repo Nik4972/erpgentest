@@ -34,6 +34,8 @@ class <?= $searchModelClass ?> extends <?= $className ?>
     public function rules()
     {
         $rules = parent::rules();
+        unset($rules[0]); // little hack: assume the 'required' validator is first in the list of rules
+        // or change it with including here the 'safe' validator for all columns
         $rules[] = [['search'], 'safe'];
         return $rules;
         /*return [
@@ -57,9 +59,9 @@ class <?= $searchModelClass ?> extends <?= $className ?>
 
         // add conditions that should always apply here
 
- <?php 
- $defaultOrder="";
-        $filter ="";
+<?php 
+    $defaultOrder="";
+    $filter = [];
  foreach ($name_tables['columns'] as $name=>$attr){
     if ((isset($attr['hide']) && $attr['hide']) || in_array($name, ['parent', 'status', 'code', 'notion', 'group', 'predefined', 'date_create', 'date_update'])) // skip known (common) columns
         continue;
@@ -77,12 +79,14 @@ class <?= $searchModelClass ?> extends <?= $className ?>
          */
             {
             if ($attr['type']== "int"){
-                $filter .= "['$name' => ".'$this->'."$name],";
+                $filter[] = "->andFilterWhere(['$name' => ".'$this->'."$name])";
             }
             else{
-               $filter .= "['like', '$name', ".'$this->'."$name],";
+               $filter[] = "->andFilterWhere(['like', '$name', ".'$this->'."$name])";
             }
         }
+        
+        
     }
     ?>
         $dataProvider = new ActiveDataProvider([
@@ -101,12 +105,13 @@ class <?= $searchModelClass ?> extends <?= $className ?>
         if (!$this->status)
             $this->status = [1];
          // TODO: add code for $this->group mode that will check elements status over each group subtree.
-         // So with filter status =2 =3 groups will be displayed even with oun status=1 but when they have child elements/groups with different status
+         // So with filter status =2 =3 groups will be displayed even with own status=1 but when they have child elements/groups with different status
         $query->andWhere(['in', 'status', $this->status]);
         
         // grid filtering conditions will be elevated in template for each column by its type
         $query->andFilterWhere(['=', 'code', $this->code]);
-        $query->andFilterWhere([<?=$filter?>]);
+
+        <?php if ($filter) echo '$query', implode("\r\n              ", $filter), ';' ?>
         
         if ($this->group == 1) {
             if ($this->type || $this->code) // exclude columns of 'element' kind for groups
