@@ -156,6 +156,7 @@ class ErpForm extends \yii\db\ActiveRecord
         foreach ($tables as $table) {
             Yii::$app->db->createCommand("DROP TABLE IF EXISTS " . $table )->execute();
         }
+        Yii::$app->db->createCommand("DELETE FROM _form_data")->execute();
         ErpForm::saveMenu([]);
         return $tables;
     }

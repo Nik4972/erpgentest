@@ -1,7 +1,7 @@
 <?php
 
 echo '<', '?php';
-$className = ucfirst($name_tables['notion']);
+$className = \backend\ErpGenerator::generateClassName($name_tables['name']);
 $moduleName = $name_tables['module'] ? $name_tables['module'] : 'core';
 $searchModelClass = $className."Search";
 ?>

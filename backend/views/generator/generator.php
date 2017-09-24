@@ -25,11 +25,13 @@ $form = ActiveForm::begin(['action' => ['generator2']]);
  
  foreach ($tables as $table) {
   echo "<div>
-         <input type='checkbox' id='".$table['id']."' name='list_tables[]' value='".$table['id']."' xchecked>
+         <input class='ids' type='checkbox' id='".$table['id']."' name='list_tables[]' value='".$table['id']."' xchecked>
          <label for='".$table['id']."'>".$table['id']."</label>
         </div>";
  }
-
+?>
+<div><input type="checkbox" onchange="$('.ids').prop('checked', $(this).prop('checked'))"/> Check / Uncheck All</div>
+<?php
   echo "<br /><input type='submit' value='Create'>";
 
   //echo "</form>";

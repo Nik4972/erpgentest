@@ -46,6 +46,7 @@ class ErpGenerator
 
 // Add to tables specific columns and foreign key
  
+        $tables_all = [];
         foreach ($tables as $table) {
 
             $tab = Yii::$app->db->createCommand("SELECT * FROM _all_tables WHERE id='".$table."'")
@@ -157,6 +158,8 @@ class ErpGenerator
                 'type'        => $tab[0]['type'],
                 'columns'     => $common_columns /// !!!! another var
             );
+            
+            $tables_all[] = $name_tables;
 
             $templateView = new View();
             $templates    = [
@@ -180,13 +183,13 @@ class ErpGenerator
                 $fileContent  = $templateView->renderPhpFile($path, ['name_tables' => $name_tables]);
                 $saveFileName = Yii::getAlias('@app') . '/modules/'
                         . ($name_tables['module'] ? $name_tables['module'] : 'core')
-                        . '/' . sprintf($savePath, ucfirst($name_tables['notion']));
+                        . '/' . sprintf($savePath, ucfirst($name_tables['name']));
 
                 file_put_contents($saveFileName, $fileContent);
             }
         }  // End of processing all tables
         
-        \backend\ErpForm::saveMenu($tables);
+        \backend\ErpForm::saveMenu($tables_all);
 
         return $tables;
 
@@ -198,6 +201,12 @@ class ErpGenerator
             return '\backend\modules\\'.$module.'\models\\'.ucfirst($table_name);
 
         return ucfirst($table_name);
+    }
+    
+    public static function generateClassRouter($table_name, $module='')
+    {
+        return $table_name;
+        //return str_replace('_', '-', $table_name);
     }
     
 }

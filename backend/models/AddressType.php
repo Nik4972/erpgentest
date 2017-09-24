@@ -30,6 +30,11 @@ class AddressType extends \yii\db\ActiveRecord
         return 'address_type';
     }
     
+    public static function tableNotion()
+    {
+        return 'Address Types';
+    }
+    
     const withGroups = 1;
 
     const STATUS_ACTUAL = 1;

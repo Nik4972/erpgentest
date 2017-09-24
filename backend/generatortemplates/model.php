@@ -28,6 +28,14 @@ class <?= $className ?> extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return notion of table Reference
+     */
+    public static function tableNotion()
+    {
+        return Yii::t('app', '<?= $name_tables['notion'] ?>');
+    }
+
+    /**
      * @inheritdoc
      */
      <?php

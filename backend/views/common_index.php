@@ -12,8 +12,7 @@ use yii\widgets\Pjax;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 use backend\ErpEnums;
 
-//$this->title = Yii::t('mozgo', 'desktop_head'); //'Address Types';
-$this->title = 'Address Types';
+$this->title = $searchModel::tableNotion();
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['searchModel'] = join('', array_slice(explode('\\', get_class($searchModel)), -1)); // get class name without namespace
 $this->params['model'] = join('', array_slice(explode('\\', get_parent_class($searchModel)), -1)); // get class name without namespace

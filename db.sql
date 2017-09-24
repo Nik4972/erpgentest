@@ -54,14 +54,14 @@ CREATE TABLE `_all_tables` (
 LOCK TABLES `_all_tables` WRITE;
 /*!40000 ALTER TABLE `_all_tables` DISABLE KEYS */;
 INSERT INTO `_all_tables` (`idid`, `id`, `notion`, `description`, `hierarchy`, `module`, `type`) VALUES
-(1, 'counterparties', 'counterparties', 'List of the counterparties', 0, 'core', 'user'),
-(2, 'banks', 'banks', 'List of the banks', 0, 'core', 'user'),
-(3, 'regions_name', 'regions_name', 'List of the regions name', 0, 'core', 'user'),
-(4, 'regions', 'regions', 'List of the regions', 1, 'core', 'user'),
-(5, 'macroregions_geo', 'macroregions_geo', 'List of the macroregions_geo', 1, 'core', 'user'),
-(6, 'macroregions_kom', 'macroregions_kom', 'List of the macroregions_kom', 1, 'core', 'user'),
-(7, 'countries', 'countries', 'List of the countries', 1, 'core', 'user'),
-(8, 'address', 'address', 'List of the counterparties', 1, 'core', 'user');
+(1, 'counterparties', 'Counterparties', 'List of the counterparties', 0, 'core', 'user'),
+(2, 'banks', 'Banks', 'List of the banks', 0, 'core', 'user'),
+(3, 'regions_name', 'Regions Names', 'List of the regions name', 0, 'core', 'user'),
+(4, 'regions', 'Regions', 'List of the regions', 1, 'core', 'user'),
+(5, 'macroregions_geo', 'Macroregions Geo', 'List of the macroregions_geo', 1, 'core', 'user'),
+(6, 'macroregions_kom', 'Macroregions Com', 'List of the macroregions_kom', 1, 'core', 'user'),
+(7, 'countries', 'Countries', 'List of the countries', 1, 'core', 'user'),
+(8, 'address', 'Addresses', 'List of the counterparties', 1, 'core', 'user');
 
 /*!40000 ALTER TABLE `_all_tables` ENABLE KEYS */;
 UNLOCK TABLES;
