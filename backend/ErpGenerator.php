@@ -58,7 +58,6 @@ class ErpGenerator
                 foreach ($columns as $col_id => $column) {
 
                     if (strripos($column['type'], '.id')) {
-                        echo '<pre>';print_r(strripos($column['type'], '.id'));die;
                         $fk = stristr($column['type'], '.', true);
 
                         $sql = Yii::$app->db->createCommand("ALTER TABLE " . $table . " ADD " . $column['id'] . " int(10)")
