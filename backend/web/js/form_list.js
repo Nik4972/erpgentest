@@ -14,7 +14,7 @@ var listForm = {ids: [], group: -1, group_tr: 0,
         this.group = -1;
         this.group_tr = 0;
 
-        /*$('div#table tbody tr').click(function(el){
+        $('div#table tbody tr').click(function(el){
             var key = $(this).attr('data-key');
             if ($.inArray(key, listForm.ids) > -1) {
                 $(this).removeClass('selected');
@@ -27,7 +27,7 @@ var listForm = {ids: [], group: -1, group_tr: 0,
                 listForm.ids.push(key);
                 $(this).find('input.col_id').val(key);
             }
-        });*/
+        });
         $('table#tree tr').click(function(el){
             var key = $(this).attr('data-key');
             if (key == listForm.group) {

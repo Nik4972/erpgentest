@@ -55,9 +55,10 @@ class ErpGenerator
                     ->queryAll();
 // create tables columns
             if ($columns) {
-                foreach ($columns as $column) {
+                foreach ($columns as $col_id => $column) {
 
-                    if (strripos($column['type'], '.')) {
+                    if (strripos($column['type'], '.id')) {
+                        echo '<pre>';print_r(strripos($column['type'], '.id'));die;
                         $fk = stristr($column['type'], '.', true);
 
                         $sql = Yii::$app->db->createCommand("ALTER TABLE " . $table . " ADD " . $column['id'] . " int(10)")
@@ -65,6 +66,12 @@ class ErpGenerator
 
                         $sql = Yii::$app->db->createCommand("ALTER TABLE " . $table .
                                         " ADD CONSTRAINT  FOREIGN KEY (" . $column['id'] . ") REFERENCES " . $fk . " (id) ON UPDATE CASCADE ON DELETE RESTRICT")
+                                ->execute();
+                    } elseif (stripos($column['type'], 'enum.') === 0) {
+                        $type = substr($column['type'], 5);
+                        $columns[$col_id]['enum'] = $type;
+                        $columns[$col_id]['type'] = 'enum';
+                        $sql = Yii::$app->db->createCommand("ALTER TABLE " . $table . " ADD " . $column['id'] . " enum('" . implode("','", \backend\ErpEnums::$$type) ."')")
                                 ->execute();
                     } else {
                         $sql = Yii::$app->db->createCommand("ALTER TABLE " . $table . " ADD " . $column['id'] . " " . $column['type'])
@@ -130,6 +137,8 @@ class ErpGenerator
                 if (!isset($common_columns[$id]['relation'])) // fix it to real relational info
                     $common_columns[$id]['relation'] = '';
             }
+            
+            $common_columns['parent']['relation'] = $table;
 
             $name_tables = $table;
             $name_tables = array(

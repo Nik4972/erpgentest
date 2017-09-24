@@ -25,7 +25,7 @@ $form = ActiveForm::begin(['action' => ['generator2']]);
  
  foreach ($tables as $table) {
   echo "<div>
-         <input type='checkbox' id='".$table['id']."' name='list_tables[]' value='".$table['id']."' checked>
+         <input type='checkbox' id='".$table['id']."' name='list_tables[]' value='".$table['id']."' xchecked>
          <label for='".$table['id']."'>".$table['id']."</label>
         </div>";
  }

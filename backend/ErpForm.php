@@ -55,8 +55,8 @@ class ErpForm extends \yii\db\ActiveRecord
         if ($column_id == 'xnotion' || $column_id == 'code') { // input[text] will be displayed
             return true;
         }
-        if ($column_id == 'status') { // REMOVE: temporally solution, later will be replaced with toolbar button dialog, not filter
-            return false; //[1=>'actual','archive','deleted',4=>'all'];
+        if ($column_id == 'status') { // REMOVE: temporally solution, later will be replaced with toolbar button dialog, instead of a filter in column caption
+            return false; //[1=>'actual','archive','deleted'];
         }
 
         if ($column['type'] == 'enum') { // list of predefied values
@@ -146,7 +146,7 @@ class ErpForm extends \yii\db\ActiveRecord
 
     public static function clearMenu() // REMOVE: quick solution to view generated tables under left menu
     {
-        $tables = ['banks', 'counterparties', 'regions_name', 'regions', 'countries', 'macroregions_geo', 'macroregions_kom'];
+        $tables = ['address', 'banks', 'counterparties', 'regions_name', 'regions', 'countries', 'macroregions_geo', 'macroregions_kom'];
         foreach ($tables as $table) {
             Yii::$app->db->createCommand("DROP TABLE IF EXISTS " . $table )->execute();
         }
