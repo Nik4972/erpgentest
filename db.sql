@@ -53,7 +53,16 @@ CREATE TABLE `_all_tables` (
 
 LOCK TABLES `_all_tables` WRITE;
 /*!40000 ALTER TABLE `_all_tables` DISABLE KEYS */;
-INSERT INTO `_all_tables` VALUES (1,'counterparties','counterparties','List of the counterparties',0,'core','user'),(2,'banks','banks','List of the banks',0,'core','user'),(3,'regions_name','regions_name','List of the regions name',0,'core','user'),(4,'regions','regions','List of the regions',1,'core','user'),(5,'macroregions_geo','macroregions_geo','List of the macroregions_geo',1,'core','user'),(6,'macroregions_kom','macroregions_kom','List of the macroregions_kom',1,'core','user'),(7,'countries','countries','List of the countries',1,'core','user');
+INSERT INTO `_all_tables` (`idid`, `id`, `notion`, `description`, `hierarchy`, `module`, `type`) VALUES
+(1, 'counterparties', 'counterparties', 'List of the counterparties', 0, 'core', 'user'),
+(2, 'banks', 'banks', 'List of the banks', 0, 'core', 'user'),
+(3, 'regions_name', 'regions_name', 'List of the regions name', 0, 'core', 'user'),
+(4, 'regions', 'regions', 'List of the regions', 1, 'core', 'user'),
+(5, 'macroregions_geo', 'macroregions_geo', 'List of the macroregions_geo', 1, 'core', 'user'),
+(6, 'macroregions_kom', 'macroregions_kom', 'List of the macroregions_kom', 1, 'core', 'user'),
+(7, 'countries', 'countries', 'List of the countries', 1, 'core', 'user'),
+(8, 'address', 'address', 'List of the counterparties', 1, 'core', 'user');
+
 /*!40000 ALTER TABLE `_all_tables` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -119,7 +128,24 @@ CREATE TABLE `_all_columns` (
 
 LOCK TABLES `_all_columns` WRITE;
 /*!40000 ALTER TABLE `_all_columns` DISABLE KEYS */;
-INSERT INTO `_all_columns` VALUES (1,'name_official','counterparties','name_official','name_official','varchar(255)',NULL,NULL,NULL,NULL,NULL,NULL,1),(2,'subject_type','counterparties','sybject_type','sybject_type','varchar(255)',NULL,NULL,NULL,NULL,NULL,NULL,1),(3,'name_original','banks','name_original','name_original','varchar(255)',NULL,NULL,NULL,NULL,NULL,NULL,1),(4,'counterparties_id','banks','counterparties_id','Link to counterparties_id','counterparties.id',NULL,NULL,NULL,NULL,NULL,NULL,1),(5,'swift','banks',NULL,NULL,'varchar(255)',NULL,NULL,NULL,NULL,NULL,NULL,1),(6,'name_original','regions','name_original','Original name','varchar(255)',NULL,NULL,NULL,NULL,NULL,NULL,1),(8,'name_original','regions_name','name_original','Original name','varchar(255)',NULL,NULL,NULL,NULL,NULL,NULL,1),(9,'countries_id','regions_name','countries','Link to countries_id','countries.id',NULL,NULL,NULL,NULL,NULL,NULL,1),(10,'name_original','countries','name_original','Original name','varchar(255)',NULL,NULL,NULL,NULL,NULL,NULL,1),(11,'iso2','countries','iso2','iso2','varchar(255)',NULL,NULL,NULL,NULL,NULL,NULL,1),(12,'iso3','countries','iso3','iso3','varchar(255)',NULL,NULL,NULL,NULL,NULL,NULL,1),(13,'name_post_index','countries','name_post_index','name_post_index','varchar(255)',NULL,NULL,NULL,NULL,NULL,NULL,1),(14,'macroregions_geo_id','countries','macroregions_geo','Link to macroregions_geo','macroregions_geo.id',NULL,NULL,NULL,NULL,NULL,NULL,1),(15,'macroregions_kom_id','countries','macroregions_kom','Link to macroregions_kom','macroregions_kom.id',NULL,NULL,NULL,NULL,NULL,NULL,1),(16,'countries_id','regions','countries','Link to countries_id','countries.id',NULL,NULL,NULL,NULL,NULL,NULL,1);
+INSERT INTO `_all_columns` (`idid`, `id`, `table_id`, `notion`, `description`, `type`, `default`, `periodic`, `purpose`, `index`, `required`, `show_def`, `system`) VALUES
+(1, 'name_official', 'counterparties', 'Official Name', 'name_official', 'varchar(255)', NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(2, 'subject_type', 'counterparties', 'Subject Type', 'sybject_type', 'varchar(255)', NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3, 'name_original', 'banks', 'Name Original', 'name_original', 'varchar(255)', NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4, 'counterparties_id', 'banks', 'Counterparty', 'Link to counterparties_id', 'counterparties.id', NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(5, 'swift', 'banks', 'Swift', NULL, 'varchar(255)', NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(6, 'name_original', 'regions', 'Name Original', 'Original name', 'varchar(255)', NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(8, 'name_original', 'regions_name', 'Name Original', 'Original name', 'varchar(255)', NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(9, 'countries_id', 'regions_name', 'Country', 'Link to countries_id', 'countries.id', NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(10, 'name_original', 'countries', 'Original Name', 'Original name', 'varchar(255)', NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(11, 'iso2', 'countries', 'ISO 2', 'iso2', 'varchar(255)', NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(12, 'iso3', 'countries', 'ISO 3', 'iso3', 'varchar(255)', NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(13, 'name_post_index', 'countries', 'Postal Index Name', 'name_post_index', 'varchar(255)', NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(14, 'macroregions_geo_id', 'countries', 'Macroregion Geo', 'Link to macroregions_geo', 'macroregions_geo.id', NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(15, 'macroregions_kom_id', 'countries', 'Macroregion Com', 'Link to macroregions_kom', 'macroregions_kom.id', NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(16, 'countries_id', 'regions', 'Country', 'Link to countries_id', 'countries.id', NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(17, 'type', 'address', 'Type', 'Link to countries_id', 'enum.AddressTypes', NULL, 0, 'element', 1, 1, 1, 0);
+
 /*!40000 ALTER TABLE `_all_columns` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

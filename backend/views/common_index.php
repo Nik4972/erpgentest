@@ -163,9 +163,10 @@ if ($show_alphabet) { // "search by alphabet" panel
     $min_width = 1;
     $columnsAll = $searchModel->getColumns();
     $columns = [ // predefined columns write here
+        /* // testing related model
         ['attribute' => 'parent', 'format' => 'html', 'value' => function ($data) {
             return $data->address ? $data->address->notion : '';
-        }],
+        }],*/
 
         ['class' => 'yii\grid\CheckboxColumn', 'name' => 'ids[]', 'options' => ['width'=> $min_width.'%'], 'cssClass' => ['checkbox', 'ids']], 
         ['attribute' => 'id', 'filter' => false, 'enableSorting'=>false, 'format' => 'raw', 'options' => ['width'=> $min_width.'%'], 'label' => false,

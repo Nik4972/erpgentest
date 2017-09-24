@@ -104,7 +104,7 @@ class <?= $className ?> extends \yii\db\ActiveRecord
      */
     public function get<?= \backend\ErpGenerator::generateClassName($attr['relation']) ?>()
     {
-        return $this->hasOne(<?=\backend\ErpGenerator::generateClassName($attr['relation'])?>::className(), ['<?=$name?>' => 'id']);
+        return $this->hasOne(<?=\backend\ErpGenerator::generateClassName($attr['relation'])?>::className(), ['id' => '<?=$name?>']);
     }
 <?php }}?>
 

@@ -60,6 +60,8 @@ class ErpGenerator
                     if (strripos($column['type'], '.id')) {
                         $fk = stristr($column['type'], '.', true);
 
+                        $columns[$col_id]['relation'] = $fk;
+
                         $sql = Yii::$app->db->createCommand("ALTER TABLE " . $table . " ADD " . $column['id'] . " int(10)")
                                 ->execute();
 

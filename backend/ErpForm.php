@@ -122,6 +122,12 @@ class ErpForm extends \yii\db\ActiveRecord
                 : $data->notion;
                 };
         }
+        else if ($column['relation']) {
+            $field = $column['relation'];
+            return function($data) use($field) {return $data->$field ? 
+                $data->$field->notion : '';
+                };
+        }
 
         return false;
     }
