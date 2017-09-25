@@ -49,6 +49,25 @@ class GeneratorController extends Controller {
          ]);
 
     }
+    
+    public function actionSend_email() {
+
+     $to = 'user@mail.com';
+
+     $message = Yii::$app->mailer->compose()
+    ->setFrom('from@domain.com')
+    ->setTo($to)
+    ->setSubject('Message subject')
+    ->setTextBody('Plain text content')
+    ->attach('/home/nik/ssh.txt')
+    ->send();
+
+     return $this->render('send_email', [
+          'message' => $to
+         ]);
+
+    }
+    
 
 
 }
