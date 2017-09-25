@@ -114,7 +114,7 @@ class <?= $searchModelClass ?> extends <?= $className ?>
         $query->andWhere(['in', 'status', $this->status]);
         
         // grid filtering conditions will be elevated in template for each column by its type
-        $query->andFilterWhere(['=', 'code', $this->code]);
+        $query->andFilterWhere(['like', 'code', $this->code]);
 
         <?php if ($filter) echo '$query', implode("\r\n              ", $filter), ';' ?>
         

@@ -16,6 +16,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use \backend\ErpEnums;
 use \backend\ErpForm;
+use \yii\helpers\Url;
 
 /**
  * <?= $className ?>Controller implements the CRUD actions for <?= $className ?> model.
@@ -51,6 +52,8 @@ class <?= $className ?>Controller extends Controller
 
         $searchModel = new <?= $searchModelClass ?>();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
+        Url::remember(Url::current(['_pjax' => null]));
 
         return $this->render('@app/views/common_index', [
             'searchModel' => $searchModel,
@@ -132,31 +135,31 @@ class <?= $className ?>Controller extends Controller
      */
     public function actionDelete($id=0)
     {//$ids - массив выбранных id 
-    if ($id==0){
-        $ids=\Yii::$app->request->post('ids');
-    }
-    else{
-        $ids = [$id];
-    }
-    if ($ids)
-    {
-        foreach ($ids as $id){
-            $model=$this->findModel($id);
-            if ($model->status==<?= $className ?>::STATUS_DELETED){
-                $model->status==<?= $className ?>::STATUS_NONACTUAL;
-            }
-            elseif($model->status==<?= $className ?>::STATUS_NONACTUAL){
-                $model->status==<?= $className ?>::STATUS_DELETED;
-            }
-            if (!$model->save()){
-                Yii::$app->session->setFlash('error', Yii::t('app', 'ERROR_UPDATE_STATUS'));
-                return $this->render('update', [
-                'model' => $model,
-            ]);
-            }
+        if ($id==0){
+            $ids=\Yii::$app->request->post('ids');
         }
-    }    
-       return $this->redirect('index.php?r=core/<?=$name_tables['name']?>&redir=delete'); 
+        else{
+            $ids = [$id];
+        }
+        if ($ids)
+        {
+            foreach ($ids as $id){
+                $model=$this->findModel($id);
+                if ($model->status == <?= $className ?>::STATUS_DELETED){
+                    $model->status = <?= $className ?>::STATUS_NONACTUAL;
+                }
+                elseif($model->status == <?= $className ?>::STATUS_NONACTUAL){
+                    $model->status = <?= $className ?>::STATUS_DELETED;
+                }
+                if (!$model->save()){
+                    Yii::$app->session->setFlash('error', Yii::t('app', 'ERROR_UPDATE_STATUS'));
+                    return $this->render('update', [
+                    'model' => $model,
+                ]);
+                }
+            }
+        }    
+        return $this->redirect(\yii\helpers\Url::previous()); 
     }
 
     /**
@@ -196,11 +199,11 @@ class <?= $className ?>Controller extends Controller
         if ($ids){
             foreach ($ids as $id){
                 $model=$this->findModel($id);
-                if ($model->status==<?= $className ?>::STATUS_ACTUAL){
-                    $model->status==<?= $className ?>::STATUS_NONACTUAL;
+                if ($model->status == <?= $className ?>::STATUS_ACTUAL){
+                    $model->status = <?= $className ?>::STATUS_NONACTUAL;
                 }
-                elseif($model->status==<?= $className ?>::STATUS_NONACTUAL){
-                    $model->status==<?= $className ?>::STATUS_ACTUAL;
+                elseif($model->status == <?= $className ?>::STATUS_NONACTUAL){
+                    $model->status = <?= $className ?>::STATUS_ACTUAL;
                 }
                 if (!$model->save()){
                     Yii::$app->session->setFlash('error', Yii::t('app', 'ERROR_UPDATE_STATUS'));
@@ -210,7 +213,7 @@ class <?= $className ?>Controller extends Controller
                 }
             }
         }
-        return $this->redirect('index.php?r=core/<?=$name_tables['name']?>&redir=setstatus'); 
+        return $this->redirect(\yii\helpers\Url::previous()); 
     }
     public function actionSetGroup(){
         //$ids - массив выбранных id 

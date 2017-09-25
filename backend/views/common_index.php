@@ -1,6 +1,7 @@
 <?php
 if (!$searchModel->status)
     $searchModel->status = [1];
+use kartik\checkbox\CheckboxX;
 
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -18,6 +19,7 @@ $this->params['searchModel'] = join('', array_slice(explode('\\', get_class($sea
 $this->params['model'] = join('', array_slice(explode('\\', get_parent_class($searchModel)), -1)); // get class name without namespace
 
 yii\jui\JuiAsset::register($this); // add jquery.ui scripts to this page
+kartik\checkbox\CheckboxXAsset::register($this); // add CheckboxX scripts to this page
 
 $show_tree = (!isset($_GET['show_tree']) || $_GET['show_tree']) && $searchModel::withGroups;
 $show_alphabet = !isset($_GET['show_alphabet']) || $_GET['show_alphabet'];
@@ -30,8 +32,8 @@ $show_alphabet = !isset($_GET['show_alphabet']) || $_GET['show_alphabet'];
 
 
 <style>
-    table#tree {width: 30%; float: right}
-    div#tree2 {width: 30%; float: left}
+    table#tree {width: 30%; float: right;}
+    div#tree2 {width: 30%; float: left; padding-right: 20px;}
     div.with_tree {width: 70%; float: right}
     div#alphabetFilter {margin-left: 0px}
     tr.selected td {background-color: green}
@@ -41,6 +43,14 @@ $show_alphabet = !isset($_GET['show_alphabet']) || $_GET['show_alphabet'];
     .row-icon-group {color: #FFFFBF}
     .fa-stack {height: 1em;line-height: 1em;}
     .checkbox, .select-on-check-all {zoom: 120%}
+    .cbx {background-color: #DEDEDE; border-color: #676767}
+    .table-striped > tbody > tr:nth-of-type(odd) {background-color: #EAE9ED;}
+    .table-striped > tbody > tr:nth-of-type(even) {background-color: #E0DEE7;}
+    .table-striped > thead > tr {background-color: #B3AFBC;}
+    .table-bordered, .table-bordered td, .table-bordered th {border: 1px solid #5F5F5F !important;}
+    .table-striped > thead  a {color: black;}
+    .tree-header {display: none}
+    div#alphabetFilter {margin-top: 10px; margin-bottom: 10px}
 </style>
 
 
@@ -139,7 +149,7 @@ $show_alphabet = !isset($_GET['show_alphabet']) || $_GET['show_alphabet'];
 if ($show_alphabet) { // "search by alphabet" panel
 ?>
 
-<div class="row" id="alphabetFilter">
+<div class="row " id="alphabetFilter">
     <?php 
     $str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $str = $searchModel->getFilterAlphabet();
@@ -167,7 +177,9 @@ if ($show_alphabet) { // "search by alphabet" panel
             return $data->address ? $data->address->notion : '';
         }],*/
 
-        ['class' => 'yii\grid\CheckboxColumn', 'name' => 'ids[]', 'options' => ['width'=> $min_width.'%'], 'cssClass' => ['checkbox', 'ids']], 
+        ['class' => 'yii\grid\CheckboxColumn', 'name' => 'ids[]', 'options' => ['width'=> $min_width.'%'], 'cssClass' => ['checkbox', 'ids'], 
+            'header' => '<input type="checkbox" id="ids_x" value="0" data-toggle="checkbox-x" data-size="xs">'
+        ], 
         ['attribute' => 'id', 'filter' => false, 'enableSorting'=>false, 'format' => 'raw', 'options' => ['width'=> $min_width.'%'], 'label' => false,
         'value' => function($data) use($statusIcon) {
             return '<span class="fa-stack"><i class="fa fa-folder fa-stack-1x row-icon'
@@ -206,6 +218,8 @@ if ($show_alphabet) { // "search by alphabet" panel
         $columns[$i]['options']['width'] = $min_width.'%';
     }
 ?>
+
+
 <div id="table" class="<?= $show_tree ? 'with_tree' : '' ?>">
 <?= $a = GridView::widget([
         'tableOptions' => ['class' => 'table table-striped table-bordered '],
@@ -445,3 +459,4 @@ $('#treeview10').treeview({
 
 
 <!-- end columns order and visibility management -->
+

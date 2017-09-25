@@ -14,7 +14,7 @@ var listForm = {ids: [], group: -1, group_tr: 0,
         this.group = -1;
         this.group_tr = 0;
 
-        $('div#table tbody tr').click(function(el){
+        /*$('div#table tbody tr').click(function(el){
             var key = $(this).attr('data-key');
             if ($.inArray(key, listForm.ids) > -1) {
                 $(this).removeClass('selected');
@@ -27,7 +27,7 @@ var listForm = {ids: [], group: -1, group_tr: 0,
                 listForm.ids.push(key);
                 $(this).find('input.col_id').val(key);
             }
-        });
+        });*/
         $('table#tree tr').click(function(el){
             var key = $(this).attr('data-key');
             if (key == listForm.group) {
@@ -40,6 +40,33 @@ var listForm = {ids: [], group: -1, group_tr: 0,
                 listForm.group_tr = $(this);
                 $(this).addClass('selected');
             }
+        });
+        //$('#ids_x').change(function() {
+        $('#ids_x').on('change', function() {
+            //console.log($(this));
+            if ($(this).prop('value') == '' || $(this).prop('value') == '1') { 
+                $('input.ids').prop('checked', '');
+                //$(this).prop('value', '0')
+                $(this).val('1');
+            }
+            else { 
+                $('input.ids').prop('checked', 'checked');
+                $(this).val('');
+            }
+            $(this).checkboxX('refresh');
+            //return false;
+            //$('input.ids:checked')
+        });
+        $('.ids').on('change', function() {
+            var newVal = '';
+            if ($('input.ids:checked').length == $('input.ids').length) {
+                newVal = '1';
+            }
+            else if ($('input.ids:checked').length == 0) {
+                newVal = '0';
+            }
+            $('#ids_x').val(newVal);
+            $('#ids_x').checkboxX('refresh');
         });
     },
     submitForm: function(element) {

@@ -109,16 +109,16 @@ class ErpGenerator
                 'group' => ['notion' => 'Is Group', 'description' => '', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "both",
                     'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relation' => '', 'hide'=>1],
                 'parent' => ['notion' => 'Group', 'description' => '', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "both",
-                    'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0, 'relation' => ''],
+                    'index' => 1, 'required_to_fill' => 0, 'show_in_default_list_form' => 1, 'system' => 0, 'relation' => ''],
                 'predefined' => ['notion' => 'Predefined', 'description' => '', 'type' => 'int', 'default' => '0', 'periodic' => 1, 'purpose' => "both",
                     'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 0, 'system' => 0, 'relation' => '', 'hide'=>1],
                  'status' => ['notion' => 'Status', 'description' => '', 'type' => 'int', 'default' => '1', 'periodic' => 1, 'purpose' => "both",
                     'index' => 1, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 0,'relation' => '', 'hide'=>1],
 
                  'date_create' => ['notion' => 'Date Created', 'description' => '', 'type' => 'datetime', 'default' => 'now', 'periodic' => 1, 'purpose' => "both",
-                    'index' => 0, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 1,'relation' => '', 'hide'=>1],
+                    'index' => 0, 'required_to_fill' => 0, 'show_in_default_list_form' => 1, 'system' => 1,'relation' => '', 'hide'=>1],
                 'date_update' => ['notion' => 'Date Updated', 'description' => '', 'type' => 'datetime', 'default' => 'now', 'periodic' => 1, 'purpose' => "both",
-                    'index' => 0, 'required_to_fill' => 1, 'show_in_default_list_form' => 1, 'system' => 1,'relation' => '', 'hide'=>1],
+                    'index' => 0, 'required_to_fill' => 0, 'show_in_default_list_form' => 1, 'system' => 1,'relation' => '', 'hide'=>1],
 
             ];
             

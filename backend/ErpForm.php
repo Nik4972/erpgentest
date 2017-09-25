@@ -52,7 +52,7 @@ class ErpForm extends \yii\db\ActiveRecord
      */
     public static function getColumnFilter($column_id, $column, $model)
     {
-        if ($column_id == 'xnotion' || $column_id == 'code') { // input[text] will be displayed
+        if ($column_id == 'notion' || $column_id == 'code') { // input[text] will be displayed
             return true;
         }
         if ($column_id == 'status') { // REMOVE: temporally solution, later will be replaced with toolbar button dialog, instead of a filter in column caption
