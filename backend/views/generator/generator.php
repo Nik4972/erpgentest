@@ -14,28 +14,38 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 </div>
 
-
 <?php
 
-$form = ActiveForm::begin(['action' => ['generator2']]);
+$form = ActiveForm::begin(['id'     => 'form_checkbox',
+                           'action' => 'generator2'
+                          ]);
 
- 
- //echo '<form id="select" action="index.php?r=generator/generator2" method="post">';
- // echo '<input type="hidden" name="_csrf" value="'.Yii::$app->request->getCsrfToken().'" />';
- 
  foreach ($tables as $table) {
   echo "<div>
-         <input class='ids' type='checkbox' id='".$table['id']."' name='list_tables[]' value='".$table['id']."' xchecked>
+         <input type='checkbox' id='".$table['id']."' name='list_tables[]' value='".$table['id']."' >
          <label for='".$table['id']."'>".$table['id']."</label>
         </div>";
  }
+ 
 ?>
-<div><input type="checkbox" onchange="$('.ids').prop('checked', $(this).prop('checked'))"/> Check / Uncheck All</div>
+ <br /><br />
+ <input  id="checkAll" type="checkbox" onclick="check_all();" >Отметить все
+
+ <br /><br />
+ <br /><input type='submit' value='Create'>
+
 <?php
-  echo "<br /><input type='submit' value='Create'>";
-
-  //echo "</form>";
-  
 ActiveForm::end();
-
 ?>
+
+<script type="text/javascript">
+
+  function check_all() {
+
+        $("#checkAll").change(function () {
+        $("input:checkbox").prop('checked', $(this).prop("checked"));
+     });
+  }
+ 
+ </script>
+
