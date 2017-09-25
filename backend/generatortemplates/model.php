@@ -145,6 +145,11 @@ class <?= $className ?> extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getParentGroup()
+    {
+        return $this->hasOne(self::className(), ['id' => 'parent']);
+    }
+
     /**
      * @return array of colums definitions (info going from MySQL _ref_columns + additional info from the generator like 'relation', 'enum')
      */

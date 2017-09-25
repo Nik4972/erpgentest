@@ -33,7 +33,7 @@ $show_alphabet = !isset($_GET['show_alphabet']) || $_GET['show_alphabet'];
 
 <style>
     table#tree {width: 30%; float: right;}
-    div#tree2 {width: 30%; float: left; padding-right: 20px;}
+    div#tree2 {width: 30%; float: left; padding-right: 15px;}
     div.with_tree {width: 70%; float: right}
     div#alphabetFilter {margin-left: 0px}
     tr.selected td {background-color: green}

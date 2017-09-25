@@ -122,6 +122,12 @@ class ErpForm extends \yii\db\ActiveRecord
                 : $data->notion;
                 };
         }
+        else if ($column_id == 'parent') {
+            return function($data) use($view) {return $data->parentGroup ? 
+                '<a href="'.\yii\helpers\Url::current([$view->params['searchModel'] => ['parent' => $data->parent, 'group' => 1]]).'">'.$data->parentGroup->notion.'</a>' 
+                : '';
+                };
+        }
         else if ($column['relation']) {
             $field = $column['relation'];
             return function($data) use($field) {return $data->$field ? 
