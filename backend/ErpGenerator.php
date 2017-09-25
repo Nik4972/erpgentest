@@ -65,6 +65,10 @@ class ErpGenerator
 
                         $sql = Yii::$app->db->createCommand("ALTER TABLE " . $table . " ADD " . $column['id'] . " int(10)")
                                 ->execute();
+                   // Add index to table if column 'index'=1
+                    if ($column['index'] == 1)
+                        $sql = Yii::$app->db->createCommand("ALTER TABLE " . $table .
+                                        " ADD INDEX (" . $column['id'] . ")" )->execute();
 
                         $sql = Yii::$app->db->createCommand("ALTER TABLE " . $table .
                                         " ADD CONSTRAINT  FOREIGN KEY (" . $column['id'] . ") REFERENCES " . $fk . " (id) ON UPDATE CASCADE ON DELETE RESTRICT")
@@ -78,6 +82,11 @@ class ErpGenerator
                     } else {
                         $sql = Yii::$app->db->createCommand("ALTER TABLE " . $table . " ADD " . $column['id'] . " " . $column['type'])
                                 ->execute();
+                   // Add index to table if column 'index'=1
+                    if ($column['index'] == 1)
+                        $sql = Yii::$app->db->createCommand("ALTER TABLE " . $table .
+                                        " ADD INDEX (" . $column['id'] . ")" )->execute();
+
                     }
                 }
             }
