@@ -135,7 +135,7 @@ $show_alphabet = !isset($_GET['show_alphabet']) || $_GET['show_alphabet'];
     ]);
 ?>
 
-        <a href="" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Send Email"><span class="glyphicon glyphicon-gift"></span></a>
+        <a href="index.php?r=generator/send_email" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Send Email"><span class="glyphicon glyphicon-gift"></span></a>
         <a href="" type="button" class="btn btn-default" xdata-toggle="tooltip" title="Print"><span class="glyphicon glyphicon-print"></span></a>
     </div>
     
